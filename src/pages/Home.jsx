@@ -5,7 +5,7 @@ import Explainer from '../components/Explainer'
 
 const Home = () => {
     return (
-        <div className='bg-sky-700'>
+        <div className='bg-sky-700 font-opensans'>
             <Navbar />
             <Hero />
             <Explainer />
