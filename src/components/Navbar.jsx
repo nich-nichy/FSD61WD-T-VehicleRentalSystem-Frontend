@@ -232,6 +232,7 @@ const Navbar = () => {
                                 >
                                     <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                                         <div className="relative grid gap-6 bg-white px-5 py-6 pb-0 mb-0">
+                                            <p className='text-xl antialiased underline underline-offset-4 decoration-sky-500'>We hold the trust:</p>
                                             <a
                                                 href="#"
                                                 className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
@@ -332,9 +333,6 @@ const Navbar = () => {
                             </div>
                         </nav>
                         <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-
-                            {/* working here */}
-
                             <a href="#_" className="relative inline-block text-lg group">
                                 <span className="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-transform ease-out border-2 border-sky-900 rounded-lg bg-gray-900 group-hover:mb-0 group-hover:mr-0 button_top">
                                     <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
