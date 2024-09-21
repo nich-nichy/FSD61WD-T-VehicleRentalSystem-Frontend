@@ -1,4 +1,5 @@
 import React from 'react'
+import { FaArrowAltCircleRight } from "react-icons/fa";
 import '../styles/Explainer.css'
 
 const Explainer = () => {
@@ -8,48 +9,6 @@ const Explainer = () => {
                 <h2 className='text-5xl font-bold pb-1 font-montserrat'>Your Ride, Your Rules!</h2>
                 <p className='text-2xl'>Find the Perfect Vehicle for Every Journey – From Cars to Trucks, We’ve Got You Covered</p>
             </div>
-            {/* <div className="bg-white">
-                <div className="text-gray-600 body-font">
-                    <div className="container px-5 py-5 mx-auto">
-                        <div className="flex flex-col text-center w-full mb-20">
-                            <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">How ORS works ?</h1>
-                            <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed eum itaque omnis aspernatur impedit, fugit blanditiis voluptas dolores sunt iste dicta nisi eligendi sint quis commodi esse quia ipsum natus?</p>
-                        </div>
-                        <div className="flex flex-wrap -m-4 text-center">
-                            <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-                                <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
-                                    <img src="/choice.svg" alt="" />
-                                    <h2 className="title-font font-medium text-2xl text-gray-900">Choose ORD</h2>
-                                    <p className="leading-relaxed">Hope you are here</p>
-                                </div>
-                            </div>
-                            <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-                                <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
-                                    <img src="/order.svg" alt="" />
-
-                                    <h2 className="title-font font-medium text-2xl text-gray-900">Pick a Vehicle</h2>
-                                    <p className="leading-relaxed">Choice is yours</p>
-                                </div>
-                            </div>
-                            <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-                                <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
-                                    <img src="/booking.svg" alt="" />
-                                    <h2 className="title-font font-medium text-2xl text-gray-900">Pre Book the vehicle</h2>
-                                    <p className="leading-relaxed">No payment required check availability</p>
-                                </div>
-                            </div>
-                            <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
-                                <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
-                                    <img src="/adventure.svg" alt="" />
-
-                                    <h2 className="title-font font-medium text-2xl text-gray-900">Here we go</h2>
-                                    <p className="leading-relaxed">Once after payment take the vehicle</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
             <div>
                 <div className="flex flex-col text-center w-full bg-white">
                     <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">How ORS works ?</h1>
@@ -82,8 +41,6 @@ const Explainer = () => {
                                         <img src="/order.svg" alt="" />
 
                                     </div>
-
-
                                     <div className="flex-grow ml-20 sm:pl-6 mt-6 sm:mt-0">
                                         <h2 className="font-medium title-font text-gray-900 mb-1 text-xl text-start">Pick a vehicle</h2>
                                         <p className="leading-relaxed text-start">Endless Possibilities. One Click Away.</p>
@@ -128,33 +85,55 @@ const Explainer = () => {
                     </div>
                 </div>
             </div>
-            <div className="text-gray-600 body-font">
+            <div className="body-font">
                 <div className="container px-5 py-24 mx-auto flex flex-wrap">
                     <div className="flex flex-wrap -mx-4 mt-auto mb-auto lg:w-1/2 sm:w-2/3 content-start sm:pr-10">
                         <div className="w-full sm:p-4 px-4 mb-6">
-                            <h1 className="title-font font-medium text-xl mb-2 text-gray-900">Moon hashtag pop-up try-hard offal truffaut</h1>
-                            <div className="leading-relaxed">Pour-over craft beer pug drinking vinegar live-edge gastropub, keytar neutra sustainable fingerstache kickstarter.</div>
+                            <h1 className="font-semibold text-4xl mb-4 text-white">Happy customers are our driving force</h1>
+                            <ul class="list-disc px-10 py-5">
+                                <li className="leading-relaxed text-xl text-gray-200">Our fleet boasts a diverse array of vehicles, catering to every preference and occasion.</li>
+                                <li className="leading-relaxed text-xl text-gray-200">We have happy customers as well. We are happy to share what is us.</li>
+                            </ul>
                         </div>
                         <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                            <h2 className="title-font font-medium text-3xl text-gray-900">2.7K</h2>
-                            <p className="leading-relaxed">Users</p>
+                            <h2 className="title-font font-medium text-3xl text-white">10+</h2>
+                            <p className="leading-relaxed text-gray-300">Users</p>
                         </div>
                         <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                            <h2 className="title-font font-medium text-3xl text-gray-900">1.8K</h2>
-                            <p className="leading-relaxed">Subscribes</p>
+                            <h2 className="title-font font-medium text-3xl text-white">100+</h2>
+                            <p className="leading-relaxed text-gray-300">Vehicles</p>
                         </div>
                         <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                            <h2 className="title-font font-medium text-3xl text-gray-900">35</h2>
-                            <p className="leading-relaxed">Downloads</p>
+                            <h2 className="title-font font-medium text-3xl text-white">237</h2>
+                            <p className="leading-relaxed text-gray-300">Cars & Small trucks</p>
                         </div>
                         <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                            <h2 className="title-font font-medium text-3xl text-gray-900">4</h2>
-                            <p className="leading-relaxed">Products</p>
+                            <h2 className="title-font font-medium text-3xl text-white">10</h2>
+                            <p className="leading-relaxed text-gray-300">Bikes</p>
+                        </div>
+                        <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
+                            <h2 className="title-font font-medium text-3xl text-white">40</h2>
+                            <p className="leading-relaxed text-gray-300">Heavy vehicles</p>
+                        </div>
+                        <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
+                            <h2 className="title-font font-medium text-3xl text-white">400+</h2>
+                            <p className="leading-relaxed text-gray-300">Upcoming vehicles</p>
                         </div>
                     </div>
                     <div className="lg:w-1/2 sm:w-1/3 w-full rounded-lg overflow-hidden mt-6 sm:mt-0">
                         <img className="object-cover object-center w-full h-full" src="https://dummyimage.com/600x300" alt="stats" />
                     </div>
+                    <a href="#_" className="relative inline-block text-lg group">
+                        <span className="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-transform ease-out border-2 border-sky-900 rounded-lg bg-gray-900 group-hover:mb-0 group-hover:mr-0 button_top">
+                            <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
+                            <span className="relative flex items-center justify-center space-x-2">
+                                <span>Explore today</span>
+                                <FaArrowAltCircleRight className="w-5 h-5 nav-btn-icon" />
+                            </span>
+                        </span>
+                        <span className="absolute bottom-0 right-0 w-full h-5 -mt-2 -mb-1 bg-sky-900 rounded-lg" data-rounded="rounded-lg"></span>
+                    </a>
+
                 </div>
             </div>
         </>

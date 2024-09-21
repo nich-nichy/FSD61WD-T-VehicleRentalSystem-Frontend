@@ -345,8 +345,6 @@ const Navbar = () => {
                                 </span>
                                 <span className="absolute bottom-0 right-0 w-full h-5 -mt-2 -mb-1 bg-sky-900 rounded-lg" data-rounded="rounded-lg"></span>
                             </a>
-
-
                         </div>
                     </div>
                 </div>
