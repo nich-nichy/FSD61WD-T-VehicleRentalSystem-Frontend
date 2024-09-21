@@ -1,0 +1,18 @@
+.button_top {
+    display: block;
+    box-sizing: border-box;
+    transform: translateY(-0.1em);
+    transition: transform 0.1s ease;
+}
+
+.nav-btn-icon {
+    color: #0369a1 !important;
+}
+
+a:hover .button_top {
+    transform: translateY(-0.23em);
+}
+
+a:active .button_top {
+    transform: translateY(0);
+}
