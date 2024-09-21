@@ -30,3 +30,11 @@
     height: calc(100vh - 150px);
     color: var(--white);
 }
+
+.hr-in-explainer {
+    border: none;
+    width: 200px !important;
+    border-top: 3px dashed black;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
