@@ -26,7 +26,7 @@ const GetStarted = () => {
                 <div className="max-w-full mx-auto px-4 sm:px-6">
                     <div className="flex justify-between items-center border-b-2 border-gray-100 py-3 md:justify-start md:space-x-10">
                         <div className="flex justify-start lg:w-0 lg:flex-1">
-                            <a href="#">
+                            <Logo to="#">
                                 <span className="sr-only">Workflow</span>
                                 <img
                                     className=""
@@ -35,7 +35,7 @@ const GetStarted = () => {
                                     width={110}
                                     height={180}
                                 />
-                            </a>
+                            </Logo>
                         </div>
                         <div className="-mr-2 -my-2 md:hidden">
                             <button

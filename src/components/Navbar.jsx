@@ -22,7 +22,7 @@ const Navbar = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6">
                     <div className="flex justify-between items-center border-b-2 border-gray-100 py-3 md:justify-start md:space-x-10">
                         <div className="flex justify-start lg:w-0 lg:flex-1">
-                            <a href="#">
+                            <Link to="/">
                                 <span className="sr-only">Workflow</span>
                                 <img
                                     className=""
@@ -31,7 +31,7 @@ const Navbar = () => {
                                     width={150}
                                     height={200}
                                 />
-                            </a>
+                            </Link>
                         </div>
                         <div className="-mr-2 -my-2 md:hidden">
                             <button
@@ -546,14 +546,14 @@ const Navbar = () => {
                             </div>
                             <div>
                                 {/* working here */}
-                                <a href="#_" className="relative inline-block text-lg group">
+                                <Link to="/getStarted" className="relative inline-block text-lg group">
                                     <span className="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-transform ease-out border-2 border-sky-900 rounded-lg bg-gray-900 group-hover:mb-0 group-hover:mr-0 button_top">
                                         <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
                                         <span className="relative">Get started</span>
                                         <FaArrowAltCircleRight />
                                     </span>
                                     <span className="absolute bottom-0 right-0 w-full h-5 -mt-2 -mb-1 bg-sky-900 rounded-lg" data-rounded="rounded-lg"></span>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
