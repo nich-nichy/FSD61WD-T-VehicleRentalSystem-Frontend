@@ -59,18 +59,18 @@ const Navbar = () => {
                             </button>
                         </div>
                         <nav className="hidden md:flex space-x-10">
-                            <a
-                                href="#"
+                            <Link
+                                to="#"
                                 className="text-base font-medium text-sky-950 hover:text-sky-700"
                             >
                                 Home
-                            </a>
-                            <a
-                                href="#"
+                            </Link>
+                            <Link
+                                to="/pricing"
                                 className="text-base font-medium text-sky-950 hover:text-sky-700"
                             >
                                 Pricing
-                            </a>
+                            </Link>
                             <div className="relative">
                                 <button
                                     type="button"
@@ -122,8 +122,8 @@ const Navbar = () => {
                                     <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                                             <p className='text-xl antialiased underline underline-offset-4 decoration-sky-500'>For all your long trips:</p>
-                                            <a
-                                                href="#"
+                                            <Link
+                                                to="#"
                                                 className="-m-3 px-3 py-0 flex items-start rounded-lg hover:bg-gray-50"
                                             >
                                                 <FaCarRear className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
@@ -135,9 +135,9 @@ const Navbar = () => {
                                                         Choose the perfect car for your next road trip and enjoy the journey in comfort.
                                                     </p>
                                                 </div>
-                                            </a>
-                                            <a
-                                                href="#"
+                                            </Link>
+                                            <Link
+                                                to="#"
                                                 className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                                             >
                                                 <RiMotorbikeFill className="flex-shrink-0 h-8 w-8 text-white mt-2 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
@@ -149,11 +149,11 @@ const Navbar = () => {
                                                         Explore the city or take a scenic ride with our range of bikes, tailored for quick getaways.
                                                     </p>
                                                 </div>
-                                            </a>
+                                            </Link>
                                             <hr />
                                             <p className='text-xl antialiased underline underline-offset-4 decoration-sky-500'>For all your heavy lifting needs:</p>
-                                            <a
-                                                href="#"
+                                            <Link
+                                                to="#"
                                                 className="-m-3 px-3 py-0 flex items-start rounded-lg hover:bg-gray-50"
                                             >
                                                 <FaTruck className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
@@ -165,9 +165,9 @@ const Navbar = () => {
                                                         Need to move something big? Our trucks are ready for any heavy-duty task.
                                                     </p>
                                                 </div>
-                                            </a>
-                                            <a
-                                                href="#"
+                                            </Link>
+                                            <Link
+                                                to="#"
                                                 className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                                             >
                                                 <GiHeavyLightning className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
@@ -179,7 +179,7 @@ const Navbar = () => {
                                                         For industrial needs and large projects, our heavy vehicles are built to handle the load.
                                                     </p>
                                                 </div>
-                                            </a>
+                                            </Link>
                                         </div>
 
                                     </div>
@@ -236,8 +236,8 @@ const Navbar = () => {
                                     <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                                         <div className="relative grid gap-6 bg-white px-5 py-6 pb-0 mb-0">
                                             <p className='text-xl antialiased underline underline-offset-4 decoration-sky-500'>We hold the trust:</p>
-                                            <a
-                                                href="#"
+                                            <Link
+                                                to="#"
                                                 className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                                             >
                                                 <FaHandsHelping className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
@@ -249,10 +249,10 @@ const Navbar = () => {
                                                         Find answers to all your vehicle rental questions or reach out to our support team for assistance.
                                                     </p>
                                                 </div>
-                                            </a>
+                                            </Link>
 
-                                            <a
-                                                href="#"
+                                            <Link
+                                                to="#"
                                                 className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                                             >
                                                 <FaLock className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
@@ -264,10 +264,10 @@ const Navbar = () => {
                                                         Learn how we protect your personal information and ensure a safe rental experience.
                                                     </p>
                                                 </div>
-                                            </a>
+                                            </Link>
 
-                                            <a
-                                                href="#"
+                                            <Link
+                                                to="#"
                                                 className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                                             >
                                                 <TbCategory2 className="flex-shrink-0 h-8 w-8 text-white mt-3 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
@@ -279,9 +279,9 @@ const Navbar = () => {
                                                         Connect with third-party services and tools to make your rental experience smoother and more efficient.
                                                     </p>
                                                 </div>
-                                            </a>
-                                            <a
-                                                href="#"
+                                            </Link>
+                                            <Link
+                                                to="#"
                                                 className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                                             >
                                                 <MdEvent className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
@@ -293,7 +293,7 @@ const Navbar = () => {
                                                         Stay updated on upcoming rental promotions, events, and special offers happening near you.
                                                     </p>
                                                 </div>
-                                            </a>
+                                            </Link>
 
                                         </div>
 
@@ -304,31 +304,31 @@ const Navbar = () => {
                                                 </h3>
                                                 <ul className="mt-4 space-y-4">
                                                     <li className="text-base truncate">
-                                                        <a
-                                                            href="#"
+                                                        <Link
+                                                            to="#"
                                                             className="font-medium text-gray-900 hover:text-gray-700"
                                                         >
                                                             Vehicle rental system is loved by many people in Tamilnadu.
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                     <li className="text-base truncate">
-                                                        <a
-                                                            href="#"
+                                                        <Link
+                                                            to="#"
                                                             className="font-medium text-gray-900 hover:text-gray-700"
                                                         >
                                                             How to use fast track for Vehicle rental system vehicles
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                 </ul>
                                             </div>
                                             <div className="mt-5 text-sm">
-                                                <a
-                                                    href="#"
+                                                <Link
+                                                    to="#"
                                                     className="font-medium text-sky-600 hover:text-sky-500"
                                                 >
                                                     {" "}
                                                     View all posts <span aria-hidden="true">→</span>
-                                                </a>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -393,8 +393,8 @@ const Navbar = () => {
                             </div>
                             <div className="mt-6">
                                 <nav className="grid gap-y-8">
-                                    <a
-                                        href="#"
+                                    <Link
+                                        to="#"
                                         className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                                     >
                                         {/* Heroicon name: outline/chart-bar */}
@@ -416,9 +416,9 @@ const Navbar = () => {
                                         <span className="ml-3 text-base font-medium text-gray-900">
                                             Analytics
                                         </span>
-                                    </a>
-                                    <a
-                                        href="#"
+                                    </Link>
+                                    <Link
+                                        to="#"
                                         className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                                     >
                                         {/* Heroicon name: outline/cursor-click */}
@@ -440,10 +440,10 @@ const Navbar = () => {
                                         <span className="ml-3 text-base font-medium text-gray-900">
                                             Engagement
                                         </span>
-                                    </a>
+                                    </Link>
 
-                                    <a
-                                        href="#"
+                                    <Link
+                                        to="#"
                                         className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                                     >
                                         {/* Heroicon name: outline/view-grid */}
@@ -465,9 +465,9 @@ const Navbar = () => {
                                         <span className="ml-3 text-base font-medium text-gray-900">
                                             Integrations
                                         </span>
-                                    </a>
-                                    <a
-                                        href="#"
+                                    </Link>
+                                    <Link
+                                        to="#"
                                         className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                                     >
                                         {/* Heroicon name: outline/refresh */}
@@ -489,60 +489,60 @@ const Navbar = () => {
                                         <span className="ml-3 text-base font-medium text-gray-900">
                                             Automations
                                         </span>
-                                    </a>
+                                    </Link>
                                 </nav>
                             </div>
                         </div>
                         <div className="py-6 px-5 space-y-6">
                             <div className="grid grid-cols-2 gap-y-4 gap-x-8">
-                                <a
-                                    href="#"
+                                <Link
+                                    to="/pricing"
                                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                                 >
                                     Pricing
-                                </a>
-                                <a
-                                    href="#"
+                                </Link>
+                                <Link
+                                    to="#"
                                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                                 >
                                     Docs
-                                </a>
-                                <a
-                                    href="#"
+                                </Link>
+                                <Link
+                                    to="#"
                                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                                 >
                                     Enterprise
-                                </a>
-                                <a
-                                    href="#"
+                                </Link>
+                                <Link
+                                    to="#"
                                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                                 >
                                     Blog
-                                </a>
-                                <a
-                                    href="#"
+                                </Link>
+                                <Link
+                                    to="#"
                                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                                 >
                                     Help Center
-                                </a>
-                                <a
-                                    href="#"
+                                </Link>
+                                <Link
+                                    to="#"
                                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                                 >
                                     Guides
-                                </a>
-                                <a
-                                    href="#"
+                                </Link>
+                                <Link
+                                    to="#"
                                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                                 >
                                     Security
-                                </a>
-                                <a
-                                    href="#"
+                                </Link>
+                                <Link
+                                    to="#"
                                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                                 >
                                     Events
-                                </a>
+                                </Link>
                             </div>
                             <div>
                                 {/* working here */}
