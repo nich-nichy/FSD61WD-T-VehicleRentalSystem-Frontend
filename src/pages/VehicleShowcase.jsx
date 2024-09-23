@@ -5,10 +5,19 @@ import CustomNavbar from '../components/CustomNavbar';
 
 const GetStarted = () => {
     const [selectedValue, setSelectedValue] = useState('');
+    const [modelState, setModelState] = useState(false);
 
     const handleChange = (e) => {
         setSelectedValue(e.target.value);
     };
+
+    const handleModel = (flag) => {
+        setModelState(flag);
+    }
+
+    const handleBookingForm = (data) => {
+
+    }
 
     return (
         <div className="font-opensans">
@@ -98,12 +107,43 @@ const GetStarted = () => {
                                 <p>Manual</p>
                                 <p>2 People</p>
                             </div>
-                            <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
+                            {/* FIXME: Pass id as well */}
+                            <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600" onClick={() => handleModel(true)}>
                                 Rent now
                             </button>
                         </div>
                     ))}
                 </div>
+                <article class="mb-4 break-inside rounded-xl bg-white flex flex-col bg-clip-border">
+                    <div class="flex p-6 items-center justify-between">
+                        <div class="flex">
+                            <img src="" alt="" />
+                        </div>
+                    </div>
+                    <div class="p-6 bg-violet-500">
+                        <h2 class="text-3xl font-extrabold text-white">
+                            Web Design templates Selection
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center">
+                            <a class="inline-flex items-center" href="#">
+                                <span class="-m-1 rounded-full border-2 border-white dark:border-slate-800">
+                                    <img class="w-6" src="https://cdn.iconscout.com/icon/free/png-256/like-2387659-1991059.png" />
+                                </span>
+                                <span class="-m-1 rounded-full border-2 border-white dark:border-slate-800">
+                                    <img class="w-6" src="https://cdn.iconscout.com/icon/free/png-256/love-2387666-1991064.png" />
+                                </span>
+                                <span class="-m-1 rounded-full border-2 border-white dark:border-slate-800">
+                                    <img class="w-6" src="https://cdn.iconscout.com/icon/free/png-256/haha-2387660-1991060.png" />
+                                </span>
+                                <span class="text-lg font-bold ml-3">237</span>
+                            </a>
+                            <a class="ml-auto" href="#">1 comentarios</a>
+                        </div>
+                        <div class="mt-6 mb-6 h-px bg-slate-200"></div>
+                    </div>
+                </article>
             </div>
         </div>
     );

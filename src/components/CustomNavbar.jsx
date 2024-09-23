@@ -43,7 +43,7 @@ const CustomNavbar = () => {
                 </div>
                 <nav className="hidden md:flex space-x-10">
                     <Link
-                        to="#"
+                        to="/"
                         className="text-base font-medium text-sky-950 hover:text-sky-700"
                     >
                         Home
