@@ -6,8 +6,6 @@ import { format } from "date-fns";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
-import "../styles/Calender.css";
-
 import PropTypes from "prop-types";
 
 const DateRangeSelector = ({ ranges, onChange, onSubmit, ...rest }) => {
@@ -58,7 +56,7 @@ const DateRangeSelector = ({ ranges, onChange, onSubmit, ...rest }) => {
                         className="btn btn-transparent text-primary rounded-0 px-4 mr-2"
                         onClick={() => setShow(true)}
                     >
-                        Done
+                        Save
                     </button>
                     <button
                         className="btn btn-transparent text-danger rounded-0 px-4"
@@ -86,9 +84,6 @@ DateRangeSelector.defaultProps = {
 };
 
 DateRangeSelector.propTypes = {
-    /**
-     * On Submit
-     */
     onSubmit: PropTypes.func
 };
 
