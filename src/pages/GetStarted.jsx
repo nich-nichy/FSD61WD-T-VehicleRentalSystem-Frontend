@@ -18,7 +18,7 @@ const GetStarted = () => {
         key: 'selection'
     }]);
     return (
-        <div className="min-h-screen flex items-center justify-center bg-sky-700">
+        <div className="min-h-screen flex items-center justify-center bg-sky-700 font-opensans">
             <div className="shadow-lg rounded-lg overflow-hidden flex flex-col p-6 bg-white">
                 <p>Choose a pickup spot:</p>
                 <div className="w-full lg:w-auto">
