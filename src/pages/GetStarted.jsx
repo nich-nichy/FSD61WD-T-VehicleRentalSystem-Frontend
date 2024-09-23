@@ -4,7 +4,7 @@ import DateRangeSelector from '../components/DateRangeSelector';
 const GetStarted = () => {
     const [selectedState, setSelectedState] = useState('');
     const [selectedCity, setSelectedCity] = useState('');
-    const [showCalendar, setShowCalendar] = useState(false);
+    const [showModal, setShowModal] = useState(false); // Modal state
     const [dateRange, setDateRange] = useState([{
         startDate: new Date(),
         endDate: new Date(),
@@ -23,8 +23,14 @@ const GetStarted = () => {
         setSelectedCity(''); // Reset city when state changes
     };
 
-    const handleCalendarToggle = () => {
-        setShowCalendar(!showCalendar);
+    const handleModalToggle = () => {
+        setShowModal(!showModal); // Toggle modal visibility
+    };
+
+    const handleFormSubmit = () => {
+        // Handle form submission and close the modal
+        setShowModal(false);
+        console.log('Date range selected:', dateRange);
     };
 
     return (
@@ -69,20 +75,46 @@ const GetStarted = () => {
                 <div className="mb-4">
                     <label htmlFor="calendar" className="font-semibold mb-2 block">Select Rental Dates</label>
                     <button
-                        onClick={handleCalendarToggle}
+                        onClick={handleModalToggle}
                         className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full"
                     >
-                        {showCalendar ? 'Hide Calendar' : 'Pick Dates'}
+                        {showModal ? 'Hide Calendar' : 'Pick Dates'}
                     </button>
-                    {showCalendar && (
-                        <div className="mt-4">
+                </div>
+
+                {/* Modal */}
+                {showModal && (
+                    <div className="fixed inset-0 flex items-center justify-center z-50">
+                        {/* Overlay */}
+                        <div
+                            className="fixed inset-0 bg-black opacity-50"
+                            onClick={handleModalToggle} // Close modal on overlay click
+                        ></div>
+
+                        {/* Modal content */}
+                        <div className="bg-white p-6 rounded-lg shadow-lg z-10 w-full m-64">
+                            <h2 className="text-xl font-bold mb-4">Select Rental Date Range</h2>
                             <DateRangeSelector
                                 dateRange={dateRange}
                                 setDateRange={setDateRange}
                             />
+                            <div className="flex justify-end mt-4">
+                                <button
+                                    className="bg-gray-500 text-white px-4 py-2 rounded-lg mr-2"
+                                    onClick={handleModalToggle} // Close modal on close button click
+                                >
+                                    Close
+                                </button>
+                                <button
+                                    className="bg-green-500 text-white px-4 py-2 rounded-lg"
+                                    onClick={handleFormSubmit} // Close modal on submit
+                                >
+                                    Submit
+                                </button>
+                            </div>
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
 
                 {/* Selected Date Range */}
                 <div className="mb-4">
