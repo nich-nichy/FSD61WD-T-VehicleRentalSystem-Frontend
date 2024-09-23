@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import '../index.css'
-import GameLikeButton from '../components/Mins/GameLikeButton';
+import GameLikeButton from '../components/Utility-Components/GameLikeButton';
 
 const Pricing = () => {
     return (

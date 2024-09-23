@@ -117,7 +117,7 @@ const GetStarted = () => {
                 <article class="mb-4 break-inside rounded-xl bg-white flex flex-col bg-clip-border">
                     <div class="flex p-6 items-center justify-between">
                         <div class="flex">
-                            <img src="" alt="" />
+                            <img src="" alt="Car" className="w-full h-40 bg-gray-200" />
                         </div>
                     </div>
                     <div class="p-6 bg-violet-500">
@@ -135,11 +135,11 @@ const GetStarted = () => {
                                     <img class="w-6" src="https://cdn.iconscout.com/icon/free/png-256/love-2387666-1991064.png" />
                                 </span>
                                 <span class="-m-1 rounded-full border-2 border-white dark:border-slate-800">
-                                    <img class="w-6" src="https://cdn.iconscout.com/icon/free/png-256/haha-2387660-1991060.png" />
+                                    <img class="w-6 bg-yellow-300 rounded-full" src="/Rocket.png" />
                                 </span>
                                 <span class="text-lg font-bold ml-3">237</span>
                             </a>
-                            <a class="ml-auto" href="#">1 comentarios</a>
+                            <a class="ml-auto" href="#">1 Comments</a>
                         </div>
                         <div class="mt-6 mb-6 h-px bg-slate-200"></div>
                     </div>

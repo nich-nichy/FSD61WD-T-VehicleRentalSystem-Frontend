@@ -1,0 +1,3 @@
+.prevent-image {
+    pointer-events: none;
+}

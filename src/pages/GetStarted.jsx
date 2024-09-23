@@ -95,7 +95,7 @@ const GetStarted = () => {
 
                 {/* Submit Button */}
                 <button className="bg-green-500 text-white px-4 py-2 rounded-lg w-full mt-4">
-                    Confirm Booking
+                    Check available vehicles
                 </button>
             </div>
         </div>

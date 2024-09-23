@@ -25,7 +25,7 @@ const Hero = () => {
                             </p>
                         </div>
                     </div>
-                    <img src="/Car-banner-2.png" alt="" />
+                    <img src="/Car-banner-2.png" alt="" className="prevent-image" />
                 </div>
             </section>
         </div>
