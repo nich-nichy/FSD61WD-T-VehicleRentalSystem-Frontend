@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import urlReducer from "./slices/urlSlice";
+import vehicleReducer from "./slices/vehicleSlice";
+import authReducer from "./slices/authSlice";
 
 export const store = configureStore({
     reducer: {
-        urlShortner: urlReducer,
+        vehicleShortner: vehicleReducer,
+        authShortner: authReducer,
     },
 });

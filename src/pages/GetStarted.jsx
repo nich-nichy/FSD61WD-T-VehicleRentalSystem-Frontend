@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DateRangeSelector from '../components/DateRangeSelector';
+import '../styles/GetStarted.css'
 
 const GetStarted = () => {
     const [selectedState, setSelectedState] = useState('');
@@ -20,15 +21,14 @@ const GetStarted = () => {
 
     const handleStateChange = (e) => {
         setSelectedState(e.target.value);
-        setSelectedCity(''); // Reset city when state changes
+        setSelectedCity('');
     };
 
     const handleModalToggle = () => {
-        setShowModal(!showModal); // Toggle modal visibility
+        setShowModal(!showModal);
     };
 
     const handleFormSubmit = () => {
-        // Handle form submission and close the modal
         setShowModal(false);
         console.log('Date range selected:', dateRange);
     };
@@ -88,11 +88,11 @@ const GetStarted = () => {
                         {/* Overlay */}
                         <div
                             className="fixed inset-0 bg-black opacity-50"
-                            onClick={handleModalToggle} // Close modal on overlay click
+                            onClick={handleModalToggle}
                         ></div>
 
                         {/* Modal content */}
-                        <div className="bg-white p-6 rounded-lg shadow-lg z-10 w-full m-64">
+                        <div className="bg-white p-6 rounded-lg shadow-lg z-10 w-full m-80">
                             <h2 className="text-xl font-bold mb-4">Select Rental Date Range</h2>
                             <DateRangeSelector
                                 dateRange={dateRange}
@@ -101,13 +101,13 @@ const GetStarted = () => {
                             <div className="flex justify-end mt-4">
                                 <button
                                     className="bg-gray-500 text-white px-4 py-2 rounded-lg mr-2"
-                                    onClick={handleModalToggle} // Close modal on close button click
+                                    onClick={handleModalToggle}
                                 >
                                     Close
                                 </button>
                                 <button
                                     className="bg-green-500 text-white px-4 py-2 rounded-lg"
-                                    onClick={handleFormSubmit} // Close modal on submit
+                                    onClick={handleFormSubmit}
                                 >
                                     Submit
                                 </button>
