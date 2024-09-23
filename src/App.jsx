@@ -1,9 +1,9 @@
 import './App.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home'
-import VehicleShowcase from './pages/VehicleShowcase';
-import GetStarted from './pages/GetStarted'
-import Pricing from './pages/Pricing';
+import Home from './pages/user/Home'
+import VehicleShowcase from './pages/user/VehicleShowcase';
+import GetStarted from './pages/user/GetStarted'
+import Pricing from './pages/user/Pricing';
 
 function App() {
 

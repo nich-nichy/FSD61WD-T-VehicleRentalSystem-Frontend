@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import '../index.css'
-import CustomNavbar from '../components/CustomNavbar';
+import '../../index.css'
+import CustomNavbar from '../../components/CustomNavbar';
 
 
 const GetStarted = () => {

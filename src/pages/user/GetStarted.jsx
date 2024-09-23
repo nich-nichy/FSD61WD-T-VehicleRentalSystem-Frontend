@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import DateRangeSelector from '../components/DateRangeSelector';
-import '../styles/GetStarted.css'
+import DateRangeSelector from '../../components/DateRangeSelector';
+import '../../styles/GetStarted.css'
 
 const GetStarted = () => {
     const [selectedState, setSelectedState] = useState('');
