@@ -1,0 +1,84 @@
+/* Animation for falling particles */
+@keyframes fall {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(150px);
+        opacity: 0;
+    }
+}
+
+/* Container for particles */
+.particle-container {
+    position: relative;
+    /* Ensure particles stay within this container */
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    /* Prevent particles from overflowing the container */
+}
+
+/* Common styles for each particle */
+.particle {
+    position: absolute;
+    top: -30px;
+    /* Start off-screen inside the container */
+    background-color: white;
+    opacity: 0.8;
+    animation: fall 3s infinite ease-in;
+    animation-delay: calc(-1s * var(--i));
+    /* Staggered delays */
+    left: calc(var(--i) * 20%);
+    /* Random X positioning inside container */
+}
+
+/* Circle particle */
+.circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+/* Square particle */
+.square {
+    width: 10px;
+    height: 10px;
+}
+
+/* Line particle */
+.line {
+    width: 2px;
+    height: 20px;
+}
+
+/* Add random staggered delays and positioning */
+.particle:nth-child(1) {
+    --i: 1;
+}
+
+.particle:nth-child(2) {
+    --i: 2;
+}
+
+.particle:nth-child(3) {
+    --i: 3;
+}
+
+.particle:nth-child(4) {
+    --i: 4;
+}
+
+.particle:nth-child(5) {
+    --i: 5;
+}
+
+.particle:nth-child(6) {
+    --i: 6;
+}

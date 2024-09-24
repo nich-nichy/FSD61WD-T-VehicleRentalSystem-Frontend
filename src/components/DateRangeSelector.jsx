@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Model from '../components/Utility-Components/Model'
 import { DateRangePicker } from 'react-date-range';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
@@ -64,19 +65,17 @@ const DateRangeSelector = ({ ranges, onChange, onSubmit, ...rest }) => {
                     </button>
                 </div>
             </div>
-
             {/* Display selected date range */}
             {show && (
-                <div className="h-100 mt-3 alert alert-transparent">
+                <div className="h-100 mt-3">
+                    <Model />
                     <p className="my-auto d-inline">
                         Start Date: {formatDateDisplay(selectedDateRange.startDate, "Not selected")}{" | "}
                         End Date: {formatDateDisplay(selectedDateRange.endDate, "Not selected")}
                     </p>
                     <button
                         className="mb-1 btn btn-transparent text-danger"
-                        onClick={() => setShow(false)
-
-                        }
+                        onClick={() => setShow(false)}
                     >
                         Close
                     </button>

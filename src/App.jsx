@@ -4,6 +4,7 @@ import Home from './pages/user/Home'
 import VehicleShowcase from './pages/user/VehicleShowcase';
 import GetStarted from './pages/user/GetStarted'
 import Pricing from './pages/user/Pricing';
+import Loader from './components/Loader';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
           <Route exact path="/getStarted" element={<GetStarted />} />
           <Route exact path="/vehicles" element={<VehicleShowcase />} />
           <Route exact path="/pricing" element={<Pricing />} />
+          <Route exact path="/loader" element={<Loader />} />
         </Routes>
       </Router>
     </>

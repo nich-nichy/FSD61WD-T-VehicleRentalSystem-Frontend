@@ -6,6 +6,12 @@ import CustomNavbar from '../../components/CustomNavbar';
 const GetStarted = () => {
     const [selectedValue, setSelectedValue] = useState('');
     const [modelState, setModelState] = useState(false);
+    const [showPromo, setShowPromo] = useState(true);
+
+    // Function to handle close button click
+    const handleClose = () => {
+        setShowPromo(false);
+    };
 
     const handleChange = (e) => {
         setSelectedValue(e.target.value);
@@ -94,56 +100,66 @@ const GetStarted = () => {
                     </div>
                 </div>
 
+
                 {/* Car Cards Section */}
-                <div className="w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-                    {Array(6).fill().map((_, index) => (
-                        <div key={index} className="bg-white shadow-lg rounded-lg p-6">
-                            <h2 className="text-2xl font-bold text-gray-800">Konigsegg</h2>
-                            <p className="text-blue-500 mb-2">Sport</p>
-                            <img src="" alt="Car" className="w-full h-40 bg-gray-200 rounded-lg mb-4" />
-                            <p className="text-lg font-semibold mb-4">$1500</p>
-                            <div className="flex justify-between text-gray-600 mb-4">
-                                <p>90L</p>
-                                <p>Manual</p>
-                                <p>2 People</p>
-                            </div>
-                            {/* FIXME: Pass id as well */}
-                            <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600" onClick={() => handleModel(true)}>
-                                Rent now
+                <div className="w-full m-3 mb-0">
+                    {/* Show Promo div only if showPromo is true */}
+                    {showPromo && (
+                        <div className='relative mb-6 bg-white rounded-xl shadow-lg overflow-hidden flex flex-col lg:flex-row w-full'>
+                            {/* Close Button */}
+                            <button
+                                className="absolute top-3 right-3 border hover:border-black text-white bg-gray-600 hover:bg-gray-800 rounded-full w-8 h-8 flex items-center justify-center"
+                                onClick={handleClose}
+                            >
+                                &times;
                             </button>
+                            <div className="flex-1">
+                                <img src="/PromoCar.png" alt="Car Promo" className="w-full h-60 rounded-l-xl object-cover" />
+                            </div>
+                            <div className="flex-1 p-6 rounded-r-lg bg-gradient-to-r from-violet-500 to-purple-700 text-white">
+                                <h2 className="text-5xl font-extrabold mb-4">Find Your Perfect Ride!</h2>
+                                <p className="text-lg mb-6">
+                                    Discover the best deals for your next adventure. Select a car today and enjoy unbeatable offers! <br /> Let's <span className="bg-yellow-500 text-white px-1 font-bold transition" style={{ paddingTop: '2px', paddingBottom: '2px' }}>#ChooseACar</span> now!
+                                </p>
+
+                                <div className="mt-6">
+                                    <p className="italic text-gray-200 mt-2">"Best car rental service! Highly recommend."</p>
+                                    <span className="block text-right text-gray-200">- by anonymous Amaran</span>
+                                </div>
+
+                                <div className="flex items-center space-x-3 mt-2">
+                                    <div className="flex">
+                                        <img className="w-6" src="https://cdn.iconscout.com/icon/free/png-256/like-2387659-1991059.png" />
+                                        <img className="w-6" src="https://cdn.iconscout.com/icon/free/png-256/love-2387666-1991064.png" />
+                                        <img className="w-6 bg-yellow-300 rounded-full" src="/Rocket.png" />
+                                    </div>
+                                    <span className="text-base">See All comments</span>
+                                </div>
+                            </div>
                         </div>
-                    ))}
+                    )}
+
+                    {/* Car Cards Section */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 px-1 pt-0 mx-auto">
+                        {/* Car div */}
+                        {Array(12).fill().map((_, index) => (
+                            <div key={index} className="bg-white shadow-lg rounded-lg p-4">
+                                <h2 className="text-2xl font-bold text-gray-800">Konigsegg</h2>
+                                <p className="text-sky-500 mb-2">Sport</p>
+                                <img src="" alt="Car" className="w-full h-40 bg-gray-200 mb-4" />
+                                <p className="text-lg font-semibold mb-4">$1500 / day</p>
+                                <div className="flex justify-between text-gray-600 mb-4">
+                                    <p>90L</p>
+                                    <p>Manual</p>
+                                    <p>2 People</p>
+                                </div>
+                                <button className="w-full bg-sky-500 text-white py-2 rounded-lg hover:bg-blue-600">
+                                    Rent now
+                                </button>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-                <article class="mb-4 break-inside rounded-xl bg-white flex flex-col bg-clip-border">
-                    <div class="flex p-6 items-center justify-between">
-                        <div class="flex">
-                            <img src="" alt="Car" className="w-full h-40 bg-gray-200" />
-                        </div>
-                    </div>
-                    <div class="p-6 bg-violet-500">
-                        <h2 class="text-3xl font-extrabold text-white">
-                            Web Design templates Selection
-                        </h2>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center">
-                            <a class="inline-flex items-center" href="#">
-                                <span class="-m-1 rounded-full border-2 border-white dark:border-slate-800">
-                                    <img class="w-6" src="https://cdn.iconscout.com/icon/free/png-256/like-2387659-1991059.png" />
-                                </span>
-                                <span class="-m-1 rounded-full border-2 border-white dark:border-slate-800">
-                                    <img class="w-6" src="https://cdn.iconscout.com/icon/free/png-256/love-2387666-1991064.png" />
-                                </span>
-                                <span class="-m-1 rounded-full border-2 border-white dark:border-slate-800">
-                                    <img class="w-6 bg-yellow-300 rounded-full" src="/Rocket.png" />
-                                </span>
-                                <span class="text-lg font-bold ml-3">237</span>
-                            </a>
-                            <a class="ml-auto" href="#">1 Comments</a>
-                        </div>
-                        <div class="mt-6 mb-6 h-px bg-slate-200"></div>
-                    </div>
-                </article>
             </div>
         </div>
     );
