@@ -7,6 +7,7 @@ const GetStarted = () => {
     const [selectedValue, setSelectedValue] = useState('');
     const [modelState, setModelState] = useState(false);
     const [showPromo, setShowPromo] = useState(true);
+    const [vehicleModel, setVehicleModel] = useState(false);
 
     // Function to handle close button click
     const handleClose = () => {
@@ -25,6 +26,21 @@ const GetStarted = () => {
 
     }
 
+    const setShowVehicleModel = () => {
+        setVehicleModel(true);
+    }
+
+    const handleSearch = () => {
+        e.preventDefault();
+        // Handle search logic here
+        console.log("Searching for:", searchTerm);
+    }
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
     return (
         <div className="font-opensans">
             <div>
@@ -35,11 +51,47 @@ const GetStarted = () => {
                 {/* Filters Section */}
                 <div className="w-1/4 bg-white shadow-lg rounded-lg p-6 space-y-8">
                     <div>
-                        <input
-                            type="text"
-                            placeholder="Search car"
-                            className="w-full p-3 border-2 border-gray-300 rounded-lg"
-                        />
+                        <form onSubmit={handleSearch} className="max-w-md mx-auto">
+                            <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
+                                Search
+                            </label>
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg className="w-4 h-4 text-white-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <path
+                                            stroke="currentColor"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            d="M19 19l-4-4m0-7a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
+                                        />
+                                    </svg>
+                                </div>
+                                <input
+                                    type="search"
+                                    id="default-search"
+                                    className="block w-full p-4 pl-10 text-sm border border-gray-300 rounded-lg bg-gray-50"
+                                    placeholder="Search for a Car"
+                                    value={searchTerm}
+                                    onChange={handleSearchChange}
+                                    required
+                                />
+                                <button
+                                    type="submit"
+                                    className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                >
+                                    <svg className="w-4 h-4 text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <path
+                                            stroke="currentColor"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            d="M19 19l-4-4m0-7a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
+                                        />
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
                     </div>
 
                     {/* Rental Type */}
@@ -124,7 +176,7 @@ const GetStarted = () => {
 
                                 <div className="mt-6">
                                     <p className="italic text-gray-200 mt-2">"Best car rental service! Highly recommend."</p>
-                                    <span className="block text-right text-gray-200">- by anonymous Amaran</span>
+                                    <span className="block text-right text-gray-200">- by Anonymous Amaran</span>
                                 </div>
 
                                 <div className="flex items-center space-x-3 mt-2">
@@ -153,7 +205,7 @@ const GetStarted = () => {
                                     <p>Manual</p>
                                     <p>2 People</p>
                                 </div>
-                                <button className="w-full bg-sky-500 text-white py-2 rounded-lg hover:bg-blue-600">
+                                <button className="w-full bg-sky-500 text-white py-2 rounded-lg hover:bg-blue-600" onClick={() => setShowVehicleModel()}>
                                     Rent now
                                 </button>
                             </div>
