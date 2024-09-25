@@ -48,7 +48,7 @@ const Pricing = () => {
                         </div>
                     </div>
                 </div>
-                <div className="hidden md:flex items-center justify-center md:flex-1 lg:w-0">
+                <div className="hidden sticky md:flex items-center justify-center md:flex-1 lg:w-0">
                     <GameLikeButton buttonText={"Explore"} routeTo={"vehicles"} />
                 </div>
             </div>

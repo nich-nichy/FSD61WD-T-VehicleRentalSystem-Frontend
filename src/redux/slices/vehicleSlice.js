@@ -10,17 +10,32 @@ const vehicleSlice = createSlice({
         },
         utilityModel: {
             isModalOpen: false
+        },
+        dates: {
+            showSelectedDays: false,
+            dateRange: [{
+                startDate: new Date(),
+                endDate: new Date(),
+                key: 'selection'
+            }]
         }
     },
     reducers: {
-        setNavbarToggle(state, action) {
-            state.navbar.isNavbarOpened = action.payload;
-        },
         setIsModalOpen(state, action) {
             state.utilityModel.isModalOpen = action.payload;
-        }
+        },
+        setSelectedDays(state, action) {
+            state.dates.showSelectedDays = action.payload;
+        },
+        setSelectedDaysArr(state, action) {
+            state.dates.dateRange = [{
+                startDate: action.payload.startDate,
+                endDate: action.payload.endDate,
+                key: 'selection'
+            }];
+        },
     },
 });
 
-export const { setNavbarToggle } = vehicleSlice.actions;
+export const { setNavbarToggle, setIsModalOpen, setSelectedDays, setSelectedDaysArr } = vehicleSlice.actions;
 export default vehicleSlice.reducer;

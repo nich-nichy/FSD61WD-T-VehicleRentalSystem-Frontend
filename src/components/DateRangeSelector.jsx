@@ -1,18 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Model from '../components/Utility-Components/Model'
 import { DateRangePicker } from 'react-date-range';
 import { format } from 'date-fns';
+import { useSelector, useDispatch } from "react-redux";
+import { setIsModalOpen, setSelectedDaysArr } from '../redux/slices/vehicleSlice'
 import PropTypes from 'prop-types';
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
 const DateRangeSelector = ({ ranges, onChange, onSubmit, ...rest }) => {
+    const dispatch = useDispatch();
     const [selectedDateRange, setSelectedDateRange] = useState({
         startDate: new Date(),
         endDate: new Date(),
         key: "selection"
     });
     const [show, setShow] = useState(false);
+
+    useEffect(() => {
+        if (selectedDateRange) {
+            console.log(selectedDateRange, "from date range");
+            dispatch(setSelectedDaysArr(selectedDateRange));
+        }
+    }, [selectedDateRange]);
 
     // Helper function to format date display
     function formatDateDisplay(date, defaultText) {
@@ -28,11 +38,13 @@ const DateRangeSelector = ({ ranges, onChange, onSubmit, ...rest }) => {
 
     // Clear the date selection (reset to today)
     const onClickClear = () => {
-        setSelectedDateRange({
+        const defaultRange = {
             startDate: new Date(),
             endDate: new Date(),
             key: "selection"
-        });
+        };
+        setSelectedDateRange(defaultRange);
+        // dispatch(setSelectedDaysArr(defaultRange)); // Resetting in Redux store
         setShow(false);
     };
 
@@ -53,7 +65,11 @@ const DateRangeSelector = ({ ranges, onChange, onSubmit, ...rest }) => {
                 <div className="text-left position-relative mt-2 mr-3">
                     <button
                         className="bg-sky-700 text-white rounded-l-lg border border-black-950 px-4 py-2 hover:bg-sky-800"
-                        onClick={() => setShow(true)}
+                        onClick={() => {
+                            setShow(true)
+                            dispatch(setIsModalOpen(true));
+                        }
+                        }
                     >
                         Save
                     </button>
@@ -69,21 +85,15 @@ const DateRangeSelector = ({ ranges, onChange, onSubmit, ...rest }) => {
             {show && (
                 <div className="h-100 mt-3">
                     <Model component={
-                        <div className='text-center'>
-                            <h2>These are the selected date</h2>
-                            <p className="my-auto d-inline">
-                                Start Date: {formatDateDisplay(selectedDateRange.startDate, "Not selected")}{" | "}
-                                End Date: {formatDateDisplay(selectedDateRange.endDate, "Not selected")}
+                        <div className='text-center m-10'>
+                            <h2 className="text-2xl pb-3">These are the selected date</h2>
+                            <p className="my-auto d-inline text-xl">
+                                Start Date: <span className='underline bg-yellow-700 py-2 px-1'>{formatDateDisplay(selectedDateRange.startDate, "Not selected")}</span>{" | "}
+                                End Date: <span className='underline bg-yellow-700 py-2 px-1'>{formatDateDisplay(selectedDateRange.endDate, "Not selected")}</span>
                             </p>
                         </div>
                     }
-                        setShow={setShow} />
-                    <button
-                        className="mb-1 btn btn-transparent text-danger"
-                        onClick={() => setShow(false)}
-                    >
-                        Close
-                    </button>
+                    />
                 </div>
             )}
 

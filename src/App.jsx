@@ -5,6 +5,7 @@ import VehicleShowcase from './pages/user/VehicleShowcase';
 import GetStarted from './pages/user/GetStarted'
 import Pricing from './pages/user/Pricing';
 import Loader from './components/Loader';
+import Login from './pages/auth/login';
 
 function App() {
 
@@ -17,6 +18,11 @@ function App() {
           <Route exact path="/vehicles" element={<VehicleShowcase />} />
           <Route exact path="/pricing" element={<Pricing />} />
           <Route exact path="/loader" element={<Loader />} />
+          <Route exact path="/login" element={<Login />} />
+          {/* <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/request-password-reset" element={<RequestPassword />} />
+          <Route exact path="/info" element={<Info />} />
+          <Route exact path="/reset-password/:token" element={<ResetPassword />} /> */}
         </Routes>
       </Router>
     </>
