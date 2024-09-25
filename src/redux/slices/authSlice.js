@@ -4,17 +4,23 @@ const authSlice = createSlice({
     name: "authShortner",
     initialState: {
         authData: {
-            data: [],
-            lastGeneratedData: [],
-            isNewOneAdded: false
+            admin: {
+                isAdmin: false,
+            },
+            user: {
+                isUser: false,
+            }
         }
     },
     reducers: {
-        setNavbarToggle(state, action) {
-            state.authData.isNavbarOpened = action.payload;
+        setAdmin(state, action) {
+            state.authData.admin.isAdmin = action.payload;
+        },
+        setUser(state, action) {
+            state.authData.user.isUser = action.payload;
         },
     },
 });
 
-export const { setNavbarToggle } = authSlice.actions;
+export const { setAdmin, setUser } = authSlice.actions;
 export default authSlice.reducer;

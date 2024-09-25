@@ -7,9 +7,11 @@ import Pricing from './pages/user/Pricing';
 import Loader from './components/Loader';
 import Login from './pages/auth/login';
 import SignUp from './pages/auth/signup';
+import AdminLogin from './pages/admin/AdminLogin';
+import ProtectedRoute from './ProtectedRoute';
+import Dashboard from './pages/admin/Dashboard';
 
 function App() {
-
   return (
     <>
       <Router>
@@ -24,6 +26,8 @@ function App() {
           {/*<Route exact path="/request-password-reset" element={<RequestPassword />} />
           <Route exact path="/info" element={<Info />} />
           <Route exact path="/reset-password/:token" element={<ResetPassword />} /> */}
+          <Route path="/admin-login" element={<ProtectedRoute element={<AdminLogin />} roles={['admin']} />} />
+          <Route path="/admin" element={<ProtectedRoute element={<Dashboard />} roles={['admin']} />} />
         </Routes>
       </Router>
     </>

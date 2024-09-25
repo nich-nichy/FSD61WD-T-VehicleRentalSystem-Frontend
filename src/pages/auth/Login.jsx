@@ -9,7 +9,7 @@ const url = import.meta.env.VITE_BACKEND_URL;
 
 const Login = () => {
     const navigate = useNavigate();
-
+    // FIXME: Change UI
     return (
         <div className="flex flex-col md:flex-row min-h-screen">
             {/* Image Section for Larger Screens */}
