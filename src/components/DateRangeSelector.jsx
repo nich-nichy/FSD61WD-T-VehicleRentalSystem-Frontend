@@ -68,11 +68,16 @@ const DateRangeSelector = ({ ranges, onChange, onSubmit, ...rest }) => {
             {/* Display selected date range */}
             {show && (
                 <div className="h-100 mt-3">
-                    <Model />
-                    <p className="my-auto d-inline">
-                        Start Date: {formatDateDisplay(selectedDateRange.startDate, "Not selected")}{" | "}
-                        End Date: {formatDateDisplay(selectedDateRange.endDate, "Not selected")}
-                    </p>
+                    <Model component={
+                        <div className='text-center'>
+                            <h2>These are the selected date</h2>
+                            <p className="my-auto d-inline">
+                                Start Date: {formatDateDisplay(selectedDateRange.startDate, "Not selected")}{" | "}
+                                End Date: {formatDateDisplay(selectedDateRange.endDate, "Not selected")}
+                            </p>
+                        </div>
+                    }
+                        setShow={setShow} />
                     <button
                         className="mb-1 btn btn-transparent text-danger"
                         onClick={() => setShow(false)}
@@ -81,6 +86,7 @@ const DateRangeSelector = ({ ranges, onChange, onSubmit, ...rest }) => {
                     </button>
                 </div>
             )}
+
         </React.Fragment>
     );
 };

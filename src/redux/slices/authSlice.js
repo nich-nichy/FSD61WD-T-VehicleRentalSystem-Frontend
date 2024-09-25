@@ -11,7 +11,7 @@ const authSlice = createSlice({
     },
     reducers: {
         setNavbarToggle(state, action) {
-            state.navbar.isNavbarOpened = action.payload;
+            state.authData.isNavbarOpened = action.payload;
         },
     },
 });

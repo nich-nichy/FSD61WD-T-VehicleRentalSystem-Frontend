@@ -7,12 +7,18 @@ const vehicleSlice = createSlice({
             data: [],
             lastGeneratedData: [],
             isNewOneAdded: false
+        },
+        utilityModel: {
+            isModalOpen: false
         }
     },
     reducers: {
         setNavbarToggle(state, action) {
             state.navbar.isNavbarOpened = action.payload;
         },
+        setIsModalOpen(state, action) {
+            state.utilityModel.isModalOpen = action.payload;
+        }
     },
 });
 

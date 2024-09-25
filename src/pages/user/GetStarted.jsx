@@ -1,23 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import DateRangeSelector from '../../components/DateRangeSelector';
 import '../../styles/GetStarted.css'
 
 const GetStarted = () => {
     const [selectedState, setSelectedState] = useState('');
     const [selectedCity, setSelectedCity] = useState('');
-    const [showModal, setShowModal] = useState(false); // Modal state
+    const [cities, setCities] = useState([]);
+    console.log({ cities })
+    const [showModal, setShowModal] = useState(false);
     const [dateRange, setDateRange] = useState([{
         startDate: new Date(),
         endDate: new Date(),
         key: 'selection'
     }]);
 
-    const states = ['California', 'Texas', 'Florida'];
-    const cities = {
-        California: ['Los Angeles', 'San Francisco', 'San Diego'],
-        Texas: ['Houston', 'Dallas', 'Austin'],
-        Florida: ['Miami', 'Orlando', 'Tampa']
-    };
+    const states = ['Tamilnadu'];
+
+    var headers = new Headers();
+
+    useEffect(() => {
+        const getCities = async () => {
+            try {
+                const response = await axios.get("https://api.countrystatecity.in/v1/countries/IN/states/TN/cities", {
+                    headers: {
+                        "X-CSCAPI-KEY": import.meta.env.VITE_COUNTRY_API_KEY
+                    }
+                });
+                setCities(response.data);
+            } catch (error) {
+                console.error("Error fetching cities:", error);
+            }
+        };
+        if (cities && cities?.length === 0) {
+            getCities();
+        }
+    }, [selectedState]);
 
     const handleStateChange = (e) => {
         setSelectedState(e.target.value);
@@ -65,8 +83,8 @@ const GetStarted = () => {
                         disabled={!selectedState}
                     >
                         <option value="">Select City</option>
-                        {selectedState && cities[selectedState]?.map((city) => (
-                            <option key={city} value={city}>{city}</option>
+                        {selectedState && cities?.map((city) => (
+                            <option key={city.id} value={city.name}>{city.name}</option>
                         ))}
                     </select>
                 </div>
@@ -97,6 +115,7 @@ const GetStarted = () => {
                             <DateRangeSelector
                                 dateRange={dateRange}
                                 setDateRange={setDateRange}
+
                             />
                             <div className="flex justify-end mt-4">
                                 <button
@@ -115,15 +134,6 @@ const GetStarted = () => {
                         </div>
                     </div>
                 )}
-
-                {/* Selected Date Range */}
-                <div className="mb-4">
-                    <p className="font-semibold mb-2">Selected Dates:</p>
-                    <p>
-                        From: {dateRange[0].startDate.toLocaleDateString()} -
-                        To: {dateRange[0].endDate.toLocaleDateString()}
-                    </p>
-                </div>
 
                 {/* Submit Button */}
                 <button className="bg-green-500 text-white px-4 py-2 rounded-lg w-full mt-4">

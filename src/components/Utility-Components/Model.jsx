@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { setIsModalOpen } from '../../redux/slices/vehicleSlice'
 
-const ModalComponent = () => {
+const ModalComponent = ({ component }) => {
+    const dispatch = useDispatch();
     // State to control the modal visibility
-    const [isOpen, setIsOpen] = useState(false);
+    const isModalOpen = useSelector((state) => state.vehicleShortner.utilityModel.isModalOpen);
 
     // Function to open the modal
     const openModal = () => {
-        setIsOpen(true);
+        // setIsOpen(true);
+        setIsModalOpen(true);
     };
 
     // Function to close the modal
     const closeModal = () => {
-        setIsOpen(false);
+        // setIsOpen(false);
+        setIsModalOpen(false);
     };
 
     return (
@@ -26,7 +31,7 @@ const ModalComponent = () => {
             </button>
 
             {/* Main modal */}
-            {isOpen && (
+            {isModalOpen && (
                 <div className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-[calc(100%-1rem)] max-h-full overflow-y-auto overflow-x-hidden md:inset-0">
                     <div className="relative p-4 w-full max-w-2xl max-h-full">
                         {/* Modal content */}
@@ -61,18 +66,7 @@ const ModalComponent = () => {
                             </div>
 
                             {/* Modal body */}
-                            <div className="p-4 md:p-5 space-y-4">
-                                <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                    With less than a month to go before the European Union enacts new
-                                    consumer privacy laws for its citizens, companies around the
-                                    world are updating their terms of service agreements to comply.
-                                </p>
-                                <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                    The European Union’s General Data Protection Regulation
-                                    (G.D.P.R.) goes into effect on May 25 and is meant to ensure a
-                                    common set of data rights in the European Union.
-                                </p>
-                            </div>
+                            {component}
 
                             {/* Modal footer */}
                             <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">

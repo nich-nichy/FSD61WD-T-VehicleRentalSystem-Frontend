@@ -78,7 +78,7 @@ const GetStarted = () => {
                                 />
                                 <button
                                     type="submit"
-                                    className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                    className="text-white absolute right-2.5 bottom-2.5 bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800"
                                 >
                                     <svg className="w-4 h-4 text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                         <path
@@ -98,7 +98,7 @@ const GetStarted = () => {
                     <div>
                         <p className="font-semibold mb-2">Rental Type</p>
                         <div className="flex space-x-4">
-                            <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Day</button>
+                            <button className="bg-sky-500 text-white px-4 py-2 rounded-lg hover:bg-sky-600">Day</button>
                             <button className="bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300">Month</button>
                         </div>
                     </div>
@@ -107,7 +107,7 @@ const GetStarted = () => {
                     <div>
                         <p className="font-semibold mb-2">Vehicle Type</p>
                         <div className="flex space-x-4">
-                            <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Car</button>
+                            <button className="bg-sky-500 text-white px-4 py-2 rounded-lg hover:bg-sky-600">Car</button>
                             <button className="bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300">Truck</button>
                         </div>
                     </div>
@@ -168,17 +168,17 @@ const GetStarted = () => {
                             <div className="flex-1">
                                 <img src="/PromoCar.png" alt="Car Promo" className="w-full h-60 rounded-l-xl object-cover" />
                             </div>
-                            <div className="flex-1 p-6 rounded-r-lg bg-gradient-to-r from-violet-500 to-purple-700 text-white">
+                            <div className="flex-1 p-6 rounded-r-lg bg-gradient-to-r from-sky-500 to-cyan-700 text-white">
                                 <h2 className="text-5xl font-extrabold mb-4">Find Your Perfect Ride!</h2>
                                 <p className="text-lg mb-6">
                                     Discover the best deals for your next adventure. Select a car today and enjoy unbeatable offers! <br /> Let's <span className="bg-yellow-500 text-white px-1 font-bold transition" style={{ paddingTop: '2px', paddingBottom: '2px' }}>#ChooseACar</span> now!
                                 </p>
-
+                                <hr />
                                 <div className="mt-6">
                                     <p className="italic text-gray-200 mt-2">"Best car rental service! Highly recommend."</p>
                                     <span className="block text-right text-gray-200">- by Anonymous Amaran</span>
                                 </div>
-
+                                <hr />
                                 <div className="flex items-center space-x-3 mt-2">
                                     <div className="flex">
                                         <img className="w-6" src="https://cdn.iconscout.com/icon/free/png-256/like-2387659-1991059.png" />
@@ -205,7 +205,7 @@ const GetStarted = () => {
                                     <p>Manual</p>
                                     <p>2 People</p>
                                 </div>
-                                <button className="w-full bg-sky-500 text-white py-2 rounded-lg hover:bg-blue-600" onClick={() => setShowVehicleModel()}>
+                                <button className="w-full bg-sky-500 text-white py-2 rounded-lg hover:bg-sky-600" onClick={() => setShowVehicleModel()}>
                                     Rent now
                                 </button>
                             </div>
