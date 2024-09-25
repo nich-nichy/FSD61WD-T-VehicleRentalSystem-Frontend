@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Formik } from 'formik';
@@ -9,6 +9,12 @@ const url = import.meta.env.VITE_BACKEND_URL;
 
 const Login = () => {
     const navigate = useNavigate();
+    const [isChecked, setIsChecked] = useState(false);
+
+    const handleChange = () => {
+        setIsChecked(!isChecked);
+    };
+
     // FIXME: Change UI
     return (
         <div className="flex flex-col md:flex-row min-h-screen">
@@ -126,7 +132,7 @@ const Login = () => {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md"
+                                    className="w-full bg-sky-600 hover:bg-sky-700 text-white py-2 rounded-md"
                                 >
                                     {isSubmitting ? 'Submitting...' : 'Submit'}
                                 </button>
@@ -134,7 +140,7 @@ const Login = () => {
                                 <div className="mt-3 text-center">
                                     <p>
                                         Forgot Password?{' '}
-                                        <a className="text-blue-500 hover:underline" href="/request-password-reset">
+                                        <a className="text-sky-500 hover:underline" href="/request-password-reset">
                                             Reset it here
                                         </a>
                                     </p>
@@ -143,13 +149,32 @@ const Login = () => {
                         )}
                     </Formik>
 
-                    <div className="mt-4 text-center">
+                    <div className="mt-4 text-center mb-3">
                         <p>
                             Not a user?{' '}
-                            <a className="text-blue-500 hover:underline" href="/signup">
+                            <a className="text-sky-500 hover:underline" href="/signup">
                                 Join us here
                             </a>
                         </p>
+                    </div>
+                    <hr />
+                    <div className="flex pt-3">
+                        <p>Admin ?</p>
+                        <label className="inline-flex items-center cursor-pointer px-2">
+                            <input
+                                type="checkbox"
+                                className="sr-only peer"
+                                checked={isChecked}
+                                onChange={handleChange}
+                            />
+                            <div
+                                className={`relative w-11 h-6 bg-gray-200 rounded-full transition-colors peer-focus:ring-4 peer-focus:ring-sky-300 dark:bg-gray-700 dark:peer-focus:ring-sky-800 ${isChecked ? 'peer-checked:bg-sky-600' : ''}`}
+                            >
+                                <div
+                                    className={`absolute top-0.5 left-0 bg-white border border-gray-300 rounded-full h-5 w-5 transition-transform duration-300 ${isChecked ? 'translate-x-5' : 'translate-x-0'} dark:border-gray-600`}
+                                />
+                            </div>
+                        </label>
                     </div>
                 </div>
             </div>
