@@ -16,9 +16,9 @@ const GetStarted = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { username, userEmail, id } = useVerifyToken();
-    const showSelectedDays = useSelector((state) => state.vehicleSlicer.dates.showSelectedDays);
-    const showDates = useSelector((state) => state.vehicleSlicer.dates.dateRange);
-    const userDetails = useSelector((state) => state.authShortner.authData.user.userDetails);
+    const showSelectedDays = useSelector((state) => state.vehicleSlice?.dates.showSelectedDays);
+    const showDates = useSelector((state) => state.vehicleSlice?.dates?.dateRange);
+    const userDetails = useSelector((state) => state.authSlice?.authData.user.userDetails);
     console.log({ showDates });
     const [selectedState, setSelectedState] = useState('');
     const [selectedCity, setSelectedCity] = useState('');
@@ -99,12 +99,13 @@ const GetStarted = () => {
                     `${url}/booking/save-temp`,
                     {
                         userId: id || userDetails?.id,
-                        vehicleId: 'test',
+                        vehicleId: '',
                         user: username,
                         email: userEmail,
                         state: selectedState,
                         city: selectedCity,
-                        dateRange: dateRange[0] || dateRange
+                        startDate: showDates?.startDate,
+                        endDate: showDates?.endDate,
                     }
                 );
                 console.log({ data })
@@ -125,6 +126,11 @@ const GetStarted = () => {
             }
         } catch (error) {
             console.log(error);
+            Swal.fire({
+                icon: "error",
+                title: "Seems to be a one way",
+                text: "Please retry",
+            });
         }
     };
 

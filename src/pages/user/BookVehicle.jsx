@@ -2,12 +2,41 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import CustomNavbar from '../../components/CustomNavbar';
+import axios from 'axios'
+import { useVerifyToken } from '../../utils/VerifyRole';
+import { setTotalAmount } from '../../redux/slices/vehicleSlice'
+
+const url = import.meta.env.VITE_BACKEND_URL;
 
 const BookVehicle = () => {
     const params = useParams();
-    const vehicleDetails = useSelector((state) => state.vehicleSlicer.vehicleData.currentBookingVehicle);
+    const { id } = useVerifyToken();
+    const vehicleDetails = useSelector((state) => state.vehicleSlice.vehicleData.currentBookingVehicle);
+    const userDetails = useSelector((state) => state.authSlice.authData.user.userDetails);
     console.log(params.id);
     console.log({ vehicleDetails })
+    const [durationDays, setDurationDays] = useState(0);
+    console.log({ durationDays }, 'selected')
+    useEffect(() => {
+        const getPrice = async () => {
+            try {
+                const { data } = await axios.get(
+                    `${url}/booking/get-price/${id || userDetails.id}`
+                );
+                console.log({ data });
+                if (data?.booking.startDate && data?.booking.endDate) {
+                    const startDate = new Date(data?.booking.startDate);
+                    const endDate = new Date(data?.booking.endDate);
+                    const timeDifference = endDate.getTime() - startDate.getTime();
+                    const days = timeDifference / (1000 * 3600 * 24);
+                    setDurationDays(days);
+                }
+            } catch (error) {
+                console.error("Error fetching price data:", error);
+            }
+        };
+        getPrice();
+    }, [params.id]);
 
     return (
         <div>

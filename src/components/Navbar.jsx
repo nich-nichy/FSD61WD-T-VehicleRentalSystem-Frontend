@@ -22,7 +22,7 @@ const Navbar = () => {
     const [dropDownTwo, setDropDownTwo] = React.useState(false);
     const navigate = useNavigate();
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const userDetails = useSelector((state) => state.authShortner.authData.user.userDetails);
+    const userDetails = useSelector((state) => state.authSlice.authData.user.userDetails);
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
     };
