@@ -9,15 +9,7 @@ const authSlice = createSlice({
             },
             user: {
                 isUser: false,
-                userDetails: {
-                    id: "",
-                    username: "",
-                    email: "",
-                    phone: "",
-                    address: "",
-                    profilePic: "",
-                    role: "",
-                }
+                userDetails: null
             },
         }
     },
@@ -30,7 +22,7 @@ const authSlice = createSlice({
         },
         setUserDetails(state, action) {
             state.authData.user.userDetails = action.payload;
-        }
+        },
     },
 });
 

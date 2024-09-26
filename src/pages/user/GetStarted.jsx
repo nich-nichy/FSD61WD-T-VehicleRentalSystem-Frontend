@@ -15,9 +15,10 @@ const GetStarted = () => {
     const states = ['Tamilnadu'];
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { username, userEmail } = useVerifyToken();
+    const { username, userEmail, id } = useVerifyToken();
     const showSelectedDays = useSelector((state) => state.vehicleShortner.dates.showSelectedDays);
     const showDates = useSelector((state) => state.vehicleShortner.dates.dateRange);
+    const userDetails = useSelector((state) => state.authShortner.authData.user.userDetails);
     console.log({ showDates });
     const [selectedState, setSelectedState] = useState('');
     const [selectedCity, setSelectedCity] = useState('');
@@ -29,6 +30,7 @@ const GetStarted = () => {
         endDate: new Date(),
         key: 'selection'
     }]);
+    const [vehicles, setVehicles] = useState([]);
 
     useEffect(() => {
         const getCities = async () => {
@@ -47,6 +49,23 @@ const GetStarted = () => {
             getCities();
         }
     }, [selectedState]);
+
+    useEffect(() => {
+        const getVehicles = async () => {
+            try {
+                const { data } = await axios.get(
+                    `${url}/vehicle/save-temp`
+                );
+                setVehicles(data);
+            } catch (error) {
+                console.error("Error fetching cities:", error);
+            }
+        };
+        if (vehicles && vehicles?.length == 0) {
+            getVehicles();
+        }
+    }, [])
+
 
     const handleStateChange = (e) => {
         setSelectedState(e.target.value);
@@ -79,6 +98,8 @@ const GetStarted = () => {
                 const { data } = await axios.post(
                     `${url}/booking/save-temp`,
                     {
+                        userId: id || userDetails?.id,
+                        vehicleId: 'test',
                         user: username,
                         email: userEmail,
                         state: selectedState,
@@ -209,8 +230,8 @@ const GetStarted = () => {
                 {showSelectedDays ? <> <div className="mb-4">
                     <p className="font-semibold mb-2">Selected Dates:</p>
                     <p>
-                        From: {showDates[0].startDate.toLocaleDateString()} -
-                        To: {showDates[0].endDate.toLocaleDateString()}
+                        From: {showDates?.startDate.toLocaleDateString()} -
+                        To: {showDates?.endDate.toLocaleDateString()}
                     </p>
                 </div></> : <></>}
 

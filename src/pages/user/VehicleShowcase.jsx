@@ -4,19 +4,23 @@ import '../../index.css'
 import CustomNavbar from '../../components/CustomNavbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTotalAmount } from '../../redux/slices/vehicleSlice'
+import { useVerifyToken } from '../../utils/VerifyRole';
+
+const url = import.meta.env.VITE_BACKEND_URL;
 
 const GetStarted = () => {
     const [selectedValue, setSelectedValue] = useState('');
     const [modelState, setModelState] = useState(false);
     const [showPromo, setShowPromo] = useState(true);
     const [vehicleModel, setVehicleModel] = useState(false);
-    const { id, username, userEmail } = useVerifyToken();
+    const { id } = useVerifyToken();
     const dispatch = useDispatch();
+    const userDetails = useSelector((state) => state.authShortner.authData.user.userDetails);
     const totalAmount = useSelector((state) => state.vehicleShortner.booking.totalAmount);
     useEffect(() => {
         const getPrice = async () => {
             const { data } = await axios.get(
-                `${url}/booking/get-price/:id`
+                `${url}/booking/get-price/${id || userDetails.id}`
             );
             console.log({ data })
             // setTotal
@@ -228,7 +232,7 @@ const GetStarted = () => {
                                 </button>
                                 <div className='text-right'>
                                     <p className="text-lg font-semibold my-3"><span className='text-sm'>Your total:</span> ₹{totalAmount}</p>
-                                    <span className='text-xs text-gray-500'>(Note: Tour total is based on selected dates)</span>
+                                    <span className='text-xs text-gray-500'>(Note: Your total is based on addition of total days)</span>
                                 </div>
                             </div>
                         ))}

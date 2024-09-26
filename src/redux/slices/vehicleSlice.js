@@ -13,11 +13,7 @@ const vehicleSlice = createSlice({
         },
         dates: {
             showSelectedDays: false,
-            dateRange: [{
-                startDate: new Date(),
-                endDate: new Date(),
-                key: 'selection'
-            }]
+            dateRange: null
         },
         booking: {
             totalAmount: 0
@@ -31,11 +27,7 @@ const vehicleSlice = createSlice({
             state.dates.showSelectedDays = action.payload;
         },
         setSelectedDaysArr(state, action) {
-            state.dates.dateRange = [{
-                startDate: action.payload.startDate,
-                endDate: action.payload.endDate,
-                key: 'selection'
-            }];
+            state.dates.dateRange = action.payload;
         },
         setTotalAmount(state, action) {
             state.booking.totalAmount = action.payload;
