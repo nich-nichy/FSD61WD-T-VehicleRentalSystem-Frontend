@@ -31,7 +31,27 @@ const GetStarted = () => {
         endDate: new Date(),
         key: 'selection'
     }]);
-    const [vehicles, setVehicles] = useState([]);
+    // const [vehicles, setVehicles] = useState([]);
+
+    useEffect(() => {
+        const checkPreBooked = async () => {
+            try {
+                const { data } = await axios.get(
+                    `${url}/booking/get-prebook/${userDetails?.id}`
+                );
+                console.log({ data }, 'prebook details')
+                setDidPreBooked(data?.preBookDetails);
+                if (data?.preBookDetails?.state && data?.preBookDetails?.city) {
+                    navigate('/vehicles')
+                }
+            } catch (error) {
+                console.error("Error fetching cities:", error);
+            }
+        };
+        if (username?.length > 0 && selectedState.length <= 0 && selectedCity.length <= 0) {
+            checkPreBooked();
+        }
+    }, [username || ''])
 
     useEffect(() => {
         const getCities = async () => {
@@ -51,38 +71,21 @@ const GetStarted = () => {
         }
     }, [selectedState]);
 
-    useEffect(() => {
-        const getVehicles = async () => {
-            try {
-                const { data } = await axios.get(
-                    `${url}/vehicle/save-temp`
-                );
-                setVehicles(data);
-            } catch (error) {
-                console.error("Error fetching cities:", error);
-            }
-        };
-        if (vehicles && vehicles?.length == 0) {
-            getVehicles();
-        }
-    }, [])
-
-    useEffect(() => {
-        const checkPreBooked = async () => {
-            try {
-                const { data } = await axios.get(
-                    `${url}/booking/get-prebook`
-                );
-                console.log({ data }, 'prebook details')
-                setDidPreBooked(data.data);
-            } catch (error) {
-                console.error("Error fetching cities:", error);
-            }
-        };
-        if (selectedState?.length < 0 && selectedCity?.length < 0) {
-            checkPreBooked();
-        }
-    }, [])
+    // useEffect(() => {
+    //     const getVehicles = async () => {
+    //         try {
+    //             const { data } = await axios.get(
+    //                 `${url}/vehicle/save-temp`
+    //             );
+    //             setVehicles(data);
+    //         } catch (error) {
+    //             console.error("Error fetching cities:", error);
+    //         }
+    //     };
+    //     if (vehicles && vehicles?.length == 0) {
+    //         getVehicles();
+    //     }
+    // }, [])
 
 
 
@@ -103,6 +106,7 @@ const GetStarted = () => {
     };
 
     console.log({
+        id: userDetails?.id,
         user: username,
         email: userEmail,
         state: selectedState,

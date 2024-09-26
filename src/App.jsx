@@ -9,7 +9,8 @@ import Login from './pages/auth/login';
 import SignUp from './pages/auth/signup';
 import AdminLogin from './pages/admin/AdminLogin';
 import ProtectedRoute from './ProtectedRoute';
-import Dashboard from './pages/admin/Dashboard';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import Dashboard from './pages/user/Dashboard';
 import BookVehicle from './pages/user/BookVehicle';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<SignUp />} />
           <Route exact path="/book-vehicle/:id" element={<BookVehicle />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           {/*<Route exact path="/request-password-reset" element={<RequestPassword />} />
           <Route exact path="/info" element={<Info />} />
           <Route exact path="/reset-password/:token" element={<ResetPassword />} /> */}

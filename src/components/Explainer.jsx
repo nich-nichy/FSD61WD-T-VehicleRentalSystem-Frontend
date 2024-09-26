@@ -57,8 +57,6 @@ const Explainer = () => {
                                     <div className="flex-shrink-0 w-60 h-60 bg-white text-sky-500 rounded-full inline-flex items-center justify-center">
                                         <img src="/booking.svg" alt="" />
                                     </div>
-
-
                                     <div className="flex-grow ml-20 sm:pl-6 mt-6 sm:mt-0">
                                         <h2 className="font-medium title-font text-gray-900 mb-1 text-xl text-start">Pre Book the vehicle</h2>
                                         <p className="leading-relaxed text-start">Book Your Dream Car. No Credit Card Needed</p>
@@ -74,8 +72,6 @@ const Explainer = () => {
                                     <div className="flex-shrink-0 w-60 h-60 bg-white text-sky-500 rounded-full inline-flex items-center justify-center">
                                         <img src="/adventure.svg" alt="" />
                                     </div>
-
-
                                     <div className="flex-grow ml-20 sm:pl-6 mt-6 sm:mt-0">
                                         <h2 className="font-medium title-font text-gray-900 mb-1 text-xl text-start">Here we go</h2>
                                         <p className="leading-relaxed text-start"> Get Ready to Explore, Once after payment completetion booking process</p>
@@ -124,7 +120,7 @@ const Explainer = () => {
                     <div className="lg:w-1/2 sm:w-1/3 w-full rounded-lg overflow-hidden mt-6 sm:mt-0">
                         <img className="object-cover object-center w-full h-full" src="https://dummyimage.com/600x300" alt="stats" />
                     </div>
-                    <Link to="/vehicles" className="relative inline-block text-lg group">
+                    <Link to="/getStarted" className="relative inline-block text-lg group">
                         <span className="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-transform ease-out border-2 border-sky-900 rounded-lg bg-gray-900 group-hover:mb-0 group-hover:mr-0 button_top">
                             <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
                             <span className="relative flex items-center justify-center space-x-2">
