@@ -31,7 +31,7 @@ function App() {
           <Route exact path="/info" element={<Info />} />
           <Route exact path="/reset-password/:token" element={<ResetPassword />} /> */}
           <Route path="/admin-login" element={<ProtectedRoute element={<AdminLogin />} roles={['admin']} />} />
-          <Route path="/admin" element={<ProtectedRoute element={<Dashboard />} roles={['admin']} />} />
+          <Route path="/admin" element={<ProtectedRoute element={<AdminDashboard />} roles={['admin']} />} />
         </Routes>
       </Router>
     </>
