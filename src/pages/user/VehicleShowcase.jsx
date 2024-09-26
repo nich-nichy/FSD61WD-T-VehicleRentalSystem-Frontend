@@ -3,27 +3,43 @@ import axios from 'axios'
 import '../../index.css'
 import CustomNavbar from '../../components/CustomNavbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTotalAmount } from '../../redux/slices/vehicleSlice'
+import { useNavigate } from 'react-router-dom';
+import { setTotalAmount, setVehicleData, setCurrentBookingVehicle } from '../../redux/slices/vehicleSlice'
 import { useVerifyToken } from '../../utils/VerifyRole';
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
-const GetStarted = () => {
+const VehicleShowcase = () => {
+    const { id } = useVerifyToken();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const vehicleData = useSelector((state) => state.vehicleSlicer.vehicleData.data);
     const [selectedValue, setSelectedValue] = useState('');
     const [modelState, setModelState] = useState(false);
     const [showPromo, setShowPromo] = useState(true);
     const [vehicleModel, setVehicleModel] = useState(false);
-    const { id } = useVerifyToken();
-    const dispatch = useDispatch();
     const userDetails = useSelector((state) => state.authShortner.authData.user.userDetails);
-    const totalAmount = useSelector((state) => state.vehicleShortner.booking.totalAmount);
+    const totalAmount = useSelector((state) => state.vehicleSlicer.booking.totalAmount);
+    useEffect(() => {
+        const getVehicles = async () => {
+            const { data } = await axios.get(
+                `${url}/vehicle/get-all`
+            );
+            setVehicleData(data?.vehicles);
+            console.log({ data });
+            dispatch(setVehicleData(data?.vehicles));
+        }
+        if (vehicleData && vehicleData?.length === 0) {
+            getVehicles()
+        }
+    }, [])
+
     useEffect(() => {
         const getPrice = async () => {
             const { data } = await axios.get(
                 `${url}/booking/get-price/${id || userDetails.id}`
             );
             console.log({ data })
-            // setTotal
             dispatch(setTotalAmount(data.price));
         }
         getPrice()
@@ -46,8 +62,10 @@ const GetStarted = () => {
 
     }
 
-    const setShowVehicleModel = () => {
+    const setShowVehicleModel = ({ id, vehicle }) => {
         setVehicleModel(true);
+        dispatch(setCurrentBookingVehicle(vehicle));
+        navigate(`/book-vehicle/${id}`);
     }
 
     const handleSearch = () => {
@@ -210,24 +228,24 @@ const GetStarted = () => {
                             </div>
                         </div>
                     )}
-
+                    {console.log(vehicleData)}
                     {/* Car Cards Section */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 px-1 pt-0 mx-auto">
-                        {/* Car div */}
-                        {Array(12).fill().map((_, index) => (
+                        {/* Car div Array(12).fill() */}
+                        {vehicleData?.map((vehicle, index) => (
                             <div key={index} className="bg-white shadow-lg rounded-lg p-4">
-                                <h2 className="text-2xl font-bold text-gray-800">Konigsegg</h2>
-                                <p className="text-sky-500 mb-2">Sport</p>
+                                <h2 className="text-2xl font-bold text-gray-800">{vehicle.make}</h2>
+                                <p className="text-sky-500 mb-2">{vehicle.type}</p>
                                 <img src="" alt="Car" className="w-full h-40 bg-gray-200 mb-4" />
                                 <div className=''>
-                                    <p className="text-lg text-center font-semibold mb-4">₹1500/day</p>
+                                    <p className="text-lg text-center font-semibold mb-4">₹{vehicle.pricePerDay}/day</p>
                                 </div>
                                 <div className="flex justify-between text-gray-600 mb-4">
                                     <p>90L</p>
                                     <p>Manual</p>
-                                    <p>2 People</p>
+                                    <p>4 People</p>
                                 </div>
-                                <button className="w-full bg-sky-500 text-white py-2 rounded-lg hover:bg-sky-600" onClick={() => setShowVehicleModel()}>
+                                <button className="w-full bg-sky-500 text-white py-2 rounded-lg hover:bg-sky-600" onClick={() => setShowVehicleModel({ id: vehicle?._id, vehicle: vehicle })}>
                                     Rent now
                                 </button>
                                 <div className='text-right'>
@@ -243,4 +261,4 @@ const GetStarted = () => {
     );
 };
 
-export default GetStarted;
+export default VehicleShowcase;

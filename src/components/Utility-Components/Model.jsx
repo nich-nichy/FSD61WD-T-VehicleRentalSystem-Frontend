@@ -5,7 +5,7 @@ import { setIsModalOpen } from '../../redux/slices/vehicleSlice'
 const ModalComponent = ({ component }) => {
     const dispatch = useDispatch();
     // State to control the modal visibility
-    const isModalOpen = useSelector((state) => state.vehicleShortner.utilityModel.isModalOpen);
+    const isModalOpen = useSelector((state) => state.vehicleSlicer.utilityModel.isModalOpen);
 
     // Function to close the modal
     const closeModal = () => {

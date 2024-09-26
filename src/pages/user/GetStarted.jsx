@@ -16,8 +16,8 @@ const GetStarted = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { username, userEmail, id } = useVerifyToken();
-    const showSelectedDays = useSelector((state) => state.vehicleShortner.dates.showSelectedDays);
-    const showDates = useSelector((state) => state.vehicleShortner.dates.dateRange);
+    const showSelectedDays = useSelector((state) => state.vehicleSlicer.dates.showSelectedDays);
+    const showDates = useSelector((state) => state.vehicleSlicer.dates.dateRange);
     const userDetails = useSelector((state) => state.authShortner.authData.user.userDetails);
     console.log({ showDates });
     const [selectedState, setSelectedState] = useState('');

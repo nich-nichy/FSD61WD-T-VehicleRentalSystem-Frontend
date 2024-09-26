@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { FaCarRear } from "react-icons/fa6";
 import { RiMotorbikeFill } from "react-icons/ri";
@@ -9,16 +9,23 @@ import { TbCategory2 } from "react-icons/tb";
 import { FaLock } from "react-icons/fa";
 import { MdEvent } from "react-icons/md";
 import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Cookies from "js-cookie";
 import Swal from 'sweetalert2';
 import '../styles/Navbar.css'
+import { FaUserAlt } from "react-icons/fa";
 
 const Navbar = () => {
     const [open, setOpen] = React.useState(false);
     const [dropDown, setDropDown] = React.useState(false);
     const [dropDownTwo, setDropDownTwo] = React.useState(false);
     const navigate = useNavigate();
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const userDetails = useSelector((state) => state.authShortner.authData.user.userDetails);
+    const toggleDropdown = () => {
+        setDropdownOpen(!dropdownOpen);
+    };
     const handleLogout = () => {
         Swal.fire({
             title: "Logged out",
@@ -77,6 +84,13 @@ const Navbar = () => {
                             >
                                 Home
                             </Link>
+
+                            <Link
+                                to="/dashboard"
+                                className="text-base font-medium text-sky-950 hover:text-sky-700"
+                            >
+                                Dashboard
+                            </Link>
                             <Link
                                 to="/pricing"
                                 className="text-base font-medium text-sky-950 hover:text-sky-700"
@@ -89,7 +103,7 @@ const Navbar = () => {
                                     className="group bg-white rounded-md text-sky-950 inline-flex items-center text-base font-medium hover:text-sky-700"
                                     onClick={() => (setDropDown(!dropDown), setDropDownTwo(false))}
                                 >
-                                    <span>Explore</span>
+                                    <span>Feature launch</span>
                                     {/*
               Heroicon name: solid/chevron-down
 
@@ -134,20 +148,6 @@ const Navbar = () => {
                                     <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                                             <p className='text-xl antialiased underline underline-offset-4 decoration-sky-500'>For all your long trips:</p>
-                                            <Link
-                                                to="#"
-                                                className="-m-3 px-3 py-0 flex items-start rounded-lg hover:bg-gray-50"
-                                            >
-                                                <FaCarRear className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
-                                                <div className="ml-4">
-                                                    <p className="text-base font-medium text-gray-900">
-                                                        Cars
-                                                    </p>
-                                                    <p className="mt-1 text-sm text-gray-500">
-                                                        Choose the perfect car for your next road trip and enjoy the journey in comfort.
-                                                    </p>
-                                                </div>
-                                            </Link>
                                             <Link
                                                 to="#"
                                                 className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
@@ -346,14 +346,8 @@ const Navbar = () => {
                                     </div>
                                 </div>
                             </div>
-                            <p
-                                className="text-base font-medium text-sky-950 hover:text-sky-700"
-                                onClick={handleLogout}
-                            >
-                                Logout
-                            </p>
                         </nav>
-                        <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+                        <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 mr-0">
                             <Link to="/getStarted" className="relative inline-block text-lg group">
                                 <span className="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-transform ease-out border-2 border-sky-900 rounded-lg bg-gray-900 group-hover:mb-0 group-hover:mr-0 button_top">
                                     <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
@@ -364,6 +358,56 @@ const Navbar = () => {
                                 </span>
                                 <span className="absolute bottom-0 right-0 w-full h-5 -mt-2 -mb-1 bg-sky-900 rounded-lg" data-rounded="rounded-lg"></span>
                             </Link>
+                        </div>
+                        <div className="relative ml-0">
+                            {/* Avatar Button */}
+                            <img
+                                id="avatarButton"
+                                type="button"
+                                onClick={toggleDropdown}
+                                className="w-10 h-10 rounded-full cursor-pointer"
+                                src="/avatar.png"
+                                alt="User dropdown"
+                            />
+                            {/* Dropdown menu */}
+                            {dropdownOpen && (
+                                <div
+                                    id="userDropdown"
+                                    className="z-10 absolute right-0 bg-sky-950 divide-y divide-gray-100 rounded-lg shadow w-80 light:text-white light:bg-gray-700 light:divide-gray-600"
+                                >
+                                    <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                                        <div>{userDetails?.username}</div>
+                                        <div className="font-medium truncate">{userDetails?.email}</div>
+                                    </div>
+                                    <ul className="py-2 text-sm text-gray-700 dark:text-white">
+                                        <li>
+                                            <a
+                                                href="#"
+                                                className="block px-4 py-2  dark:hover:bg-sky-600 dark:hover:text-white"
+                                            >
+                                                Dashboard
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                href="#"
+                                                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-sky-600 dark:hover:text-white"
+                                            >
+                                                Settings
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div className="py-1">
+                                        <p
+                                            className="block text-sm px-4 py-2 text-white dark:hover:bg-sky-600"
+                                            onClick={handleLogout}
+                                            style={{ cursor: "pointer" }}
+                                        >
+                                            Logout
+                                        </p>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

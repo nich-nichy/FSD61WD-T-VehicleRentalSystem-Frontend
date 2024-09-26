@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const vehicleSlice = createSlice({
-    name: "vehicleShortner",
+    name: "vehicleSlicer",
     initialState: {
         vehicleData: {
             data: [],
             lastGeneratedData: [],
-            isNewOneAdded: false
+            isNewOneAdded: false,
+            currentBookingVehicle: null
         },
         utilityModel: {
             isModalOpen: false
@@ -32,8 +33,14 @@ const vehicleSlice = createSlice({
         setTotalAmount(state, action) {
             state.booking.totalAmount = action.payload;
         },
+        setVehicleData(state, action) {
+            state.vehicleData.data = action.payload;
+        },
+        setCurrentBookingVehicle(state, action) {
+            state.vehicleData.currentBookingVehicle = action.payload;
+        },
     },
 });
 
-export const { setNavbarToggle, setIsModalOpen, setSelectedDays, setSelectedDaysArr, setTotalAmount } = vehicleSlice.actions;
+export const { setVehicleData, setNavbarToggle, setIsModalOpen, setSelectedDays, setSelectedDaysArr, setTotalAmount, setCurrentBookingVehicle } = vehicleSlice.actions;
 export default vehicleSlice.reducer;
