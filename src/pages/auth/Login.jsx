@@ -50,7 +50,7 @@ const Login = () => {
                             try {
                                 const { data } = await axios.post(
                                     `${url}/login`,
-                                    { email: values.email, password: values.password },
+                                    { email: values.email, password: values.password, isAdmin: false },
                                     { withCredentials: true }
                                 );
                                 const { success, message, token } = data;
@@ -158,7 +158,7 @@ const Login = () => {
                         </p>
                     </div>
                     <hr />
-                    <div className="flex pt-3">
+                    <div className="flex justify-center align-center pt-3">
                         <p>Admin ?</p>
                         <label className="inline-flex items-center cursor-pointer px-2">
                             <input

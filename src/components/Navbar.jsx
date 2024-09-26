@@ -8,14 +8,26 @@ import { FaHandsHelping } from "react-icons/fa";
 import { TbCategory2 } from "react-icons/tb";
 import { FaLock } from "react-icons/fa";
 import { MdEvent } from "react-icons/md";
+import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import Cookies from "js-cookie";
+import Swal from 'sweetalert2';
 import '../styles/Navbar.css'
 
 const Navbar = () => {
     const [open, setOpen] = React.useState(false);
     const [dropDown, setDropDown] = React.useState(false);
     const [dropDownTwo, setDropDownTwo] = React.useState(false);
-
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        Swal.fire({
+            title: "Logged out",
+            text: "You have been logged out",
+            icon: "success"
+        });
+        Cookies.remove('token')
+        navigate("/login");
+    };
     return (
         <>
             <div className="relative bg-white">
@@ -334,6 +346,12 @@ const Navbar = () => {
                                     </div>
                                 </div>
                             </div>
+                            <p
+                                className="text-base font-medium text-sky-950 hover:text-sky-700"
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </p>
                         </nav>
                         <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
                             <Link to="/getStarted" className="relative inline-block text-lg group">

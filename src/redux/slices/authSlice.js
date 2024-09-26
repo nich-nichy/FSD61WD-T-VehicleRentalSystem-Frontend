@@ -9,7 +9,16 @@ const authSlice = createSlice({
             },
             user: {
                 isUser: false,
-            }
+                userDetails: {
+                    id: "",
+                    username: "",
+                    email: "",
+                    phone: "",
+                    address: "",
+                    profilePic: "",
+                    role: "",
+                }
+            },
         }
     },
     reducers: {
@@ -19,8 +28,11 @@ const authSlice = createSlice({
         setUser(state, action) {
             state.authData.user.isUser = action.payload;
         },
+        setUserDetails(state, action) {
+            state.authData.user.userDetails = action.payload;
+        }
     },
 });
 
-export const { setAdmin, setUser } = authSlice.actions;
+export const { setAdmin, setUser, setUserDetails } = authSlice.actions;
 export default authSlice.reducer;

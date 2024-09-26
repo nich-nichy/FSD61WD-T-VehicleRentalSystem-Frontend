@@ -18,6 +18,9 @@ const vehicleSlice = createSlice({
                 endDate: new Date(),
                 key: 'selection'
             }]
+        },
+        booking: {
+            totalAmount: 0
         }
     },
     reducers: {
@@ -34,8 +37,11 @@ const vehicleSlice = createSlice({
                 key: 'selection'
             }];
         },
+        setTotalAmount(state, action) {
+            state.booking.totalAmount = action.payload;
+        },
     },
 });
 
-export const { setNavbarToggle, setIsModalOpen, setSelectedDays, setSelectedDaysArr } = vehicleSlice.actions;
+export const { setNavbarToggle, setIsModalOpen, setSelectedDays, setSelectedDaysArr, setTotalAmount } = vehicleSlice.actions;
 export default vehicleSlice.reducer;

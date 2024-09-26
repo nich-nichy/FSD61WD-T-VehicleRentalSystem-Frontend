@@ -4,11 +4,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSelectedDays } from '../../redux/slices/vehicleSlice'
 import Model from '../../components/Utility-Components/Model'
 import DateRangeSelector from '../../components/DateRangeSelector';
+import { useVerifyToken } from '../../utils/VerifyRole';
+import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 import '../../styles/GetStarted.css'
+
+const url = import.meta.env.VITE_BACKEND_URL;
 
 const GetStarted = () => {
     const states = ['Tamilnadu'];
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { username, userEmail } = useVerifyToken();
     const showSelectedDays = useSelector((state) => state.vehicleShortner.dates.showSelectedDays);
     const showDates = useSelector((state) => state.vehicleShortner.dates.dateRange);
     console.log({ showDates });
@@ -57,18 +64,43 @@ const GetStarted = () => {
         console.log('Date range selected:', { dateRange }, { showDates });
     };
 
-    const handleGetStartedSubmit = () => {
+    console.log({
+        user: username,
+        email: userEmail,
+        state: selectedState,
+        city: selectedCity,
+        dateRange: dateRange[0] || dateRange
+    })
+
+    const handleGetStartedSubmit = async () => {
         // TODO: Make a call to save it
         try {
             if (selectedState?.length > 0 && selectedCity?.length > 0 && dateRange?.length > 0) {
-                const response = axios.post(``, {
-                    user: '1',
-                    email: '',
-                    state: selectedState,
-                    city: selectedCity,
-                    dateRange: dateRange
-                })
-                console.log(response)
+                const { data } = await axios.post(
+                    `${url}/booking/save-temp`,
+                    {
+                        user: username,
+                        email: userEmail,
+                        state: selectedState,
+                        city: selectedCity,
+                        dateRange: dateRange[0] || dateRange
+                    }
+                );
+                console.log({ data })
+                if (data?.message) {
+                    Swal.fire({
+                        title: "Success",
+                        text: data?.message,
+                        icon: "success"
+                    });
+                    setTimeout(() => navigate("/vehicles"), 1000);
+                }
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Fill all the fields",
+                    text: "Please make sure you selected all inputs",
+                });
             }
         } catch (error) {
             console.log(error);

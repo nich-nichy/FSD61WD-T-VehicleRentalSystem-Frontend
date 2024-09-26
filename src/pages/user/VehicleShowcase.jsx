@@ -1,13 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import '../../index.css'
 import CustomNavbar from '../../components/CustomNavbar';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setTotalAmount } from '../../redux/slices/vehicleSlice'
 
 const GetStarted = () => {
     const [selectedValue, setSelectedValue] = useState('');
     const [modelState, setModelState] = useState(false);
     const [showPromo, setShowPromo] = useState(true);
     const [vehicleModel, setVehicleModel] = useState(false);
+    const { id, username, userEmail } = useVerifyToken();
+    const dispatch = useDispatch();
+    const totalAmount = useSelector((state) => state.vehicleShortner.booking.totalAmount);
+    useEffect(() => {
+        const getPrice = async () => {
+            const { data } = await axios.get(
+                `${url}/booking/get-price/:id`
+            );
+            console.log({ data })
+            // setTotal
+            dispatch(setTotalAmount(data.price));
+        }
+        getPrice()
+    }, [])
 
     // Function to handle close button click
     const handleClose = () => {
@@ -199,7 +215,9 @@ const GetStarted = () => {
                                 <h2 className="text-2xl font-bold text-gray-800">Konigsegg</h2>
                                 <p className="text-sky-500 mb-2">Sport</p>
                                 <img src="" alt="Car" className="w-full h-40 bg-gray-200 mb-4" />
-                                <p className="text-lg font-semibold mb-4">$1500 / day</p>
+                                <div className=''>
+                                    <p className="text-lg text-center font-semibold mb-4">₹1500/day</p>
+                                </div>
                                 <div className="flex justify-between text-gray-600 mb-4">
                                     <p>90L</p>
                                     <p>Manual</p>
@@ -208,6 +226,10 @@ const GetStarted = () => {
                                 <button className="w-full bg-sky-500 text-white py-2 rounded-lg hover:bg-sky-600" onClick={() => setShowVehicleModel()}>
                                     Rent now
                                 </button>
+                                <div className='text-right'>
+                                    <p className="text-lg font-semibold my-3"><span className='text-sm'>Your total:</span> ₹{totalAmount}</p>
+                                    <span className='text-xs text-gray-500'>(Note: Tour total is based on selected dates)</span>
+                                </div>
                             </div>
                         ))}
                     </div>
