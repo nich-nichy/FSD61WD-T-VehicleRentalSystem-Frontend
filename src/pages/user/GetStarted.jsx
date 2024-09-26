@@ -22,6 +22,7 @@ const GetStarted = () => {
     console.log({ showDates });
     const [selectedState, setSelectedState] = useState('');
     const [selectedCity, setSelectedCity] = useState('');
+    const [didPreBooked, setDidPreBooked] = useState(null);
     const [cities, setCities] = useState([]);
     console.log({ cities })
     const [showModal, setShowModal] = useState(false);
@@ -65,6 +66,24 @@ const GetStarted = () => {
             getVehicles();
         }
     }, [])
+
+    useEffect(() => {
+        const checkPreBooked = async () => {
+            try {
+                const { data } = await axios.get(
+                    `${url}/booking/get-prebook`
+                );
+                console.log({ data }, 'prebook details')
+                setDidPreBooked(data.data);
+            } catch (error) {
+                console.error("Error fetching cities:", error);
+            }
+        };
+        if (selectedState?.length < 0 && selectedCity?.length < 0) {
+            checkPreBooked();
+        }
+    }, [])
+
 
 
     const handleStateChange = (e) => {
