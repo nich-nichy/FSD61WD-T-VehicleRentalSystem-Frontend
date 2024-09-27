@@ -11,6 +11,8 @@ const url = import.meta.env.VITE_BACKEND_URL;
 const VehicleShowcase = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+
     const vehicleData = useSelector((state) => state.vehicleSlice.vehicleData.data);
     const [selectedValue, setSelectedValue] = useState('');
     const [modelState, setModelState] = useState(false);
@@ -41,13 +43,6 @@ const VehicleShowcase = () => {
         setSelectedValue(e.target.value);
     };
 
-    const handleModel = (flag) => {
-        setModelState(flag);
-    }
-
-    const handleBookingForm = (data) => {
-
-    }
 
     const setShowVehicleModel = ({ id, vehicle }) => {
         setVehicleModel(true);

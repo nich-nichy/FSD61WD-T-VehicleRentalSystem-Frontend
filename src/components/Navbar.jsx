@@ -333,6 +333,7 @@ const Navbar = () => {
                                                     </li>
                                                 </ul>
                                             </div>
+
                                             <div className="mt-5 text-sm">
                                                 <Link
                                                     to="#"

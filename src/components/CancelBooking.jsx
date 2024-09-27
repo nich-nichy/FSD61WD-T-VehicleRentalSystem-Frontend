@@ -5,24 +5,36 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
 import { useVerifyToken } from '../utils/VerifyRole';
+import { useNavigate } from 'react-router-dom';
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
 const CancelBooking = () => {
     const { id } = useVerifyToken();
+    const navigate = useNavigate();
     const userDetails = useSelector((state) => state.authSlice?.authData.user.userDetails);
     const [bookingDetails, setBookingDetails] = useState([]);
     const [selectedBookingId, setSelectedBookingId] = useState('');
     const [selectedBooking, setSelectedBooking] = useState(null);
     const [currentBookingId, setCurrentBookingId] = useState('');
-
+    console.log(selectedBooking?._id)
     useEffect(() => {
         const getBookingDetails = async () => {
-            console.log('in')
-            if (id || userDetails?.userId && selectedBooking === null) {
-                const response = await axios.get(`${url}/booking/get-booking/${userDetails?.userId || id}`);
-                console.log(response?.data?.bookingInfo)
-                setBookingDetails(response?.data?.bookingInfo || []);
+            try {
+                console.log('in')
+                if ((id || userDetails?.userId) && (bookingDetails?.length === 0)) {
+                    const response = await axios.get(`${url}/booking/get-booking/${userDetails?.userId || id}`);
+                    console.log(response?.data?.bookingInfo)
+                    setBookingDetails(response?.data?.bookingInfo || []);
+                }
+            } catch (error) {
+                console.log(error);
+                Swal.fire({
+                    title: "Error",
+                    text: error?.response?.data?.message || "No bookings found",
+                    icon: "error"
+                });
+                navigate('/')
             }
         };
         getBookingDetails();
@@ -51,7 +63,7 @@ const CancelBooking = () => {
         validationSchema: Yup.object({
             bookingId: Yup.string().required('Please select a booking'),
         }),
-        onSubmit: values => {
+        onSubmit: async (values) => {
             console.log(values);
             if (!selectedBookingId) {
                 return Swal.fire({
@@ -60,18 +72,27 @@ const CancelBooking = () => {
                     icon: "error"
                 });
             }
-            axios.delete(`${url}/booking/cancel-booking/${selectedBookingId}`)
-                .then(response => {
-                    if (response?.data?.message) {
-                        Swal.fire({
-                            title: "Booking Cancelled",
-                            text: "You have cancelled your booking",
-                            icon: "success"
-                        });
-                    }
+
+            try {
+                const response = await axios.delete(`${url}/booking/cancel-booking/${selectedBookingId}`);
+                console.log(response);
+                Swal.fire({
+                    title: "Booking Cancelled",
+                    text: "You have cancelled your booking",
+                    icon: "success"
                 });
+                navigate('/')
+            } catch (error) {
+                console.error(error);
+                Swal.fire({
+                    title: "Error",
+                    text: error,
+                    icon: "error"
+                });
+            }
         },
     });
+
 
 
     return (
@@ -96,8 +117,8 @@ const CancelBooking = () => {
                         >
                             <option value="" disabled>Select a booking</option>
                             {bookingDetails.map((booking) => (
-                                <option key={booking._id} value={booking._id}>
-                                    {`Booking ID: ${booking._id}`}
+                                <option key={booking?._id} value={booking?._id}>
+                                    {`Booking ID: ${booking?._id}`}
                                 </option>
                             ))}
                         </select>
@@ -224,7 +245,7 @@ const CancelBooking = () => {
                     {/* Cancel Button */}
                     <div className="text-right">
                         <button
-                            type="button"
+                            type="submit"
                             className="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600 transition duration-300"
                         >
                             Cancel Booking
