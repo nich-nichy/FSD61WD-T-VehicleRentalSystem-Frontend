@@ -18,7 +18,8 @@ const BookVehicle = () => {
     console.log({ vehicleDetails })
     const [durationDays, setDurationDays] = useState(0);
     const [totalAmount, setTotalAmount] = useState(0);
-    console.log({ durationDays }, 'selected')
+    const [postBookingData, setPostBookingData] = useState({});
+    console.log(postBookingData, 'post booking data')
     useEffect(() => {
         const getPrice = async () => {
             try {
@@ -31,6 +32,7 @@ const BookVehicle = () => {
                     const endDate = new Date(data?.booking.endDate);
                     const timeDifference = endDate.getTime() - startDate.getTime();
                     const days = timeDifference / (1000 * 3600 * 24);
+                    setPostBookingData(data?.booking);
                     setDurationDays(days);
                 }
             } catch (error) {
@@ -72,11 +74,11 @@ const BookVehicle = () => {
         const bookingData = {
             userId: userDetails.id,
             vehicleId: vehicleDetails.id,
-            startDate: new Date(),
-            endDate: new Date(),
+            ...postBookingData,
             totalAmount: totalAmount,
-            status: 'pending',
+            didPaid: 'pending',
         };
+        console.log(bookingData, 'booking data')
         try {
             const { data } = await axios.put(
                 `${url}/booking/post-book`,
