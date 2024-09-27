@@ -246,7 +246,7 @@ const Navbar = () => {
                                     }
                                 >
                                     <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-                                        <div className="relative grid gap-6 bg-white px-5 py-6 pb-0 mb-0">
+                                        <div className="relative grid gap-6 bg-white px-5 py-6 pb-3 mb-0">
                                             <p className='text-xl antialiased underline underline-offset-4 decoration-sky-500'>We hold the trust:</p>
                                             <Link
                                                 to="#"
@@ -259,21 +259,6 @@ const Navbar = () => {
                                                     </p>
                                                     <p className="mt-1 text-sm text-gray-500">
                                                         Find answers to all your vehicle rental questions or reach out to our support team for assistance.
-                                                    </p>
-                                                </div>
-                                            </Link>
-
-                                            <Link
-                                                to="#"
-                                                className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
-                                            >
-                                                <FaLock className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
-                                                <div className="ml-4">
-                                                    <p className="text-base font-medium text-gray-900">
-                                                        Security
-                                                    </p>
-                                                    <p className="mt-1 text-sm text-gray-500">
-                                                        Learn how we protect your personal information and ensure a safe rental experience.
                                                     </p>
                                                 </div>
                                             </Link>
@@ -308,41 +293,24 @@ const Navbar = () => {
                                             </Link>
 
                                         </div>
-
-                                        <div className="px-5 py-5 mt-0 pt-0 bg-gray-50 sm:px-8 sm:py-8">
-                                            <div>
-                                                <h3 className="text-sm tracking-wide font-medium text-gray-500 uppercase">
-                                                    Recent Posts
-                                                </h3>
-                                                <ul className="mt-4 space-y-4">
-                                                    <li className="text-base truncate">
-                                                        <Link
-                                                            to="#"
-                                                            className="font-medium text-gray-900 hover:text-gray-700"
-                                                        >
-                                                            Vehicle rental system is loved by many people in Tamilnadu.
-                                                        </Link>
-                                                    </li>
-                                                    <li className="text-base truncate">
-                                                        <Link
-                                                            to="#"
-                                                            className="font-medium text-gray-900 hover:text-gray-700"
-                                                        >
-                                                            How to use fast track for Vehicle rental system vehicles
-                                                        </Link>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                            <div className="mt-5 text-sm">
-                                                <Link
-                                                    to="#"
-                                                    className="font-medium text-sky-600 hover:text-sky-500"
-                                                >
-                                                    {" "}
-                                                    View all posts <span aria-hidden="true">→</span>
-                                                </Link>
-                                            </div>
+                                        <div className="relative grid gap-6 bg-sky-800 text-white px-5 pt-3 pb-6 mb-0">
+                                            <h3 className="text-sm tracking-wide font-medium uppercase underline decoration-white">
+                                                Admin Center
+                                            </h3>
+                                            <Link
+                                                to="/admin-login"
+                                                className="-m-3 p-3 flex items-start rounded-lg hover:bg-sky-400"
+                                            >
+                                                <FaHandsHelping className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
+                                                <div className="ml-4">
+                                                    <p className="text-base font-medium text-gray-200">
+                                                        Admin ?
+                                                    </p>
+                                                    <p className="mt-1 text-sm text-gray-300">
+                                                        Are you a admin, Login here.
+                                                    </p>
+                                                </div>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -594,12 +562,7 @@ const Navbar = () => {
                                 >
                                     Guides
                                 </Link>
-                                <Link
-                                    to="#"
-                                    className="text-base font-medium text-gray-900 hover:text-gray-700"
-                                >
-                                    Security
-                                </Link>
+
                                 <Link
                                     to="#"
                                     className="text-base font-medium text-gray-900 hover:text-gray-700"

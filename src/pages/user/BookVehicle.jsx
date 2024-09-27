@@ -58,6 +58,13 @@ const BookVehicle = () => {
         }
     }, [])
 
+    const postBook = () => {
+        const postBook = axios.put(
+            `${url}/booking/post-book`,
+            bookingData
+        );
+        console.log({ postBook })
+    }
 
     console.log({ totalAmount })
 

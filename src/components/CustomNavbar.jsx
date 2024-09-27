@@ -26,9 +26,6 @@ const CustomNavbar = () => {
     const navigate = useNavigate();
     const curreltUrl = window.location.href;
     console.log(curreltUrl.includes("vehicles"))
-    const updateBooking = () => {
-
-    }
 
     const cancelBooking = () => {
         navigate('/cancel-booking')
@@ -125,19 +122,7 @@ const CustomNavbar = () => {
                         >
                             <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                                 <div className="relative grid gap-6 bg-white px-5 py-6 pb-0 mb-0">
-                                    <p
-                                        className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
-                                    >
-                                        <FaHandsHelping className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
-                                        <div className="ml-4">
-                                            <p className="text-base font-medium text-gray-900">
-                                                Change Booking Date ?
-                                            </p>
-                                            <p className="mt-1 text-sm text-gray-500">
-                                                Want to change dates, Click here
-                                            </p>
-                                        </div>
-                                    </p>
+
                                     <p
                                         className="-m-3 p-3 mb-3 flex items-start rounded-lg hover:bg-gray-50"
                                         onClick={() => cancelBooking()}
