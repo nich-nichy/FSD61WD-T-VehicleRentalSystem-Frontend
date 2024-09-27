@@ -12,6 +12,7 @@ import ProtectedRoute from './ProtectedRoute';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import Dashboard from './pages/user/Dashboard';
 import BookVehicle from './pages/user/BookVehicle';
+import CancelBooking from './components/CancelBooking';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route exact path="/signup" element={<SignUp />} />
           <Route exact path="/book-vehicle/:id" element={<BookVehicle />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="//cancel-booking" element={<CancelBooking />} />
           {/*<Route exact path="/request-password-reset" element={<RequestPassword />} />
           <Route exact path="/info" element={<Info />} />
           <Route exact path="/reset-password/:token" element={<ResetPassword />} /> */}

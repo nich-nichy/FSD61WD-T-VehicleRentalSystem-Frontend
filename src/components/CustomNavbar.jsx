@@ -1,5 +1,9 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { setUserDetails } from '../redux/slices/authSlice'
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { FaCarRear } from "react-icons/fa6";
 import { RiMotorbikeFill } from "react-icons/ri";
@@ -9,21 +13,25 @@ import { FaHandsHelping } from "react-icons/fa";
 import { TbCategory2 } from "react-icons/tb";
 import { FaLock } from "react-icons/fa";
 import { MdEvent } from "react-icons/md";
-import { useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import Cookies from "js-cookie";
 import Swal from 'sweetalert2';
 import { FaUserAlt } from "react-icons/fa";
+
+const url = import.meta.env.VITE_BACKEND_URL;
 
 const CustomNavbar = () => {
     const [dropDown, setDropDown] = React.useState(false);
     const [dropDownTwo, setDropDownTwo] = React.useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [dropdown, setDropdown] = useState(false);
+    const navigate = useNavigate();
+    const updateBooking = () => {
 
-    const toggleDropdown = () => {
-        setDropdownOpen(!dropdownOpen);
-    };
+    }
+
+    const cancelBooking = () => {
+        navigate('/cancel-booking')
+    }
+
     return (
         <div className="max-w-full mx-auto px-4 sm:px-6">
             <div className="flex justify-between items-center border-b-2 border-gray-100 py-3 md:justify-start md:space-x-10">
@@ -115,23 +123,22 @@ const CustomNavbar = () => {
                         >
                             <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                                 <div className="relative grid gap-6 bg-white px-5 py-6 pb-0 mb-0">
-                                    <Link
-                                        to="#"
+                                    <p
                                         className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                                     >
                                         <FaHandsHelping className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
                                         <div className="ml-4">
                                             <p className="text-base font-medium text-gray-900">
-                                                Change Data ?
+                                                Change Booking Date ?
                                             </p>
                                             <p className="mt-1 text-sm text-gray-500">
                                                 Want to change dates, Click here
                                             </p>
                                         </div>
-                                    </Link>
-                                    <Link
-                                        to="#"
+                                    </p>
+                                    <p
                                         className="-m-3 p-3 mb-3 flex items-start rounded-lg hover:bg-gray-50"
+                                        onClick={() => cancelBooking()}
                                     >
                                         <FaLock className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
                                         <div className="ml-4">
@@ -142,7 +149,7 @@ const CustomNavbar = () => {
                                                 Change in plan, No worries we check for pre booking and post booking, if you paid, it will be refunded in 3-4 business days.
                                             </p>
                                         </div>
-                                    </Link>
+                                    </p>
                                 </div>
                             </div>
                         </div>

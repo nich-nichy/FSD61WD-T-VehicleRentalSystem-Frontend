@@ -119,24 +119,6 @@ const VehicleShowcase = () => {
                         </form>
                     </div>
 
-                    {/* Rental Type */}
-                    <div>
-                        <p className="font-semibold mb-2">Rental Type</p>
-                        <div className="flex space-x-4">
-                            <button className="bg-sky-500 text-white px-4 py-2 rounded-lg hover:bg-sky-600">Day</button>
-                            <button className="bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300">Month</button>
-                        </div>
-                    </div>
-
-                    {/* Vehicle Type */}
-                    <div>
-                        <p className="font-semibold mb-2">Vehicle Type</p>
-                        <div className="flex space-x-4">
-                            <button className="bg-sky-500 text-white px-4 py-2 rounded-lg hover:bg-sky-600">Car</button>
-                            <button className="bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300">Truck</button>
-                        </div>
-                    </div>
-
                     {/* Car Type (If car is selected) */}
                     <div>
                         <p className="font-semibold mb-2">Car Type</p>
