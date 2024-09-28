@@ -18,7 +18,8 @@ const vehicleSlice = createSlice({
         },
         booking: {
             totalAmount: 0,
-            bookingMode: 'create'
+            bookingMode: 'create',
+            bookingData: null
         }
     },
     reducers: {
@@ -42,9 +43,12 @@ const vehicleSlice = createSlice({
         },
         setBookingMode(state, action) {
             state.booking.bookingMode = action.payload;
-        }
+        },
+        setBookingData(state, action) {
+            state.booking.bookingData = action.payload;
+        },
     },
 });
 
-export const { setVehicleData, setNavbarToggle, setIsModalOpen, setSelectedDays, setSelectedDaysArr, setTotalAmount, setCurrentBookingVehicle, setBookingMode } = vehicleSlice.actions;
+export const { setVehicleData, setNavbarToggle, setIsModalOpen, setSelectedDays, setSelectedDaysArr, setTotalAmount, setCurrentBookingVehicle, setBookingMode, setBookingData } = vehicleSlice.actions;
 export default vehicleSlice.reducer;

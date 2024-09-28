@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import CustomNavbar from '../../components/CustomNavbar';
 import axios from 'axios'
+import Cookies from "js-cookie";
+import Swal from 'sweetalert2';
 import { useVerifyToken } from '../../utils/VerifyRole';
 import { setTotalAmount } from '../../redux/slices/vehicleSlice'
 
@@ -14,17 +16,15 @@ const BookVehicle = () => {
     const { id } = useVerifyToken();
     const vehicleDetails = useSelector((state) => state.vehicleSlice.vehicleData.currentBookingVehicle);
     const userDetails = useSelector((state) => state.authSlice.authData.user.userDetails);
-    console.log(params.id);
-    console.log({ vehicleDetails })
     const [durationDays, setDurationDays] = useState(0);
     const [totalAmount, setTotalAmount] = useState(0);
     const [postBookingData, setPostBookingData] = useState({});
-    console.log(postBookingData, 'post booking data')
+    console.log({ id: userDetails?.id }, "checking user id")
     useEffect(() => {
         const getPrice = async () => {
             try {
                 const { data } = await axios.get(
-                    `${url}/booking/get-price/${id || userDetails.id}`
+                    `${url}/booking/get-price/${userDetails?.id}`
                 );
                 console.log({ data });
                 if (data?.booking.startDate && data?.booking.endDate) {
@@ -60,34 +60,60 @@ const BookVehicle = () => {
         }
     }, [])
 
-    const postBook = () => {
-        const postBook = axios.put(
-            `${url}/booking/post-book`,
-            bookingData
-        );
-        console.log({ postBook })
-    }
-
-    console.log({ totalAmount })
-
+    // const bookingObject = {
+    //     bookingId: postBookingData?._id,
+    //     userId: userDetails?.id,
+    //     totalAmount: vehicleDetails?.pricePerDay * durationDays,
+    //     didPaid: 'pending',
+    //     ...postBookingData,
+    //     vehicleId: vehicleDetails?._id, 
+    // };
+    // console.log({ bookingObject });
+    // console.log(vehicleDetails?._id, 'vehicle ma')
     const handleBooking = async () => {
+        Swal.fire({
+            title: "Payment Initiated 🚀",
+            html: "I will close in <b></b> milliseconds.",
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading();
+                const timer = Swal.getPopup().querySelector("b");
+                timerInterval = setInterval(() => {
+                    timer.textContent = `${Swal.getTimerLeft()}`;
+                }, 100);
+            },
+            willClose: () => {
+                clearInterval(timerInterval);
+            }
+        }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer) {
+                console.log("I was closed by the timer");
+            }
+        });
         const bookingData = {
-            userId: userDetails.id,
-            vehicleId: vehicleDetails.id,
-            ...postBookingData,
-            totalAmount: totalAmount,
+            bookingId: postBookingData?._id,
+            userId: userDetails?.id,
+            totalAmount: vehicleDetails?.pricePerDay * durationDays,
             didPaid: 'pending',
+            ...postBookingData,
+            vehicleId: vehicleDetails?._id,
         };
-        console.log(bookingData, 'booking data')
+        // cookie set 
+        Cookies.set("bookingData", JSON.stringify(bookingData));
         try {
-            const { data } = await axios.put(
-                `${url}/booking/post-book`,
-                bookingData
-            );
-            console.log({ data });
-            dispatch(setTotalAmount(totalAmount));
-            navigate('/booking-success');
+            const { data } = await axios.post(
+                `${url}/payment/booking-payment`, { amount: totalAmount });
+            console.log({ data }, "from payment");
+            let timerInterval;
+
+            window.location.href = data?.approvalLink
         } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Payment unsuccessfull',
+            });
             console.error("Error creating booking:", error);
         }
     }
@@ -134,15 +160,15 @@ const BookVehicle = () => {
                                     <span className='font-semibold'>Year:</span> {vehicleDetails?.year}<br />
                                     {/* Mileage: {vehicleDetails?.mileage ? vehicleDetails?.mileage : ""}<br /> */}
                                     <span className='font-semibold'>Features:</span> Manual transmission, GPS <br />
-                                    <span className='font-semibold'>Unique Selling Points:</span> Recent maintenance, Excellent fuel efficiency</p>
+                                    <span className='font-semibold'>USP:</span> Recent maintenance, Excellent fuel efficiency</p>
                                 <div className='w-56'>
                                     <span className="flex text-2xl ml-3 pl-3 py-2 border-l-2">
-                                        ₹{vehicleDetails?.pricePerDay} / day
+                                        ${vehicleDetails?.pricePerDay} / day
                                     </span>
                                 </div>
                             </div>
                             <div className="flex">
-                                <span className="title-font font-medium text-2xl text-gray-900">₹{totalAmount ? totalAmount : ''}</span>
+                                <span className="title-font font-medium text-2xl text-gray-900">${totalAmount ? totalAmount : ''}</span>
                                 <button className="flex ml-auto text-white bg-sky-500 border-0 py-2 px-6 focus:outline-none hover:bg-sky-600 rounded" onClick={handleBooking}>Confirm and Pay</button>
                                 <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                                     <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">

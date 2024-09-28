@@ -87,31 +87,24 @@ const Explainer = () => {
                     <div className="flex flex-wrap -mx-4 mt-auto mb-auto lg:w-1/2 sm:w-2/3 content-start sm:pr-10">
                         <div className="w-full sm:p-4 px-4 mb-6">
                             <h1 className="font-semibold text-4xl mb-4 text-white">Happy customers are our driving force</h1>
-                            <ul class="list-disc px-10 py-5">
+                            <ul className="list-disc px-10 py-5">
                                 <li className="leading-relaxed text-xl text-gray-200">Our fleet boasts a diverse array of vehicles, catering to every preference and occasion.</li>
                                 <li className="leading-relaxed text-xl text-gray-200">We have happy customers as well. We are happy to share what is us.</li>
                             </ul>
                         </div>
                         <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                            <h2 className="title-font font-medium text-3xl text-white">10+</h2>
+                            <h2 className="title-font font-medium text-3xl text-white">1+</h2>
                             <p className="leading-relaxed text-gray-300">Users</p>
                         </div>
                         <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                            <h2 className="title-font font-medium text-3xl text-white">100+</h2>
-                            <p className="leading-relaxed text-gray-300">Vehicles</p>
+                            <h2 className="title-font font-medium text-3xl text-white">10+</h2>
+                            <p className="leading-relaxed text-gray-300">Total Count</p>
                         </div>
                         <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                            <h2 className="title-font font-medium text-3xl text-white">237</h2>
-                            <p className="leading-relaxed text-gray-300">Cars & Small trucks</p>
+                            <h2 className="title-font font-medium text-3xl text-white">10+</h2>
+                            <p className="leading-relaxed text-gray-300">Cars</p>
                         </div>
-                        <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                            <h2 className="title-font font-medium text-3xl text-white">10</h2>
-                            <p className="leading-relaxed text-gray-300">Bikes</p>
-                        </div>
-                        <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                            <h2 className="title-font font-medium text-3xl text-white">40</h2>
-                            <p className="leading-relaxed text-gray-300">Heavy vehicles</p>
-                        </div>
+
                         <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
                             <h2 className="title-font font-medium text-3xl text-white">400+</h2>
                             <p className="leading-relaxed text-gray-300">Upcoming vehicles</p>

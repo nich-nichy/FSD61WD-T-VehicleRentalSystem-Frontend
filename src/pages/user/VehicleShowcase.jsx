@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import '../../index.css'
+import Swal from 'sweetalert2'
+
 import CustomNavbar from '../../components/CustomNavbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setVehicleData, setCurrentBookingVehicle } from '../../redux/slices/vehicleSlice'
+import { setVehicleData, setCurrentBookingVehicle, setBookingMode, setBookingData } from '../../redux/slices/vehicleSlice'
+import { useVerifyToken } from '../../utils/VerifyRole';
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
 const VehicleShowcase = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-
+    const { id } = useVerifyToken()
     const vehicleData = useSelector((state) => state.vehicleSlice.vehicleData.data);
     const [selectedValue, setSelectedValue] = useState('');
     const [modelState, setModelState] = useState(false);
     const [showPromo, setShowPromo] = useState(true);
     const [vehicleModel, setVehicleModel] = useState(false);
+    const [alreadyBooked, setAlreadyBooked] = useState([]);
     const userDetails = useSelector((state) => state.authSlice.authData.user.userDetails);
     const totalAmount = useSelector((state) => state.vehicleSlice.booking.totalAmount);
     useEffect(() => {
@@ -25,14 +28,44 @@ const VehicleShowcase = () => {
             const { data } = await axios.get(
                 `${url}/vehicle/get-all`
             );
-            setVehicleData(data?.vehicles);
-            console.log({ data });
-            dispatch(setVehicleData(data?.vehicles));
+            const filteredVehicles = data?.vehicles?.filter(vehicle => {
+                if (vehicle.vehicleStatus && vehicle.vehicleStatus.available === false) {
+                    return false;
+                }
+                return true;
+            });
+            console.log(filteredVehicles)
+            console.log({ fullData: data?.vehicles })
+            dispatch(setVehicleData(filteredVehicles));
+            setVehicleData(filteredVehicles);
         }
         if (vehicleData && vehicleData?.length === 0) {
             getVehicles()
         }
     }, [])
+    console.log({ userDetails }, "from showcase")
+    console.log({ alreadyBooked }, "from showcase")
+    useEffect(() => {
+        const getBookings = async () => {
+            try {
+                const { data } = await axios.get(
+                    `${url}/booking/get-booking/${userDetails?.id}`
+                );
+                console.log({ data: data?.bookingInfo }, 'prebook details')
+                console.log({ d1: data?.bookingInfo[0].startDate, d2: data?.bookingInfo[0].endDate, d3: data?.bookingInfo[0]?.totalAmount })
+                if (data?.bookingInfo[0].startDate && data?.bookingInfo[0].endDate && data?.bookingInfo[0].totalAmount) {
+                    console.log('inside');
+                    setAlreadyBooked(data?.bookingInfo[0]);
+                    dispatch(setBookingData(data?.bookingInfo[0]))
+                }
+            } catch (error) {
+                console.error("Error fetching cities:", error);
+            }
+        };
+        if (userDetails?.username?.length > 0) {
+            getBookings();
+        }
+    }, [userDetails])
 
     // Function to handle close button click
     const handleClose = () => {
@@ -43,16 +76,32 @@ const VehicleShowcase = () => {
         setSelectedValue(e.target.value);
     };
 
-
     const setShowVehicleModel = ({ id, vehicle }) => {
+        console.log({ alreadyBooked, len: alreadyBooked?.length > 0 })
+        if (alreadyBooked && alreadyBooked?.totalAmount > 0) {
+            Swal.fire({
+                title: "You have already rented a Car! Want to rent more from us?",
+                showDenyButton: true,
+                confirmButtonText: "Yes",
+                denyButtonText: `View Details`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire("Cool let's go 🚀!", "", "success");
+                    // FIXME: Change mode to addMore
+                    dispatch(setBookingMode("addMore"))
+                    navigate('/getStarted')
+                } else if (result.isDenied) {
+                    Swal.fire("Ok check bookings", "", "info");
+                    navigate('/dashboard')
+                }
+            });
+        }
         setVehicleModel(true);
         dispatch(setCurrentBookingVehicle(vehicle));
         navigate(`/book-vehicle/${id}`);
     }
-
     const handleSearch = () => {
         e.preventDefault();
-        // Handle search logic here
         console.log("Searching for:", searchTerm);
     }
     const [searchTerm, setSearchTerm] = useState('');
@@ -202,7 +251,7 @@ const VehicleShowcase = () => {
                                 <p className="text-sky-500 mb-2">{vehicle.type}</p>
                                 <img src="" alt="Car" className="w-full h-40 bg-gray-200 mb-4" />
                                 <div className=''>
-                                    <p className="text-xl underline text-center font-semibold mb-4">₹{vehicle.pricePerDay}/day</p>
+                                    <p className="text-xl underline text-center font-semibold mb-4">${vehicle.pricePerDay}/day</p>
                                 </div>
                                 <div className="flex justify-between text-gray-600 mb-4">
                                     <p>Manual</p>

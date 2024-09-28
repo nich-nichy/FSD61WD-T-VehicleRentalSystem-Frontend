@@ -13,6 +13,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import Dashboard from './pages/user/Dashboard';
 import BookVehicle from './pages/user/BookVehicle';
 import CancelBooking from './components/CancelBooking';
+import CompleteBooking from './components/CompleteBooking';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route exact path="/book-vehicle/:id" element={<BookVehicle />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/cancel-booking" element={<CancelBooking />} />
+          <Route path="/complete-order" element={<CompleteBooking />} />
           {/*<Route exact path="/request-password-reset" element={<RequestPassword />} />
           <Route exact path="/info" element={<Info />} />
           <Route exact path="/reset-password/:token" element={<ResetPassword />} /> */}

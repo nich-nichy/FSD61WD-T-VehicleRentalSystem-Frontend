@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { useSelector, useDispatch } from "react-redux";
-import { setSelectedDays } from '../../redux/slices/vehicleSlice'
+import { setSelectedDays, setBookingMode } from '../../redux/slices/vehicleSlice'
 import Model from '../../components/Utility-Components/Model'
 import DateRangeSelector from '../../components/DateRangeSelector';
 import { useVerifyToken } from '../../utils/VerifyRole';
@@ -19,6 +19,7 @@ const GetStarted = () => {
     const showSelectedDays = useSelector((state) => state.vehicleSlice?.dates.showSelectedDays);
     const showDates = useSelector((state) => state.vehicleSlice?.dates?.dateRange);
     const userDetails = useSelector((state) => state.authSlice?.authData.user.userDetails);
+    const currentMode = useSelector((state) => state.vehicleSlice?.booking.bookingMode);
     console.log({ showDates });
     const [selectedState, setSelectedState] = useState('');
     const [selectedCity, setSelectedCity] = useState('');
@@ -32,7 +33,7 @@ const GetStarted = () => {
         key: 'selection'
     }]);
     // const [vehicles, setVehicles] = useState([]);
-
+    console.log({ currentMode })
     useEffect(() => {
         const checkPreBooked = async () => {
             try {
@@ -48,7 +49,7 @@ const GetStarted = () => {
                 console.error("Error fetching cities:", error);
             }
         };
-        if (username?.length > 0 && selectedState.length <= 0 && selectedCity.length <= 0) {
+        if ((username?.length > 0 && selectedState.length <= 0 && selectedCity.length <= 0) && (currentMode !== "addMore")) {
             checkPreBooked();
         }
     }, [username || ''])
@@ -129,17 +130,31 @@ const GetStarted = () => {
                         city: selectedCity,
                         startDate: showDates?.startDate,
                         endDate: showDates?.endDate,
+                        mode: "addMore"
                     }
                 );
+                dispatch(setBookingMode("create"))
                 console.log({ data })
-                if (data?.message) {
-                    Swal.fire({
-                        title: "Success",
-                        text: data?.message,
-                        icon: "success"
-                    });
-                    setTimeout(() => navigate("/vehicles"), 1000);
+                if (data?.mode === "addMore") {
+                    if (data?.message) {
+                        Swal.fire({
+                            title: "Thanks for your Interest",
+                            text: data?.message,
+                            icon: "success"
+                        });
+                        setTimeout(() => navigate("/dashboard"), 1000);
+                    }
+                } else {
+                    if (data?.message) {
+                        Swal.fire({
+                            title: "Success",
+                            text: data?.message,
+                            icon: "success"
+                        });
+                        setTimeout(() => navigate("/vehicles"), 1000);
+                    }
                 }
+
             } else {
                 Swal.fire({
                     icon: "error",
