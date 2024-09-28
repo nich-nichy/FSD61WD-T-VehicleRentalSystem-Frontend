@@ -5,9 +5,8 @@ const Comments = ({ comments }) => {
 
     const handleCommentSubmit = (e) => {
         e.preventDefault();
-        // Add logic to submit the new comment
         console.log("New Comment:", newComment);
-        setNewComment(''); // Clear input after submission
+        setNewComment('');
     };
 
     return (

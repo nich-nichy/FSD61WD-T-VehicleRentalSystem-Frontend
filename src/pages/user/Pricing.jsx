@@ -1,16 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
-import { FaArrowAltCircleRight } from "react-icons/fa";
 import '../../index.css'
 import GameLikeButton from '../../components/Utility-Components/GameLikeButton';
 
 const Pricing = () => {
     return (
         <>
-            {/* <div>
-                <CustomNavbar />
-            </div> */}
-            <div className="font-opensans min-h-screen bg-sky-600 text-white flex flex-col items-center p-6">
+            <div className="font-opensans min-h-screen bg-sky-600 text-white flex flex-col items-center pt-12 p-6">
                 {/* Title */}
                 <h1 className="text-4xl underline font-bold text-white mb-6 text-center">
                     We have the best Pricing for Vehicle Rentals

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUserDetails } from '../redux/slices/authSlice'
 
 const url = import.meta.env.VITE_BACKEND_URL;
@@ -38,15 +38,6 @@ export const useVerifyToken = () => {
                 );
                 console.log("User verified", data);
                 if (data.status) {
-                    console.log({
-                        id: data.id,
-                        username: data.user,
-                        email: data.email,
-                        phone: data.phone || "",
-                        address: data.address || "",
-                        profilePic: data.profilePic || "",
-                        role: data.role || "user",
-                    }, 'user geezer')
                     setTempData({
                         id: data.id,
                         username: data.user,

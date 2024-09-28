@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom'
 import Cookies from "js-cookie";
 import Swal from 'sweetalert2';
 import '../styles/Navbar.css'
-import { FaUserAlt } from "react-icons/fa";
 
 const Navbar = () => {
     const [open, setOpen] = React.useState(false);
