@@ -103,6 +103,7 @@ const BookVehicle = () => {
                 title: 'Oops...',
                 text: 'Payment unsuccessfull',
             });
+            navigate("/404")
             console.error("Error creating booking:", error);
         }
     }

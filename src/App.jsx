@@ -21,6 +21,7 @@ import ReviewPage from './components/Reviews';
 import RequestPassword from './pages/user/RequestPassword';
 import ResetPassword from './pages/user/ResetPassword';
 import Info from './pages/user/Info'
+import Error from './pages/auth/Error';
 
 function App() {
   const posts = [
@@ -49,6 +50,7 @@ function App() {
           <Route exact path="/info" element={<Info />} />
           <Route exact path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/reviews" element={<ReviewPage />} />
+          <Route path="/404" element={<Error />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/admin" element={<ProtectedRoute element={AdminDashboard} roles={['admin']} />} />
         </Routes>

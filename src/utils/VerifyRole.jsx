@@ -25,6 +25,7 @@ export const useVerifyToken = () => {
 
     useEffect(() => {
         const verifyCookie = async () => {
+            Cookies.remove("adminToken")
             if (!userToken) {
                 console.log("No token found!");
                 navigate("/login");

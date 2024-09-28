@@ -157,25 +157,6 @@ const Login = () => {
                             </a>
                         </p>
                     </div>
-                    <hr />
-                    <div className="flex justify-center align-center pt-3">
-                        <p>Admin ?</p>
-                        <label className="inline-flex items-center cursor-pointer px-2">
-                            <input
-                                type="checkbox"
-                                className="sr-only peer"
-                                checked={isChecked}
-                                onChange={handleAdminChange}
-                            />
-                            <div
-                                className={`relative w-11 h-6 bg-gray-200 rounded-full transition-colors peer-focus:ring-4 peer-focus:ring-sky-300 dark:bg-gray-700 dark:peer-focus:ring-sky-800 ${isChecked ? 'peer-checked:bg-sky-600' : ''}`}
-                            >
-                                <div
-                                    className={`absolute top-0.5 left-0 bg-white border border-gray-300 rounded-full h-5 w-5 transition-transform duration-300 ${isChecked ? 'translate-x-5' : 'translate-x-0'} dark:border-gray-600`}
-                                />
-                            </div>
-                        </label>
-                    </div>
                 </div>
             </div>
         </div>
