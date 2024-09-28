@@ -36,6 +36,8 @@ const Dashboard = () => {
         };
         if (userDetails?.username?.length > 0 && !checkBookingInRedux) {
             getBookingHistory();
+        } else {
+            setBookingData(checkBookingInRedux);
         }
     }, [userDetails, checkBookingInRedux])
     console.log({ bookingData, checkBookingInRedux, userDetails })

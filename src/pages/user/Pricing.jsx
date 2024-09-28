@@ -10,9 +10,9 @@ const Pricing = () => {
             {/* <div>
                 <CustomNavbar />
             </div> */}
-            <div className="min-h-screen bg-sky-600 text-white flex flex-col items-center p-6 font-opensans">
+            <div className="font-opensans min-h-screen bg-sky-600 text-white flex flex-col items-center p-6">
                 {/* Title */}
-                <h1 className="text-3xl font-bold text-white mb-6 text-center">
+                <h1 className="text-4xl underline font-bold text-white mb-6 text-center">
                     We have the best Pricing for Vehicle Rentals
                 </h1>
                 <p className="text-lg text-white mb-12 text-center">
@@ -22,7 +22,7 @@ const Pricing = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl w-full">
                     {/* Classic Vehicle Card */}
                     <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center text-center">
-                        <h2 className="text-2xl font-semibold mb-2 text-gray-800">Classic Cars</h2>
+                        <h2 className="text-3xl font-bold mb-2 text-gray-800">Classic Cars</h2>
                         <p className="text-gray-600 mb-4">Includes Sedan, SUV, Coupe, MPV, Hatchback</p>
                         <p className="text-lg text-gray-800">Starts from</p>
                         <p className="text-2xl font-bold text-gray-800 mb-6"> $1500 / Day</p>
@@ -37,7 +37,7 @@ const Pricing = () => {
 
                     {/* Sports Vehicle Card */}
                     <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center text-center">
-                        <h2 className="text-2xl font-semibold mb-2 text-gray-800">Sports Cars</h2>
+                        <h2 className="text-3xl font-bold mb-2 text-gray-800">Sports Cars</h2>
                         <p className="text-gray-600 mb-4">Premium high-performance cars</p>
                         <p className="text-lg text-gray-800">Starts from</p>
                         <p className="text-2xl font-bold text-gray-800 mb-6">$2500 / Day</p>

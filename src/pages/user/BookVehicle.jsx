@@ -60,17 +60,8 @@ const BookVehicle = () => {
         }
     }, [])
 
-    // const bookingObject = {
-    //     bookingId: postBookingData?._id,
-    //     userId: userDetails?.id,
-    //     totalAmount: vehicleDetails?.pricePerDay * durationDays,
-    //     didPaid: 'pending',
-    //     ...postBookingData,
-    //     vehicleId: vehicleDetails?._id, 
-    // };
-    // console.log({ bookingObject });
-    // console.log(vehicleDetails?._id, 'vehicle ma')
     const handleBooking = async () => {
+        let timerInterval;
         Swal.fire({
             title: "Payment Initiated 🚀",
             html: "I will close in <b></b> milliseconds.",
@@ -99,13 +90,11 @@ const BookVehicle = () => {
             ...postBookingData,
             vehicleId: vehicleDetails?._id,
         };
-        // cookie set 
         Cookies.set("bookingData", JSON.stringify(bookingData));
         try {
             const { data } = await axios.post(
-                `${url}/payment/booking-payment`, { amount: totalAmount });
+                `${url}/payment/booking-payment`, { amount: totalAmount, bookingData });
             console.log({ data }, "from payment");
-            let timerInterval;
 
             window.location.href = data?.approvalLink
         } catch (error) {

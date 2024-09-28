@@ -5,16 +5,8 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserDetails } from '../redux/slices/authSlice'
 import { FaArrowAltCircleRight } from "react-icons/fa";
-import { FaCarRear } from "react-icons/fa6";
-import { RiMotorbikeFill } from "react-icons/ri";
-import { FaTruck } from "react-icons/fa"
-import { GiHeavyLightning } from "react-icons/gi";
-import { FaHandsHelping } from "react-icons/fa";
-import { TbCategory2 } from "react-icons/tb";
 import { FaLock } from "react-icons/fa";
-import { MdEvent } from "react-icons/md";
 import Swal from 'sweetalert2';
-import { FaUserAlt } from "react-icons/fa";
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
@@ -32,7 +24,7 @@ const CustomNavbar = () => {
     }
 
     return (
-        <div className="max-w-full mx-auto px-4 sm:px-6">
+        <div className="font-opensans max-w-full mx-auto px-4 sm:px-6">
             <div className="flex justify-between items-center border-b-2 border-gray-100 py-3 md:justify-start md:space-x-10">
                 <div className="flex justify-start lg:w-0 lg:flex-1">
                     <Link to="/">

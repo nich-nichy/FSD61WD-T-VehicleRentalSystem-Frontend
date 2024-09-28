@@ -72,13 +72,12 @@ const CancelBooking = () => {
                     icon: "error"
                 });
             }
-
             try {
                 const response = await axios.delete(`${url}/booking/cancel-booking/${selectedBookingId}`);
                 console.log(response);
                 Swal.fire({
                     title: "Booking Cancelled",
-                    text: "You have cancelled your booking",
+                    text: "You have cancelled your booking, Refund will be initiated around 2-3 business days",
                     icon: "success"
                 });
                 navigate('/')

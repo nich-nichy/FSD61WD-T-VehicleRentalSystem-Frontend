@@ -14,8 +14,16 @@ import Dashboard from './pages/user/Dashboard';
 import BookVehicle from './pages/user/BookVehicle';
 import CancelBooking from './components/CancelBooking';
 import CompleteBooking from './components/CompleteBooking';
+import Posts from './components/Posts';
+import Post from './components/Post';
+import Comments from './components/Comments';
+import ReviewPage from './components/Reviews';
 
 function App() {
+  const posts = [
+    { id: '1', title: 'Why Our Rental System is the Best', excerpt: 'Discover...', content: 'At ORS...' },
+    { id: '2', title: 'How to Rent a Vehicle in 5 Simple Steps', excerpt: 'Renting a vehicle...', content: 'Step 1...' }
+  ];
   return (
     <>
       <Router>
@@ -31,9 +39,13 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/cancel-booking" element={<CancelBooking />} />
           <Route path="/complete-order" element={<CompleteBooking />} />
+          <Route path="/posts" element={<Posts posts={posts} />} />
+          <Route path="/posts/:postId" element={<Post posts={posts} />} />
+          <Route path="/all-comments" element={<Comments />} />
           {/*<Route exact path="/request-password-reset" element={<RequestPassword />} />
           <Route exact path="/info" element={<Info />} />
           <Route exact path="/reset-password/:token" element={<ResetPassword />} /> */}
+          <Route path="/reviews" element={<ReviewPage />} />
           <Route path="/admin-login" element={<ProtectedRoute element={<AdminLogin />} roles={['admin']} />} />
           <Route path="/admin" element={<ProtectedRoute element={<AdminDashboard />} roles={['admin']} />} />
         </Routes>
