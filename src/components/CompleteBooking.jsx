@@ -8,13 +8,37 @@ import '../../src/index.css'
 const url = import.meta.env.VITE_BACKEND_URL;
 
 const CompleteBooking = () => {
-    const cookieData = Cookies.get("bookingData")
+    const cookieData = Cookies.get("bookingData");
     const bookingData = cookieData ? JSON.parse(cookieData) : {};
     const [bookedData, setBookedData] = useState();
     const params = new URLSearchParams(location.search);
     const navigate = useNavigate();
+    const token = params.get('token');
+    const payerId = params.get('PayerID');
+    const capturePaymentCalled = useRef(false);
+
+    console.log({ token, bookingData }, "from global")
+    const capturePaymentFunction = async () => {
+        try {
+            const capturePayment = await axios.post(
+                `${url}/payment/capture-payment`,
+                {
+                    orderId: token,
+                    payerId: payerId,
+                    bookingData
+                }
+            );
+            Cookies.remove("bookingData");
+            return capturePayment;
+        } catch (error) {
+            console.error("Error capturing payment:", error);
+            navigate('/404');
+            return error;
+        }
+    };
+
     useEffect(() => {
-        console.log(bookingData, 'bookingData')
+        console.log(bookingData, 'bookingData');
         const handleBooking = async () => {
             try {
                 const { data } = await axios.put(
@@ -23,34 +47,101 @@ const CompleteBooking = () => {
                 );
                 if (data) {
                     setBookedData(data);
-                    Cookies.remove("bookingData");
-                    Swal.fire({
-                        title: "Booking Confirmed",
-                        text: "You have successfully booked your vehicle!",
-                        icon: "success",
-                        confirmButtonText: "Great!"
-                    });
+                    if (!capturePaymentCalled.current) {
+                        capturePaymentCalled.current = true;
+                        const capture = await capturePaymentFunction(bookingData);
+
+                        if (capture) {
+                            Swal.fire({
+                                title: "Booking Confirmed",
+                                text: "You have successfully booked your vehicle!",
+                                icon: "success",
+                                confirmButtonText: "Great!"
+                            });
+                        } else {
+                            navigate('/404');
+                        }
+                    }
                 }
             } catch (error) {
                 console.error("Error creating booking:", error);
+                navigate('/404');
             }
+        };
+        if (bookingData && Object.keys(bookingData).length > 0) {
+            handleBooking();
         }
-        handleBooking();
-    }, [bookingData]);
 
-    useEffect(() => {
-        const capturePayment = async () => {
-            const { data } = await axios.post(
-                `${url}/payment/capture-payment`,
-                {
-                    orderId: params.get('token'),
-                    payerId: params.get('PayerID'),
-                }
-            );
-            console.log(data, "Payment captured");
-        }
-        capturePayment();
-    }, [params]);
+    }, [bookingData, token, payerId, navigate]);
+
+    // const capturePaymentFunction = async () => {
+    //     try {
+    //         const capturePayment = await axios.post(
+    //             `${url}/payment/capture-payment`,
+    //             {
+    //                 orderId: token,
+    //                 payerId: payerId,
+    //                 bookingData
+    //             }
+    //         );
+    //         Cookies.remove("bookingData");
+
+    //         return capturePayment
+    //     } catch (error) {
+    //         console.error("Error creating booking:", error);
+    //         navigate('/404')
+    //         return error;
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     console.log(bookingData, 'bookingData')
+    //     const handleBooking = async () => {
+    //         try {
+    //             const { data } = await axios.put(
+    //                 `${url}/booking/post-book`,
+    //                 bookingData
+    //             );
+    //             if (data) {
+    //                 setBookedData(data);
+    //                 // FIXME: If it doesnt work 
+    //                 const capture = capturePaymentFunction(bookingData);
+    //                 console.log(capture)
+    //                 if (capture) {
+    //                     Swal.fire({
+    //                         title: "Booking Confirmed",
+    //                         text: "You have successfully booked your vehicle!",
+    //                         icon: "success",
+    //                         confirmButtonText: "Great!"
+    //                     });
+    //                 } else {
+    //                     navigate('/404')
+    //                 }
+    //             }
+    //         } catch (error) {
+    //             console.error("Error creating booking:", error);
+    //         }
+    //     }
+    //     handleBooking();
+    // }, [bookingData]);
+
+    // useEffect(() => {
+    //     const capturePayment = async () => {
+    //         const { data } = await axios.post(
+    //             `${url}/payment/capture-payment`,
+    //             {
+    //                 orderId: token,
+    //                 payerId: payerId,
+    //                 bookingData
+    //             }
+    //         );
+    //         console.log(data, "Payment captured");
+    //     }
+    //     console.log({ token, bookingData }, "from effect 2")
+    //     if (token && bookingData) {
+    //         capturePayment();
+    //     }
+    // }, [token, bookingData]);
 
     return (
         <div className="font-opensans flex items-center justify-center min-h-screen bg-gradient-to-br from-sky-600 to-blue-700 text-white">
