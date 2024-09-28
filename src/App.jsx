@@ -50,7 +50,7 @@ function App() {
           <Route exact path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/reviews" element={<ReviewPage />} />
           <Route path="/admin-login" element={<AdminLogin />} />
-          <Route path="/admin" element={<ProtectedRoute element={<AdminDashboard />} roles={['admin']} />} />
+          <Route path="/admin" element={<ProtectedRoute element={AdminDashboard} roles={['admin']} />} />
         </Routes>
       </Router>
     </>

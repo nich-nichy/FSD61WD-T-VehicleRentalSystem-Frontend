@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useVerifyToken } from './utils/VerifyRole';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const ProtectedRoute = ({ element: Component, roles }) => {
     const navigate = useNavigate();
@@ -8,20 +8,16 @@ const ProtectedRoute = ({ element: Component, roles }) => {
     useEffect(() => {
         const token = Cookies.get('adminToken');
         if (!token) {
-            navigate('/');
+            Cookies.remove("token");
+            Cookies.remove("adminToken");
+            navigate('/login');
+        } else {
+            navigate('/admin');
         }
-    }, [navigate]);
+    }, [navigate, roles]);
 
-
-    if (!isVerified) return <p>Loading...</p>;
-
-    if (!username) {
-        return <Navigate to="/admin" />;
-    }
-    if (!roles.includes(userRole)) {
-        return <Navigate to="/" />;
-    }
-    return <Component />;
+    const token = Cookies.get('adminToken');
+    return token ? <Component /> : null;
 };
 
 export default ProtectedRoute;

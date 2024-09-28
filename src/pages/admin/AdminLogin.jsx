@@ -3,18 +3,17 @@ import { Formik } from 'formik';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import Cookies from 'js-cookie';
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
 const AdminLogin = () => {
-    const { token } = useParams();
     const navigate = useNavigate();
-
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
                 <h1 className="text-2xl font-bold text-center mb-4">Hello 👋</h1>
-                <p className="text-center mb-6 text-gray-600">Please insert your 16 digit admin token here:</p>
+                <p className="text-center mb-6 text-gray-600">Please insert admin key here:</p>
                 <Formik
                     initialValues={{ adminToken: '' }}
                     validate={values => {
@@ -27,24 +26,28 @@ const AdminLogin = () => {
                     onSubmit={async (values, { setSubmitting, resetForm }) => {
                         try {
                             const { data } = await axios.post(
-                                `${url}/`
+                                `${url}/admin/admin-auth`, {
+                                adminId: values?.adminToken
+                            }
                             );
-                            const { success, message } = data;
-                            if (success) {
+                            const { success, message, adminToken } = data;
+                            console.log(data)
+                            Cookies.set('adminToken', adminToken, { expires: 1, secure: true, sameSite: 'None' });
+                            if (data) {
                                 Swal.fire({
                                     title: "Good Job!",
                                     text: message,
                                     icon: "success"
                                 });
                                 setTimeout(() => {
-                                    navigate("/login");
+                                    navigate("/admin");
                                 }, 1000);
                             }
                         } catch (error) {
                             Swal.fire({
                                 icon: "error",
                                 title: "Oops...",
-                                text: error.response?.data?.message || "Something went wrong"
+                                text: error.response?.data?.message || "Token not found"
                             });
                         } finally {
                             setSubmitting(false);
