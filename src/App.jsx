@@ -18,6 +18,9 @@ import Posts from './components/Posts';
 import Post from './components/Post';
 import Comments from './components/Comments';
 import ReviewPage from './components/Reviews';
+import RequestPassword from './pages/user/RequestPassword';
+import ResetPassword from './pages/user/ResetPassword';
+import Info from './pages/user/Info'
 
 function App() {
   const posts = [

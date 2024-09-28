@@ -11,16 +11,16 @@ const Login = () => {
     const navigate = useNavigate();
     const [isChecked, setIsChecked] = useState(false);
 
-    const handleChange = () => {
+    const handleAdminChange = () => {
         setIsChecked(!isChecked);
-    };
+    }
 
     // FIXME: Change UI
     return (
         <div className="flex flex-col md:flex-row min-h-screen">
             {/* Image Section for Larger Screens */}
             <div className="hidden md:flex items-center justify-center w-1/2 bg-gray-100">
-                <img src="/Login.jpg" alt="Login" className="w-full h-full object-cover" />
+                <img src="/BunchOfCars-2.jpeg" alt="Login" className="w-full h-full object-cover" />
             </div>
 
             {/* Form Section */}
@@ -165,7 +165,7 @@ const Login = () => {
                                 type="checkbox"
                                 className="sr-only peer"
                                 checked={isChecked}
-                                onChange={handleChange}
+                                onChange={handleAdminChange}
                             />
                             <div
                                 className={`relative w-11 h-6 bg-gray-200 rounded-full transition-colors peer-focus:ring-4 peer-focus:ring-sky-300 dark:bg-gray-700 dark:peer-focus:ring-sky-800 ${isChecked ? 'peer-checked:bg-sky-600' : ''}`}

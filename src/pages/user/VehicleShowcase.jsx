@@ -217,7 +217,7 @@ const VehicleShowcase = () => {
                                 &times;
                             </button>
                             <div className="flex-1">
-                                <img src="/PromoCar.png" alt="Car Promo" className="w-full h-60 rounded-l-xl object-cover" />
+                                <img src="/BunchOfCars-2.jpeg" alt="Car Promo" className="w-full h-[375px] rounded-l-xl object-cover" />
                             </div>
                             <div className="flex-1 p-6 rounded-r-lg bg-gradient-to-r from-sky-500 to-cyan-700 text-white">
                                 <h2 className="text-5xl font-extrabold mb-4">Find Your Perfect Ride!</h2>

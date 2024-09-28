@@ -181,7 +181,7 @@ const SignUp = () => {
 
             {/* Image Section */}
             <div className="hidden md:flex items-center justify-center w-1/2 bg-gray-100">
-                <img src="/Signup.jpg" alt="Signup" className="w-full h-full object-cover" />
+                <img src="/BunchOfCars.jpeg" alt="Signup" className="w-full h-full object-cover" />
             </div>
         </div>
     );

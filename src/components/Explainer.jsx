@@ -111,7 +111,7 @@ const Explainer = () => {
                         </div>
                     </div>
                     <div className="lg:w-1/2 sm:w-1/3 w-full rounded-lg overflow-hidden mt-6 sm:mt-0">
-                        <img className="object-cover object-center w-full h-full" src="https://dummyimage.com/600x300" alt="stats" />
+                        <img className="object-cover object-center w-full h-full" src="/ImgORS-Promo.jpeg" alt="stats" />
                     </div>
                     <Link to="/getStarted" className="relative inline-block text-lg group">
                         <span className="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-transform ease-out border-2 border-sky-900 rounded-lg bg-gray-900 group-hover:mb-0 group-hover:mr-0 button_top">
