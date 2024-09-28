@@ -77,7 +77,7 @@ const CancelBooking = () => {
                 console.log(response);
                 Swal.fire({
                     title: "Booking Cancelled",
-                    text: "You have cancelled your booking, Refund will be initiated around 2-3 business days",
+                    text: "You have cancelled your booking, Check mail for further information",
                     icon: "success"
                 });
                 navigate('/')

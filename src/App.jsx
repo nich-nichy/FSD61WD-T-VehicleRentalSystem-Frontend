@@ -42,9 +42,9 @@ function App() {
           <Route path="/posts" element={<Posts posts={posts} />} />
           <Route path="/posts/:postId" element={<Post posts={posts} />} />
           <Route path="/all-comments" element={<Comments />} />
-          {/*<Route exact path="/request-password-reset" element={<RequestPassword />} />
+          <Route exact path="/request-password-reset" element={<RequestPassword />} />
           <Route exact path="/info" element={<Info />} />
-          <Route exact path="/reset-password/:token" element={<ResetPassword />} /> */}
+          <Route exact path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/reviews" element={<ReviewPage />} />
           <Route path="/admin-login" element={<ProtectedRoute element={<AdminLogin />} roles={['admin']} />} />
           <Route path="/admin" element={<ProtectedRoute element={<AdminDashboard />} roles={['admin']} />} />

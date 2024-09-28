@@ -350,20 +350,20 @@ const Navbar = () => {
                                     </div>
                                     <ul className="py-2 text-sm text-gray-700 dark:text-white">
                                         <li>
-                                            <a
-                                                href="#"
+                                            <Link
+                                                to="/dashboard"
                                                 className="block px-4 py-2  dark:hover:bg-sky-600 dark:hover:text-white"
                                             >
                                                 Dashboard
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
-                                                href="#"
+                                            <Link
+                                                to="/settings"
                                                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-sky-600 dark:hover:text-white"
                                             >
                                                 Settings
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                     <div className="py-1">
