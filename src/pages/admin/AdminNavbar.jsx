@@ -27,31 +27,31 @@ const AdminNavbar = () => {
                 </div>
                 <nav className="hidden md:flex space-x-10">
                     <Link
-                        to="/dashboard"
+                        to="/admin"
                         className="text-base font-medium text-sky-950 hover:text-sky-700"
                     >
                         Dashboard
                     </Link>
                     <Link
-                        to="/pricing"
+                        to="/admin/view"
                         className="text-base font-medium text-sky-950 hover:text-sky-700"
                     >
                         Vehicles
                     </Link>
                     <Link
-                        to="/pricing"
+                        to="/admin/view"
                         className="text-base font-medium text-sky-950 hover:text-sky-700"
                     >
                         Users
                     </Link>
                     <Link
-                        to="/pricing"
+                        to="/admin/view"
                         className="text-base font-medium text-sky-950 hover:text-sky-700"
                     >
                         Booking's
                     </Link>
                     <Link
-                        to="/pricing"
+                        to="/admin/view"
                         className="text-base font-medium text-sky-950 hover:text-sky-700"
                     >
                         Payment's

@@ -18,7 +18,6 @@ export const useVerifyToken = () => {
         role: "user",
     });
     const [isVerified, setIsVerified] = useState(false);
-    const [userEmail, setUserEmail] = useState(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const userToken = Cookies.get("token");
