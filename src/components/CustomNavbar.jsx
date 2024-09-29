@@ -16,8 +16,8 @@ const CustomNavbar = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [dropdown, setDropdown] = useState(false);
     const navigate = useNavigate();
-    const curreltUrl = window.location.href;
-    console.log(curreltUrl.includes("vehicles"))
+    const currentUrl = window.location.href;
+    console.log(currentUrl.includes("vehicles"))
 
     const cancelBooking = () => {
         navigate('/cancel-booking')
@@ -134,7 +134,7 @@ const CustomNavbar = () => {
                         </div>
                     </div>
                 </nav>
-                {!curreltUrl?.includes("vehicles") ? <>
+                {!currentUrl?.includes("vehicles") ? <>
                     <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 mr-0">
                         <Link to="/vehicles" className="relative inline-block text-lg group">
                             <span className="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-transform ease-out border-2 border-sky-900 rounded-lg bg-gray-900 group-hover:mb-0 group-hover:mr-0 button_top">

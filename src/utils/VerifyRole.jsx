@@ -57,7 +57,6 @@ export const useVerifyToken = () => {
                         profilePic: data.profilePic || "",
                         role: data.role || "user",
                     }));
-
                 } else {
                     console.log("User not verified");
                     Cookies.remove("token");

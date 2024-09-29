@@ -37,12 +37,12 @@ const VehicleShowcase = () => {
             console.log(filteredVehicles)
             console.log({ fullData: data?.vehicles })
             dispatch(setVehicleData(filteredVehicles));
-            setVehicleData(filteredVehicles);
         }
         if (vehicleData && vehicleData?.length === 0) {
             getVehicles()
         }
     }, [])
+
     console.log({ userDetails }, "from showcase")
     console.log({ alreadyBooked }, "from showcase")
     useEffect(() => {
@@ -51,6 +51,9 @@ const VehicleShowcase = () => {
                 const { data } = await axios.get(
                     `${url}/booking/get-booking/${userDetails?.id}`
                 );
+                if (!data.bookingInfo[0]) {
+                    navigate('/getStarted')
+                }
                 console.log({ data: data?.bookingInfo }, 'prebook details')
                 console.log({ d1: data?.bookingInfo[0].startDate, d2: data?.bookingInfo[0].endDate, d3: data?.bookingInfo[0]?.totalAmount })
                 if (data?.bookingInfo[0].startDate && data?.bookingInfo[0].endDate && data?.bookingInfo[0].totalAmount) {
@@ -60,6 +63,7 @@ const VehicleShowcase = () => {
                 }
             } catch (error) {
                 console.error("Error fetching cities:", error);
+                navigate('/getStarted')
             }
         };
         if (userDetails?.username?.length > 0) {
@@ -175,19 +179,9 @@ const VehicleShowcase = () => {
                             ))}
                         </div>
                     </div>
+                    {vehicleData?.map((vehicle, n) => {
 
-                    {/* Capacity (If truck is selected) */}
-                    <div>
-                        <p className="font-semibold mb-2">Capacity</p>
-                        {["2 Person", "4 Person", "6 Person", "8 Person or More"].map((capacity) => (
-                            <div key={capacity} className="flex items-center space-x-2">
-                                <input type="checkbox" id={capacity} className="mr-2" />
-                                <label htmlFor={capacity}>{capacity}</label>
-                                <span className="text-sm text-gray-500">{"Current vehicles"}</span>
-                            </div>
-                        ))}
-                    </div>
-
+                    })}
                     {/* Car Brand */}
                     <div>
                         <p className="font-semibold mb-2">Car Brand</p>
