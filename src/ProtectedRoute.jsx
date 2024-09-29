@@ -4,7 +4,6 @@ import Cookies from 'js-cookie';
 
 const ProtectedRoute = ({ element: Component, roles }) => {
     const navigate = useNavigate();
-
     useEffect(() => {
         const token = Cookies.get('adminToken');
         if (!token) {

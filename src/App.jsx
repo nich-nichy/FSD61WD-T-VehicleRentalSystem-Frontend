@@ -23,6 +23,7 @@ import ResetPassword from './pages/user/ResetPassword';
 import Info from './pages/user/Info'
 import Error from './pages/auth/Error';
 import Settings from './components/Settings';
+import AdminGrid from './pages/admin/Tables/AdminGrid';
 
 function App() {
   const posts = [
@@ -55,6 +56,7 @@ function App() {
           <Route path="/404" element={<Error />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/admin" element={<ProtectedRoute element={AdminDashboard} roles={['admin']} />} />
+          <Route path="/admin/view" element={<ProtectedRoute element={AdminGrid} roles={['admin']} />} />
         </Routes>
       </Router>
     </>
