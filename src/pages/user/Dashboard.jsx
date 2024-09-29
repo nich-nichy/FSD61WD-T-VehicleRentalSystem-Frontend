@@ -18,18 +18,13 @@ const Dashboard = () => {
     const [bookingData, setBookingData] = useState(null);
     const [vehicleData, setVehicleData] = useState(null);
     const [paymentData, setPaymentData] = useState(null);
-    console.log({ bookingData }, "datsss")
-    console.log({ vehicleData }, "vehics")
-    console.log({ paymentData }, "pays")
+
     useEffect(() => {
         const getBookingHistory = async () => {
             try {
                 const { data } = await axios.get(
                     `${url}/booking/dashboard-data/${userDetails?.id}`
                 );
-                // console.log(data, 'booking history')
-                // console.log({ inside: data?.dashboardData[0].bookingDetails }, 'prebook details')
-                // console.log({ inside: data?.dashboardData[0].paymentDetails }, 'prebook payment details')
                 if (data?.dashboardData[0].bookingDetails.startDate && data?.dashboardData[0].bookingDetails.endDate && data?.dashboardData[0].bookingDetails.totalAmount) {
                     setData(data);
                     setBookingData(data?.dashboardData[0].bookingDetails);
@@ -48,11 +43,28 @@ const Dashboard = () => {
             getBookingHistory();
         }
     }, [userDetails])
+
+    const downloadInvoice = async (bookingId) => {
+        try {
+            const response = await axios.post(`${url}/payment/get-invoice`, { bookingId: bookingData?._id }, {
+                responseType: 'blob',
+            });
+            const file = new Blob([response.data], { type: 'application/pdf' });
+            const fileURL = URL.createObjectURL(file);
+            const link = document.createElement('a');
+            link.href = fileURL;
+            link.download = `invoice_${bookingId}.pdf`;
+            link.click();
+        } catch (error) {
+            console.error('Error downloading the invoice:', error);
+        }
+    };
+
     return (
         <>
             {bookingData === null ? <>
                 <CustomNavbar />
-                <div className="min-h-screen bg-gray-100 p-4">
+                <div className="font-opensans min-h-screen bg-gray-100 p-4">
                     <div className="bg-white shadow-md rounded-lg p-6 mb-8">
                         <h1 className="text-2xl font-semibold text-gray-800">User Dashboard</h1>
                         <p className="text-gray-600">Manage your bookings, payments, and reviews</p>
@@ -64,7 +76,7 @@ const Dashboard = () => {
                 </div>
             </> : <><div className="font-opensans">
                 <CustomNavbar />
-                <div className="min-h-screen bg-gray-100 p-4">
+                <div className="font-opensans min-h-screen bg-gray-100 p-4">
                     <div className="bg-white shadow-md rounded-lg p-6 mb-8">
                         <h1 className="text-2xl font-semibold text-gray-800">User Dashboard</h1>
                         <p className="text-gray-600">Manage your bookings, payments, and reviews</p>
@@ -82,7 +94,7 @@ const Dashboard = () => {
                                     </li>
                                 </ul>
                             </div>
-                            <button className="mt-auto bg-sky-500 text-white px-4 py-2 rounded-md text-sm">Manage Booking</button>
+                            <button className="mt-auto bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-md text-sm">Manage Booking</button>
                         </div>
                         <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between min-h-[270px]">
                             <div>
@@ -96,7 +108,7 @@ const Dashboard = () => {
                                     </li>
                                 </ul>
                             </div>
-                            <button className="mt-auto bg-green-500 text-white px-4 py-2 rounded-md text-sm">Get Invoice</button>
+                            <button className="mt-auto bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm" onClick={() => downloadInvoice(bookingData?._id)}>Get Invoice</button>
                         </div>
                         <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between min-h-[270px]">
                             <div>
@@ -109,13 +121,14 @@ const Dashboard = () => {
                                     </li>
                                 </ul>
                             </div>
-                            <button className="mt-auto bg-yellow-500 text-white px-4 py-2 rounded-md text-sm">Edit Review</button>
+                            <button className="mt-auto bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-sm">Edit Review</button>
                         </div>
                     </div>
-
-                    <div className="pt-3">
+                    <div>
                         <h2 className="text-2xl font-semibold py-5">All bookings</h2>
-                        <UserRefTable data={data} bookings={bookingData} vehicles={vehicleData} />
+                        <div className="pt-3 flex justify-center items-center">
+                            <UserRefTable data={data} bookings={[bookingData]} vehicles={[vehicleData]} paymentData={paymentData} />
+                        </div>
                     </div>
                 </div>
             </div></>}
