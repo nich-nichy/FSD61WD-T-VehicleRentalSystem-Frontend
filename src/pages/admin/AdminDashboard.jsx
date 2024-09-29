@@ -5,13 +5,13 @@ import Cookies from "js-cookie";
 import { setMode, setAdminFetchData } from "../../redux/slices/adminSlice"
 import axios from "axios";
 import '../../styles/Admin.css';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
 const AdminDashboard = () => {
     const [adminDashboardData, setAdminDashboardData] = useState(null);
-    // const adminDataSlice = useSelector((state) => state.adminSlice.adminData.adminFetchData);
+    const adminDataSlice = useSelector((state) => state.adminSlice.adminData.adminFetchData);
     const token = Cookies.get('adminToken');
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -32,29 +32,35 @@ const AdminDashboard = () => {
                 dispatch(setMode("dashboard"));
             }
         };
-        if (token && token?.length > 0 && !adminDashboardData) {
+        if (token && token?.length > 0 && !adminDataSlice) {
             getDashboardData();
         }
     }, []);
 
     const handleGrid = (mode) => {
         if (mode === "listings") {
-            setMode(mode)
+            dispatch(setMode(mode))
+            console.log(mode, "from admin dashboard")
             navigate('/admin/view')
         } else if (mode === "bookings") {
-            setMode(mode)
+            dispatch(setMode(mode))
+            console.log(mode, "from admin dashboard")
             navigate('/admin/view')
         } else if (mode === "users") {
-            setMode(mode)
+            dispatch(setMode(mode))
+            console.log(mode, "from admin dashboard")
             navigate('/admin/view')
         } else if (mode === "payments") {
-            setMode(mode)
+            dispatch(setMode(mode))
+            console.log(mode, "from admin dashboard")
             navigate('/admin/view')
         } else if (mode === "support") {
-            setMode(mode)
+            dispatch(setMode(mode))
+            console.log(mode, "from admin dashboard")
             navigate('/admin/view')
         } else if (mode === "listings") {
-            setMode(mode)
+            dispatch(setMode(mode))
+            console.log(mode, "from admin dashboard")
             navigate('/admin/view')
         }
     }

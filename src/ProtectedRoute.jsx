@@ -10,8 +10,6 @@ const ProtectedRoute = ({ element: Component, roles }) => {
             Cookies.remove("token");
             Cookies.remove("adminToken");
             navigate('/login');
-        } else {
-            navigate('/admin');
         }
     }, [navigate, roles]);
 

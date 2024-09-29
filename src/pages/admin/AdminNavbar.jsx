@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FaArrowAltCircleLeft } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
 import Cookies from 'js-cookie';
+import { useDispatch } from "react-redux";
+import { setMode } from "../../redux/slices/adminSlice"
 
-const AdminNavbar = () => {
+const AdminNavbar = ({ mode }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const handleLogout = () => {
         Cookies.remove("adminToken");
         Cookies.remove("token");
@@ -15,7 +17,7 @@ const AdminNavbar = () => {
         <div className="poppins-regular max-w-full mx-auto px-4 sm:px-6">
             <div className="flex justify-between items-center border-b-2 border-gray-100 py-3 md:justify-start md:space-x-10">
                 <div className="flex justify-start lg:w-0 lg:flex-1">
-                    <Link to="/">
+                    <p onClick={() => { }}>
                         <img
                             className=""
                             src="/ORS-Logo.png"
@@ -23,39 +25,54 @@ const AdminNavbar = () => {
                             width={110}
                             height={180}
                         />
-                    </Link>
+                    </p>
                 </div>
                 <nav className="hidden md:flex space-x-10">
-                    <Link
-                        to="/admin"
+                    <p onClick={() => {
+                        navigate('/admin')
+                        dispatch(setMode("dashboard"))
+                    }}
                         className="text-base font-medium text-sky-950 hover:text-sky-700"
+                        style={{ cursor: "pointer" }}
                     >
                         Dashboard
-                    </Link>
-                    <Link
-                        to="/admin/view"
+                    </p>
+                    <p onClick={() => {
+                        dispatch(setMode("listings"))
+                        navigate("/admin/view")
+                    }}
                         className="text-base font-medium text-sky-950 hover:text-sky-700"
+                        style={{ cursor: "pointer" }}
                     >
                         Vehicles
-                    </Link>
-                    <Link
-                        to="/admin/view"
+                    </p>
+                    <p onClick={() => {
+                        dispatch(setMode("users"))
+                        navigate("/admin/view")
+                    }}
                         className="text-base font-medium text-sky-950 hover:text-sky-700"
+                        style={{ cursor: "pointer" }}
                     >
                         Users
-                    </Link>
-                    <Link
-                        to="/admin/view"
+                    </p>
+                    <p onClick={() => {
+                        dispatch(setMode("bookings"))
+                        navigate("/admin/view")
+                    }}
                         className="text-base font-medium text-sky-950 hover:text-sky-700"
+                        style={{ cursor: "pointer" }}
                     >
                         Booking's
-                    </Link>
-                    <Link
-                        to="/admin/view"
+                    </p>
+                    <p onClick={() => {
+                        dispatch(setMode("payments"))
+                        navigate("/admin/view")
+                    }}
                         className="text-base font-medium text-sky-950 hover:text-sky-700"
+                        style={{ cursor: "pointer" }}
                     >
                         Payment's
-                    </Link>
+                    </p>
                 </nav>
                 <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 mr-0">
                     <p onClick={handleLogout} style={{ cursor: "pointer" }} className="relative inline-block text-lg group">
