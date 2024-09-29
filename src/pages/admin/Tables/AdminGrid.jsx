@@ -1,25 +1,28 @@
 import { useState, useEffect, useMemo } from "react";
 import { AgGridReact } from "ag-grid-react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import AdminNavbar from "../AdminNavbar";
+import { setMode } from "../../../redux/slices/adminSlice"
+import { useNavigate } from "react-router-dom";
 
 const AdminGrid = () => {
     const [rowData, setRowData] = useState([]);
     const [colDefs, setColDefs] = useState([]);
     const adminDataSlice = useSelector((state) => state.adminSlice.adminData.adminFetchData);
     const mode = useSelector((state) => state.adminSlice.adminData.mode);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const bookings = adminDataSlice?.bookings;
     const vehicles = adminDataSlice?.vehicles;
     const paymentData = adminDataSlice?.payments;
     const users = adminDataSlice?.users;
     console.log(mode)
-    // Memoize rowData to avoid unnecessary recalculations
     const allData = useMemo(() => {
         if (mode === "bookings") {
             return bookings?.map((booking) => ({
-                bookingId: booking._id?.$oid,
+                bookingId: booking._id,
                 userId: booking.userId,
                 vehicleId: booking.vehicleId,
                 startDate: new Date(booking.startDate.$date).toLocaleDateString(),
@@ -29,9 +32,9 @@ const AdminGrid = () => {
             }));
         } else if (mode === "payments") {
             return paymentData?.map((payment) => ({
-                paymentId: payment._id?.$oid,
-                userId: payment.userId?.$oid,
-                bookingId: payment.bookingId?.$oid,
+                paymentId: payment._id,
+                userId: payment.userId,
+                bookingId: payment.bookingId,
                 status: payment.status,
                 amount: payment.amount,
                 paymentMethod: payment.paymentMethod,
@@ -40,7 +43,7 @@ const AdminGrid = () => {
             }));
         } else if (mode === "listings") {
             return vehicles?.map((vehicle) => ({
-                vehicleId: vehicle._id?.$oid,
+                vehicleId: vehicle._id,
                 make: vehicle.make,
                 model: vehicle.model,
                 year: vehicle.year,
@@ -52,7 +55,7 @@ const AdminGrid = () => {
             }));
         } else if (mode === "users") {
             return users?.map((user) => ({
-                userId: user._id?.$oid,
+                userId: user._id,
                 email: user.email,
                 username: user.username || "N/A",
                 bookingsCount: user.bookings?.length || 0,
@@ -62,7 +65,6 @@ const AdminGrid = () => {
         }
     }, [mode, bookings, paymentData, vehicles, users]);
 
-    // Memoize colDefs
     const columnDefinitions = useMemo(() => {
         if (mode === "bookings") {
             return [
@@ -71,8 +73,6 @@ const AdminGrid = () => {
                 { headerName: "Vehicle ID", field: "vehicleId", flex: 1, sortable: true, filter: true },
                 { headerName: "Start Date", field: "startDate", flex: 1, sortable: true, filter: true },
                 { headerName: "End Date", field: "endDate", flex: 1, sortable: true, filter: true },
-                { headerName: "Status", field: "status", flex: 1, sortable: true, filter: true },
-                { headerName: "Total Price", field: "totalPrice", flex: 1, sortable: true, filter: true },
             ];
         } else if (mode === "payments") {
             return [
@@ -98,7 +98,6 @@ const AdminGrid = () => {
                 { headerName: "User ID", field: "userId", flex: 1, sortable: true, filter: true },
                 { headerName: "Email", field: "email", flex: 1, sortable: true, filter: true },
                 { headerName: "Username", field: "username", flex: 1, sortable: true, filter: true },
-                { headerName: "Bookings Count", field: "bookingsCount", flex: 1, sortable: true, filter: true },
                 { headerName: "Reviews Count", field: "reviewsCount", flex: 1, sortable: true, filter: true },
             ];
         }
@@ -109,11 +108,18 @@ const AdminGrid = () => {
         setColDefs(columnDefinitions);
     }, [allData, columnDefinitions]);
 
+    useEffect(() => {
+        if (!adminDataSlice) {
+            navigate("/admin")
+            dispatch(setMode("dashboard"))
+        }
+    }, [adminDataSlice])
+
     return (
         <>
             <AdminNavbar mode={mode} />
-            <div className="flex justify-center items-center mt-10">
-                <div className="ag-theme-alpine shadow-lg rounded-lg" style={{ height: 300, width: '85%' }}>
+            <div className="flex justify-center items-center mt-5">
+                <div className="ag-theme-alpine shadow-lg rounded-lg" style={{ height: 500, width: '85%' }}>
                     <AgGridReact
                         rowData={rowData}
                         columnDefs={colDefs}
