@@ -3,12 +3,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { setUserDetails } from '../redux/slices/authSlice'
+import { setBookingMode } from '../redux/slices/vehicleSlice'
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
-import Swal from 'sweetalert2';
-
-const url = import.meta.env.VITE_BACKEND_URL;
 
 const CustomNavbar = () => {
     const [dropDown, setDropDown] = React.useState(false);
@@ -16,11 +13,17 @@ const CustomNavbar = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [dropdown, setDropdown] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const currentUrl = window.location.href;
     console.log(currentUrl.includes("vehicles"))
 
     const cancelBooking = () => {
         navigate('/cancel-booking')
+    }
+
+    const updateBooking = () => {
+        dispatch(setBookingMode("updateBooking"))
+        navigate('/getStarted')
     }
 
     return (
@@ -114,10 +117,34 @@ const CustomNavbar = () => {
                         >
                             <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                                 <div className="relative grid gap-6 bg-white px-5 py-6 pb-0 mb-0">
-
                                     <p
                                         className="-m-3 p-3 mb-3 flex items-start rounded-lg hover:bg-gray-50"
-                                        onClick={() => cancelBooking()}
+                                        onClick={() => {
+                                            if (dropDownTwo) {
+                                                updateBooking()
+                                            }
+                                        }}
+                                    >
+                                        <FaLock className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
+                                        <div className="ml-4">
+                                            <p className="text-base font-medium text-gray-900">
+                                                Update Booking ?
+                                            </p>
+                                            <p className="mt-1 text-sm text-gray-500">
+                                                You can update your details here only in Post booking once full vehicle is booked, you cant change the details.
+                                            </p>
+                                        </div>
+                                    </p>
+                                </div>
+                                <div className="relative grid gap-6 bg-white px-5 py-6 pb-0 mb-0">
+                                    <p
+                                        className="-m-3 p-3 mb-3 flex items-start rounded-lg hover:bg-gray-50"
+                                        onClick={() => {
+                                            if (dropDownTwo) {
+                                                cancelBooking()
+                                            }
+
+                                        }}
                                     >
                                         <FaLock className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
                                         <div className="ml-4">
@@ -131,12 +158,13 @@ const CustomNavbar = () => {
                                     </p>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </nav>
                 {!currentUrl?.includes("vehicles") ? <>
                     <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 mr-0">
-                        <Link to="/vehicles" className="relative inline-block text-lg group">
+                        <Link to="/vehicles" onClick={() => dispatch(setBookingMode("addMore"))} className="relative inline-block text-lg group">
                             <span className="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-transform ease-out border-2 border-sky-900 rounded-lg bg-gray-900 group-hover:mb-0 group-hover:mr-0 button_top">
                                 <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
                                 <span className="relative flex items-center justify-center space-x-2">

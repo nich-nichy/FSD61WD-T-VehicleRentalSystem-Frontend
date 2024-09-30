@@ -60,6 +60,10 @@ const Dashboard = () => {
         }
     };
 
+    const createReview = () => {
+
+    }
+
     return (
         <>
             {bookingData === null ? <>
@@ -70,7 +74,7 @@ const Dashboard = () => {
                         <p className="text-gray-600">Manage your bookings, payments, and reviews</p>
                     </div>
                     <div className="bg-white text-center p-6 mb-8">
-                        <h1 className="text-2xl font-semibold text-gray-800">Book an order to continue</h1>
+                        <h1 className="text-2xl font-semibold text-gray-800">Book an vehicle to continue</h1>
                         <button className="bg-sky-500 text-white px-4 py-2 m-3 rounded-md hover:bg-sky-600" onClick={() => navigate("/getStarted")}>Start</button>
                     </div>
                 </div>
@@ -111,19 +115,33 @@ const Dashboard = () => {
                                 </div>
                                 <button className="mt-auto bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm" onClick={() => downloadInvoice(bookingData?._id)}>Get Invoice</button>
                             </div>
-                            <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between min-h-[270px]">
-                                <div>
-                                    <h2 className="text-xl font-semibold mb-4 text-gray-800">Your Reviews</h2>
-                                    <ul className="space-y-4">
-                                        <li className="p-4 bg-gray-100 rounded-md">
-                                            <p className="text-lg font-medium text-gray-800">Review #567</p>
-                                            <p className="text-sm text-gray-600">Vehicle: Sedan | Rating: 4/5</p>
-                                            <p className="text-sm text-gray-600">Comment: Great experience!</p>
-                                        </li>
-                                    </ul>
+                            {false ? <>
+                                <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between min-h-[270px]">
+                                    <div>
+                                        <h2 className="text-xl font-semibold mb-4 text-gray-800">Your Reviews</h2>
+                                        <ul className="space-y-4">
+                                            <li className="p-4 bg-gray-100 rounded-md">
+                                                <p className="text-lg font-medium text-gray-800">Review #567</p>
+                                                <p className="text-sm text-gray-600">Vehicle: Sedan | Rating: 4/5</p>
+                                                <p className="text-sm text-gray-600">Comment: Great experience!</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <button className="mt-auto bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-sm" onClick={() => updateReview()}>Edit Review</button>
                                 </div>
-                                <button className="mt-auto bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-sm">Edit Review</button>
-                            </div>
+                            </> : <>
+                                <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between min-h-[270px]">
+                                    <div>
+                                        <h2 className="text-xl font-semibold mb-4 text-gray-800">Your Reviews</h2>
+                                        <ul className="space-y-4">
+                                            <li className="p-4 bg-gray-100 rounded-md">
+                                                <p className="text-4xl text-center font-medium text-gray-800">0</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <button className="mt-auto bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-sm" onClick={() => createReview()}>Give a Review</button>
+                                </div>
+                            </>}
                         </div>
                         <div>
                             <h2 className="text-2xl font-semibold py-5">All bookings</h2>

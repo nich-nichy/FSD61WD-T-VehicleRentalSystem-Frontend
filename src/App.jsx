@@ -12,7 +12,7 @@ import ProtectedRoute from './ProtectedRoute';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import Dashboard from './pages/user/Dashboard';
 import BookVehicle from './pages/user/BookVehicle';
-import CancelBooking from './components/CancelBooking';
+import CancelBooking from './components/Forms/CancelBooking';
 import CompleteBooking from './components/CompleteBooking';
 import Posts from './components/Posts';
 import Post from './components/Post';

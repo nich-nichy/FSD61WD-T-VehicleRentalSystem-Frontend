@@ -10,16 +10,18 @@ import { FaLock } from "react-icons/fa";
 import { MdEvent } from "react-icons/md";
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import { setBookingMode } from '../redux/slices/vehicleSlice'
 import { Link } from 'react-router-dom'
 import Cookies from "js-cookie";
 import Swal from 'sweetalert2';
 import '../styles/Navbar.css'
 
 const Navbar = () => {
-    const [open, setOpen] = React.useState(false);
-    const [dropDown, setDropDown] = React.useState(false);
-    const [dropDownTwo, setDropDownTwo] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [dropDown, setDropDown] = useState(false);
+    const [dropDownTwo, setDropDownTwo] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const userDetails = useSelector((state) => state.authSlice.authData.user.userDetails);
     const toggleDropdown = () => {
@@ -36,7 +38,7 @@ const Navbar = () => {
     };
     return (
         <>
-            <div className="relative bg-white">
+            <div className="font-opensans relative bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6">
                     <div className="flex justify-between items-center border-b-2 border-gray-100 py-3 md:justify-start md:space-x-10">
                         <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -297,7 +299,7 @@ const Navbar = () => {
                                                 Admin Center
                                             </h3>
                                             <Link
-                                                to="/admin-login"
+                                                to={dropDownTwo ? "/admin-login" : "/"}
                                                 className="-m-3 p-3 flex items-start rounded-lg hover:bg-sky-400"
                                             >
                                                 <FaHandsHelping className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
@@ -316,7 +318,7 @@ const Navbar = () => {
                             </div>
                         </nav>
                         <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 mr-0">
-                            <Link to="/getStarted" className="relative inline-block text-lg group">
+                            <Link to="/getStarted" onClick={() => dispatch(setBookingMode("create"))} className="relative inline-block text-lg group">
                                 <span className="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-transform ease-out border-2 border-sky-900 rounded-lg bg-gray-900 group-hover:mb-0 group-hover:mr-0 button_top">
                                     <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
                                     <span className="relative flex items-center justify-center space-x-2">
@@ -570,7 +572,7 @@ const Navbar = () => {
                                 </Link>
                             </div>
                             <div>
-                                {/* working here */}
+                                { }
                                 <Link to="/getStarted" className="relative inline-block text-lg group">
                                     <span className="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-transform ease-out border-2 border-sky-900 rounded-lg bg-gray-900 group-hover:mb-0 group-hover:mr-0 button_top">
                                         <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>

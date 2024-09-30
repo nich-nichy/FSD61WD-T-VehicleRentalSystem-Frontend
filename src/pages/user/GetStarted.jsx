@@ -44,17 +44,45 @@ const GetStarted = () => {
                 );
                 console.log({ data }, 'prebook details')
                 setDidPreBooked(data?.preBookDetails);
-                if (data?.preBookDetails?.state && data?.preBookDetails?.city) {
+                if (data?.preBookDetails?.state && data?.preBookDetails?.city && currentMode !== "updateBooking") {
                     navigate('/vehicles')
                 }
             } catch (error) {
                 console.error("Error fetching cities:", error);
             }
         };
-        if ((username?.length > 0 && selectedState.length <= 0 && selectedCity.length <= 0) && (currentMode !== "addMore")) {
+        //  && (currentMode !== "addMore")
+        if ((username?.length > 0 && selectedState.length >= 0 && selectedCity.length >= 0)) {
             checkPreBooked();
         }
     }, [username || ''])
+
+    // useEffect(() => {
+    //     const updateBooking = async () => {
+    //         try {
+    //             const { data } = await axios.put(
+    //                 `${url}/booking/update-booking/${userDetails?.id}`,
+    //                 {
+    //                     userId: id || userDetails?.id,
+    //                     vehicleId: '',
+    //                     user: username,
+    //                     email: userEmail,
+    //                     state: selectedState,
+    //                     city: selectedCity,
+    //                     startDate: showDates?.startDate,
+    //                     endDate: showDates?.endDate,
+    //                     mode: "addMore"
+    //                 }
+    //             );
+    //             console.log({ data }, 'updatable data')
+    //         } catch (error) {
+    //             console.error("Error fetching cities:", error);
+    //         }
+    //     };
+    //     if (currentMode === "updateBooking") {
+    //         updateBooking();
+    //     }
+    // }, [currentMode, userDetails])
 
     useEffect(() => {
         const getCities = async () => {
@@ -89,7 +117,7 @@ const GetStarted = () => {
     //         getVehicles();
     //     }
     // }, [])
-
+    console.log(currentMode)
     const handleStateChange = (e) => {
         setSelectedState(e.target.value);
         setSelectedCity('');
@@ -115,63 +143,162 @@ const GetStarted = () => {
         dateRange: dateRange[0] || dateRange
     })
 
+    // const handleGetStartedSubmit = async () => {
+    // TODO: Make a call to save it
+    // if (authMode === "updateBooking") {
+    //     if (selectedState?.length > 0 && selectedCity?.length > 0 && dateRange?.length > 0 && userDetails?.id && userDetails) {
+    //         try {
+    //             const { data } = await axios.put(
+    //                 `${url}/booking/update-booking/${userDetails?.id}`,
+    //                 {
+    //                     userId: id || userDetails?.id,
+    //                     vehicleId: '',
+    //                     user: username,
+    //                     email: userEmail,
+    //                     state: selectedState,
+    //                     city: selectedCity,
+    //                     startDate: showDates?.startDate,
+    //                     endDate: showDates?.endDate,
+    //                     mode: "addMore"
+    //                 }
+    //             );
+    //             console.log({ data }, 'updatable data')
+    //         } catch (error) {
+    //             console.error("Error creating booking:", error);
+    //             navigate('/404');
+    //         }
+    //     }
+    // } else {
+    //     try {
+    //         if (selectedState?.length > 0 && selectedCity?.length > 0 && dateRange?.length > 0) {
+    //             const { data } = await axios.post(
+    //                 `${url}/booking/save-temp`,
+    //                 {
+    //                     userId: id || userDetails?.id,
+    //                     vehicleId: '',
+    //                     user: username,
+    //                     email: userEmail,
+    //                     state: selectedState,
+    //                     city: selectedCity,
+    //                     startDate: showDates?.startDate,
+    //                     endDate: showDates?.endDate,
+    //                     mode: "addMore"
+    //                 }
+    //             );
+    //             dispatch(setBookingMode("create"))
+    //             setData(data);
+    //             console.log({ data })
+    //             if (data?.mode === "addMore") {
+    //                 if (data?.message) {
+    //                     Swal.fire({
+    //                         title: "Thanks for your Interest",
+    //                         text: data?.message,
+    //                         icon: "success"
+    //                     });
+    //                     setTimeout(() => navigate("/dashboard"), 1000);
+    //                 }
+    //             } else {
+    //                 if (data?.message) {
+    //                     Swal.fire({
+    //                         title: "Success",
+    //                         text: data?.message,
+    //                         icon: "success"
+    //                     });
+    //                     setTimeout(() => navigate("/vehicles"), 1000);
+    //                 }
+    //             }
+
+    //         } else {
+    //             Swal.fire({
+    //                 icon: "error",
+    //                 title: "Fill all the fields",
+    //                 text: "Please make sure you selected all inputs",
+    //             });
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //         Swal.fire({
+    //             icon: "error",
+    //             title: "Seems to be a one way",
+    //             text: "Please retry",
+    //         });
+    //     }
+    // }
+
+    // };
+    console.log(currentMode)
+
     const handleGetStartedSubmit = async () => {
-        // TODO: Make a call to save it
+        if (selectedState?.length < 0 && selectedCity?.length < 0) {
+            return Swal.fire({
+                icon: "error",
+                title: "Fill all the fields",
+                text: "Please make sure you selected all inputs",
+            });
+        }
+        let bookingData = {
+            userId: id || userDetails?.id,
+            vehicleId: '',
+            user: username,
+            email: userEmail,
+            state: selectedState,
+            city: selectedCity,
+            startDate: showDates?.startDate,
+            endDate: showDates?.endDate,
+            mode: currentMode,
+        };
         try {
-            if (selectedState?.length > 0 && selectedCity?.length > 0 && dateRange?.length > 0) {
-                const { data } = await axios.post(
-                    `${url}/booking/save-temp`,
-                    {
-                        userId: id || userDetails?.id,
-                        vehicleId: '',
-                        user: username,
-                        email: userEmail,
-                        state: selectedState,
-                        city: selectedCity,
-                        startDate: showDates?.startDate,
-                        endDate: showDates?.endDate,
-                        mode: "addMore"
-                    }
-                );
-                dispatch(setBookingMode("create"))
-                setData(data);
-                console.log({ data })
-                if (data?.mode === "addMore") {
-                    if (data?.message) {
-                        Swal.fire({
-                            title: "Thanks for your Interest",
-                            text: data?.message,
-                            icon: "success"
-                        });
-                        setTimeout(() => navigate("/dashboard"), 1000);
-                    }
-                } else {
-                    if (data?.message) {
-                        Swal.fire({
-                            title: "Success",
-                            text: data?.message,
-                            icon: "success"
-                        });
-                        setTimeout(() => navigate("/vehicles"), 1000);
-                    }
+            let data;
+            if (currentMode?.toLowerCase()?.includes("updatebooking") && userDetails?.id && bookingData) {
+                console.log(userDetails)
+                data = await axios.put(`${url}/booking/update-booking`, bookingData);
+                if (data) {
+                    dispatch(setBookingMode("addMore"));
                 }
 
-            } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Fill all the fields",
-                    text: "Please make sure you selected all inputs",
-                });
+            } else if (!currentMode.toLowerCase()?.includes("updatebooking") && userDetails?.id && bookingData) {
+                console.log(userDetails)
+                bookingData = {
+                    ...bookingData,
+                    didPreBooked
+                }
+                data = await axios.post(`${url}/booking/save-temp`, bookingData);
+                if (data) {
+                    dispatch(setBookingMode("addMore"));
+                }
             }
+            console.log({ data })
+            handleBookingResponse(data?.data);
         } catch (error) {
-            console.log(error);
+            console.error("Error processing booking:", error);
             Swal.fire({
                 icon: "error",
                 title: "Seems to be a one way",
                 text: "Please retry",
             });
+            navigate('/404');
         }
     };
+
+    const handleBookingResponse = (data) => {
+        if (data?.mode === "addMore" && data?.message) {
+            Swal.fire({
+                title: "Thanks for your Interest",
+                text: data.message,
+                icon: "success",
+            });
+            setTimeout(() => navigate("/dashboard"), 1000);
+        } else if (data?.message) {
+            Swal.fire({
+                title: "Success",
+                text: data.message,
+                icon: "success",
+            });
+            setTimeout(() => navigate("/vehicles"), 1000);
+        }
+        setData(data);
+    };
+
 
     // useEffect(() => {
     //     if (selectedState?.length > 0 && selectedCity?.length > 0 && dateRange?.length > 0) {
@@ -285,7 +412,7 @@ const GetStarted = () => {
                         </div></> : <></>}
 
                         {/* Submit Button */}
-                        <button className="bg-green-500 text-white px-4 py-2 rounded-lg w-full mt-4 hover:bg-green-700" onClick={handleGetStartedSubmit}>
+                        <button className="bg-green-500 text-white px-4 py-2 rounded-lg w-full mt-4 hover:bg-green-700" onClick={() => handleGetStartedSubmit()}>
                             Check available vehicles
                         </button>
                     </div>

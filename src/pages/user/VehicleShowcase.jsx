@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import '../../index.css'
-import Swal from 'sweetalert2'
-
 import CustomNavbar from '../../components/CustomNavbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { setVehicleData, setCurrentBookingVehicle, setBookingMode, setBookingData } from '../../redux/slices/vehicleSlice'
 import { useVerifyToken } from '../../utils/VerifyRole';
 import Loader from '../../components/Loader';
@@ -13,6 +11,7 @@ import Loader from '../../components/Loader';
 const url = import.meta.env.VITE_BACKEND_URL;
 
 const VehicleShowcase = () => {
+    const { id } = useVerifyToken();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const vehicleData = useSelector((state) => state.vehicleSlice.vehicleData.data);
@@ -21,7 +20,7 @@ const VehicleShowcase = () => {
     const [selectedCarType, setSelectedCarType] = useState('');
     const [selectedBrand, setSelectedBrand] = useState('');
     const [filterArray, setFilterArray] = useState([]);
-    const [priceRange, setPriceRange] = useState(1000);
+    const [priceRange, setPriceRange] = useState(5000);
     const [showPromo, setShowPromo] = useState(true);
 
     useEffect(() => {
@@ -30,6 +29,7 @@ const VehicleShowcase = () => {
             const filteredVehicles = data?.vehicles?.filter(vehicle => vehicle.vehicleStatus?.available !== false);
             dispatch(setVehicleData(filteredVehicles));
             setFilterArray(filteredVehicles);
+
         };
 
         if ((!vehicleData || vehicleData?.length === 0) && (!filterArray || filterArray?.length === 0)) {
@@ -113,7 +113,7 @@ const VehicleShowcase = () => {
                                     onChange={handlePriceRangeChange}
                                 />
                                 <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min ($900)</span>
-                                <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max ($10000)</span>
+                                <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max ($10,000)</span>
                             </div>
                         </div>
 
@@ -146,7 +146,9 @@ const VehicleShowcase = () => {
                                                 <img className="w-6" src="https://cdn.iconscout.com/icon/free/png-256/love-2387666-1991064.png" />
                                                 <img className="w-6 bg-yellow-300 rounded-full" src="/Rocket.png" />
                                             </div>
-                                            <span className="text-base">See All comments</span>
+                                            <Link to="/reviews">
+                                                <span className="text-base underline">See All reviews</span>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
