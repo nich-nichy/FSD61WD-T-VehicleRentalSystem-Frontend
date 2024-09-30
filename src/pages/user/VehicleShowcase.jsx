@@ -15,181 +15,108 @@ const url = import.meta.env.VITE_BACKEND_URL;
 const VehicleShowcase = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { id } = useVerifyToken()
     const vehicleData = useSelector((state) => state.vehicleSlice.vehicleData.data);
-    const [selectedValue, setSelectedValue] = useState('');
-    const [showPromo, setShowPromo] = useState(true);
-    const [vehicleModel, setVehicleModel] = useState(false);
-    const [alreadyBooked, setAlreadyBooked] = useState([]);
     const userDetails = useSelector((state) => state.authSlice.authData.user.userDetails);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedCarType, setSelectedCarType] = useState('');
+    const [selectedBrand, setSelectedBrand] = useState('');
+    const [filterArray, setFilterArray] = useState([]);
+    const [priceRange, setPriceRange] = useState(1000);
+    const [showPromo, setShowPromo] = useState(true);
+
     useEffect(() => {
         const getVehicles = async () => {
-            const { data } = await axios.get(
-                `${url}/vehicle/get-all`
-            );
-            const filteredVehicles = data?.vehicles?.filter(vehicle => {
-                if (vehicle.vehicleStatus && vehicle.vehicleStatus.available === false) {
-                    return false;
-                }
-                return true;
-            });
-            console.log(filteredVehicles)
-            console.log({ fullData: data?.vehicles })
+            const { data } = await axios.get(`${url}/vehicle/get-all`);
+            const filteredVehicles = data?.vehicles?.filter(vehicle => vehicle.vehicleStatus?.available !== false);
             dispatch(setVehicleData(filteredVehicles));
-        }
-        if (vehicleData && vehicleData?.length === 0) {
-            getVehicles()
-        }
-    }, [])
-
-    console.log({ userDetails }, "from showcase")
-    console.log({ alreadyBooked }, "from showcase")
-    useEffect(() => {
-        const getBookings = async () => {
-            try {
-                const { data } = await axios.get(
-                    `${url}/booking/get-booking/${userDetails?.id}`
-                );
-                if (!data.bookingInfo[0]) {
-                    navigate('/getStarted')
-                }
-                console.log({ data: data?.bookingInfo }, 'prebook details')
-                console.log({ d1: data?.bookingInfo[0].startDate, d2: data?.bookingInfo[0].endDate, d3: data?.bookingInfo[0]?.totalAmount })
-                if (data?.bookingInfo[0].startDate && data?.bookingInfo[0].endDate && data?.bookingInfo[0].totalAmount) {
-                    console.log('inside');
-                    setAlreadyBooked(data?.bookingInfo[0]);
-                    dispatch(setBookingData(data?.bookingInfo[0]))
-                }
-            } catch (error) {
-                console.error("Error fetching cities:", error);
-                navigate('/getStarted')
-            }
+            setFilterArray(filteredVehicles);
         };
-        if (userDetails?.username?.length > 0) {
-            getBookings();
+
+        if ((!vehicleData || vehicleData?.length === 0) && (!filterArray || filterArray?.length === 0)) {
+            getVehicles();
         }
-    }, [userDetails])
+    }, [vehicleData, filterArray, dispatch]);
 
-    const handleClose = () => {
-        setShowPromo(false);
-    };
+    useEffect(() => {
+        const filteredVehicles = vehicleData?.filter((vehicle) => {
+            const matchesSearch = vehicle.make.toLowerCase().includes(searchTerm.toLowerCase());
+            const matchesCarType = selectedCarType === 'All' || selectedCarType === '' || vehicle.type === selectedCarType;
+            const matchesBrand = selectedBrand ? vehicle.make === selectedBrand : true;
+            const matchesPrice = vehicle.pricePerDay <= priceRange;
+            return matchesSearch && matchesCarType && matchesBrand && matchesPrice;
+        });
+        setFilterArray(filteredVehicles);
+    }, [searchTerm, selectedCarType, selectedBrand, priceRange, vehicleData]);
 
-    const handleChange = (e) => {
-        setSelectedValue(e.target.value);
-    };
+    const handleSearchChange = (e) => setSearchTerm(e.target.value);
+    const handleCarTypeChange = (e) => setSelectedCarType(e.target.value);
+    const handleBrandChange = (e) => setSelectedBrand(e.target.value);
+    const handlePriceRangeChange = (e) => setPriceRange(+e.target.value);
+
+    const handleClose = () => setShowPromo(false);
 
     const setShowVehicleModel = ({ id, vehicle }) => {
-        console.log({ alreadyBooked, len: alreadyBooked?.length > 0 })
-        if (alreadyBooked && alreadyBooked?.totalAmount > 0) {
-            Swal.fire({
-                title: "You have already rented a Car! Want to rent more from us?",
-                showDenyButton: true,
-                confirmButtonText: "Yes",
-                denyButtonText: `View Details`
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire("Cool let's go 🚀!", "", "success");
-                    // FIXME: Change mode to addMore
-                    dispatch(setBookingMode("addMore"))
-                    navigate('/getStarted')
-                } else if (result.isDenied) {
-                    Swal.fire("Ok check bookings", "", "info");
-                    navigate('/dashboard')
-                }
-            });
-        }
-        setVehicleModel(true);
         dispatch(setCurrentBookingVehicle(vehicle));
         navigate(`/book-vehicle/${id}`);
-    }
-    const handleSearch = () => {
-        e.preventDefault();
-        console.log("Searching for:", searchTerm);
-    }
-    const [searchTerm, setSearchTerm] = useState('');
-
-    const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
     };
 
     return (
         <>
-            {!vehicleData || vehicleData?.length === 0 ? <>
+            {!vehicleData || (vehicleData?.length === 0 && filterArray?.length === 0) ? (
                 <Loader />
-            </> : <>
+            ) : (
                 <div className="font-opensans">
-                    <div>
-                        <CustomNavbar />
-                    </div>
+                    <CustomNavbar />
                     <div className="min-h-screen flex bg-gray-100">
                         <div className="w-1/4 bg-white shadow-lg rounded-lg p-6 space-y-8">
-                            <div>
-                                <form onSubmit={handleSearch} className="max-w-md mx-auto">
-                                    <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
-                                        Search
-                                    </label>
-                                    <div className="relative">
-                                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                            <svg className="w-4 h-4 text-white-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                                <path
-                                                    stroke="currentColor"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M19 19l-4-4m0-7a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
-                                                />
-                                            </svg>
-                                        </div>
-                                        <input
-                                            type="search"
-                                            id="default-search"
-                                            className="block w-full p-4 pl-10 text-sm border border-gray-300 rounded-lg bg-gray-50"
-                                            placeholder="Search for a Car"
-                                            value={searchTerm}
-                                            onChange={handleSearchChange}
-                                            required
-                                        />
-                                        <button
-                                            type="submit"
-                                            className="text-white absolute right-2.5 bottom-2.5 bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800"
-                                        >
-                                            <svg className="w-4 h-4 text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                                <path
-                                                    stroke="currentColor"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M19 19l-4-4m0-7a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
-                                                />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </form>
+                            <div className='mb-0'>
+                                <p className="font-semibold mb-2">Car Brand</p>
+                                <select
+                                    value={selectedBrand}
+                                    onChange={handleBrandChange}
+                                    className="w-full p-3 border-2 border-gray-300 rounded-lg"
+                                >
+                                    <option value="">All Brands</option>
+                                    {Array.from(new Set(vehicleData?.map(vehicle => vehicle.make))).map((brand, index) => (
+                                        <option key={index} value={brand}>{brand}</option>
+                                    ))}
+                                </select>
                             </div>
-                            <div>
+                            <div className='mt-0'>
                                 <p className="font-semibold mb-2">Car Type</p>
                                 <div className="space-y-2">
-                                    {["Sport", "Sedan", "SUV", "Coupe", "MPV", "Hatchback"].map((type) => (
+                                    {["Sport", "Sedan", "SUV", "Coupe", "MPV", "Hatchback", "All"].map((type) => (
                                         <div key={type} className="flex items-center">
-                                            <input type="radio" name="carType" id={type} className="mr-2" />
-                                            <label htmlFor={type}>{type}</label>
+                                            <input
+                                                type="radio"
+                                                name="carType"
+                                                value={type}
+                                                checked={selectedCarType === type}
+                                                onChange={handleCarTypeChange}
+                                                className="mr-2"
+                                            />
+                                            <label>{type}</label>
                                         </div>
                                     ))}
                                 </div>
                             </div>
-                            <div>
-                                <p className="font-semibold mb-2">Car Brand</p>
-                                <select
-                                    value={selectedValue}
-                                    onChange={handleChange}
-                                    className="w-full p-3 border-2 border-gray-300 rounded-lg"
-                                >
-                                    <option value="Option 1">Option 1</option>
-                                    <option value="Option 2">Option 2</option>
-                                    <option value="Option 3">Option 3</option>
-                                </select>
+
+                            <div className="relative mb-6">
+                                <label htmlFor="labels-range-input" className="sr-only">Labels range</label>
+                                <input
+                                    id="labels-range-input"
+                                    type="range"
+                                    value={priceRange}
+                                    min="900"
+                                    max="10000"
+                                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                                    onChange={handlePriceRangeChange}
+                                />
+                                <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min ($900)</span>
+                                <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max ($10000)</span>
                             </div>
                         </div>
+
                         <div className="w-full m-3 mb-0">
                             {showPromo && (
                                 <div className='relative mb-6 bg-white rounded-xl shadow-lg overflow-hidden flex flex-col lg:flex-row w-full'>
@@ -224,34 +151,33 @@ const VehicleShowcase = () => {
                                     </div>
                                 </div>
                             )}
-                            {console.log(vehicleData)}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 px-1 pt-0 mx-auto">
-                                {vehicleData?.map((vehicle, index) => (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 mx-auto">
+                                {filterArray?.map((vehicle, index) => (
                                     <div key={index} className="bg-white shadow-lg rounded-lg p-4">
                                         <h2 className="text-2xl font-bold text-gray-800">{vehicle.make}</h2>
                                         <p className="text-sky-500 mb-2">{vehicle.type}</p>
-                                        <img src="" alt="Car" className="w-full h-40 bg-gray-200 mb-4" />
-                                        <div className=''>
-                                            <p className="text-xl underline text-center font-semibold mb-4">${vehicle.pricePerDay}/day</p>
-                                        </div>
+                                        <img src={`/image_${vehicle._id}.jpg`} alt="Car" className="w-full h-40 bg-gray-200 mb-4" />
+                                        <p className="text-xl underline text-center font-semibold mb-4">${vehicle.pricePerDay}/day</p>
                                         <div className="flex justify-between text-gray-600 mb-4">
-                                            <p>Manual</p>
-                                            <p>4 People</p>
+                                            <p>{vehicle.model}</p>
+                                            <p>{vehicle.year}</p>
                                         </div>
-                                        <button className="w-full bg-sky-500 text-white py-2 rounded-lg hover:bg-sky-600" onClick={() => setShowVehicleModel({ id: vehicle?._id, vehicle: vehicle })}>
-                                            Rent now
+                                        <button
+                                            className="w-full bg-sky-500 text-white py-2 rounded-lg hover:bg-sky-600"
+                                            onClick={() => setShowVehicleModel({ id: vehicle._id, vehicle })}
+                                        >
+                                            Book Now
                                         </button>
-                                        <div className='text-center py-2'>
-                                            <span className='text-xs text-gray-500'>(Note: The total cost will vary depending on the duration of your rental)</span>
-                                        </div>
                                     </div>
                                 ))}
                             </div>
                         </div>
                     </div>
-                </div></>}
+                </div>
+            )}
         </>
     );
 };
 
 export default VehicleShowcase;
+
