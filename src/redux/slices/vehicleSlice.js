@@ -23,6 +23,11 @@ const vehicleSlice = createSlice({
         },
         posts: {
             data: null
+        },
+        review: {
+            serviceRating: "",
+            vehicleRating: "",
+            showModal: ""
         }
     },
     reducers: {
@@ -52,9 +57,18 @@ const vehicleSlice = createSlice({
         },
         setPosts(state, action) {
             state.posts.data = action.payload;
+        },
+        setServiceRating(state, action) {
+            state.review.serviceRating = action.payload;
+        },
+        setVehicleRating(state, action) {
+            state.review.vehicleRating = action.payload;
+        },
+        setShowModal(state, action) {
+            state.review.showModal = action.payload;
         }
     },
 });
 
-export const { setVehicleData, setNavbarToggle, setIsModalOpen, setSelectedDays, setSelectedDaysArr, setTotalAmount, setCurrentBookingVehicle, setBookingMode, setBookingData, setPosts } = vehicleSlice.actions;
+export const { setVehicleData, setNavbarToggle, setIsModalOpen, setSelectedDays, setSelectedDaysArr, setTotalAmount, setCurrentBookingVehicle, setBookingMode, setBookingData, setPosts, setServiceRating, setVehicleRating, setShowModal } = vehicleSlice.actions;
 export default vehicleSlice.reducer;

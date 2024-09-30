@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MdDelete } from "react-icons/md";
 import axios from 'axios';
+import { useVerifyToken } from '../utils/VerifyRole';
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
@@ -8,7 +9,7 @@ const Settings = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [profilePicture, setProfilePicture] = useState(null);
-
+    const { id, username } = useVerifyToken();
     const handleProfilePictureChange = (e) => {
         const file = e.target.files[0];
         const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
@@ -81,7 +82,7 @@ const Settings = () => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         className="mt-2 px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-sky-500"
-                        placeholder="Enter your name"
+                        placeholder="Provide your name"
                         required
                     />
                 </div>
@@ -96,7 +97,7 @@ const Settings = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="mt-2 px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-sky-500"
-                        placeholder="Enter your email"
+                        placeholder="Provide your email"
                         required
                     />
                 </div>

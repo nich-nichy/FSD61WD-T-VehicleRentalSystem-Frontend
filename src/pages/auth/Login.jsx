@@ -58,7 +58,7 @@ const Login = () => {
                                 if (success) {
                                     Swal.fire({
                                         title: 'Good Job!',
-                                        text: message,
+                                        text: "Hello user",
                                         icon: 'success',
                                     });
                                     setTimeout(() => navigate('/'), 1000);

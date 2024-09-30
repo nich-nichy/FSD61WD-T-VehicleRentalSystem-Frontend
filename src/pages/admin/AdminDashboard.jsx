@@ -135,8 +135,8 @@ const AdminDashboard = () => {
                             </button>
                         </div>
                         <div className="bg-white p-6 rounded-lg shadow-lg">
-                            <h2 className="text-xl font-bold mb-4">Create Post</h2>
-                            <p className="text-gray-700">Create Posts on recent news.</p>
+                            <h2 className="text-xl font-bold mb-4">Manage Reviews</h2>
+                            <p className="text-gray-700">Analyse all reviews from users.</p>
                             <button className="bg-sky-600 text-white px-4 py-2 mt-4 rounded hover:bg-sky-500" onClick={() => handleGrid()}>
                                 Create Post
                             </button>

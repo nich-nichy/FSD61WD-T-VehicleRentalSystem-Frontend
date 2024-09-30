@@ -56,7 +56,7 @@ const SignUp = () => {
                                 if (success) {
                                     Swal.fire({
                                         title: 'Good Job!',
-                                        text: 'Signup successful!',
+                                        text: 'Signup successful! Welcome to ORS',
                                         icon: 'success',
                                     });
                                     setTimeout(() => {

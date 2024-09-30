@@ -2,22 +2,32 @@ import React, { useState, useEffect } from 'react';
 import CustomNavbar from '../../components/CustomNavbar';
 import axios from 'axios'
 import '../../index.css'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useVerifyToken } from '../../utils/VerifyRole';
 import UserRefTable from '../../components/Tables/UserRefTable';
+// import { setShowModal } from "../../redux/slices/vehicleSlice";
+import Swal from 'sweetalert2';
 import '../../index.css'
+import ReviewFormModal from '../../components/Forms/ReviewForm';
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
 const Dashboard = () => {
-    const navigate = useNavigate();
     const { id } = useVerifyToken();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const userDetails = useSelector((state) => state.authSlice.authData.user.userDetails);
     const [data, setData] = useState(null);
     const [bookingData, setBookingData] = useState(null);
     const [vehicleData, setVehicleData] = useState(null);
     const [paymentData, setPaymentData] = useState(null);
+    const [reviewData, setReviewData] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+
+    const createReview = () => {
+        setShowModal(true);
+    };
 
     useEffect(() => {
         const getBookingHistory = async () => {
@@ -25,24 +35,27 @@ const Dashboard = () => {
                 const { data } = await axios.get(
                     `${url}/booking/dashboard-data/${userDetails?.id}`
                 );
+                console.log({ data }, 'booking history data')
                 if (data?.dashboardData[0].bookingDetails.startDate && data?.dashboardData[0].bookingDetails.endDate && data?.dashboardData[0].bookingDetails.totalAmount) {
                     setData(data);
                     setBookingData(data?.dashboardData[0].bookingDetails);
                     setVehicleData(data?.dashboardData[0].vehicleDetails);
                     setPaymentData(data?.dashboardData[0].paymentDetails);
+                    setReviewData(data?.dashboardData[0].reviewDetails[0]);
                 }
             } catch (error) {
                 setData(null);
                 setBookingData(null);
                 setVehicleData(null);
                 setPaymentData(null);
+                setReviewData(null);
                 console.error("Error fetching cities:", error);
             }
         };
-        if (userDetails?.username?.length > 0 && bookingData === null) {
+        if (userDetails?.username?.length > 0 && (bookingData === null || vehicleData === null || paymentData === null || reviewData === null)) {
             getBookingHistory();
         }
-    }, [userDetails, bookingData])
+    }, [userDetails, bookingData, reviewData])
 
     const downloadInvoice = async (bookingId) => {
         try {
@@ -56,14 +69,15 @@ const Dashboard = () => {
             link.download = `invoice_${bookingId}.pdf`;
             link.click();
         } catch (error) {
+            Swal.fire({
+                title: "Error",
+                text: "No invoice found",
+                icon: "error"
+            });
             console.error('Error downloading the invoice:', error);
         }
     };
-
-    const createReview = () => {
-
-    }
-
+    console.log({ review: reviewData })
     return (
         <>
             {bookingData === null ? <>
@@ -115,31 +129,27 @@ const Dashboard = () => {
                                 </div>
                                 <button className="mt-auto bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm" onClick={() => downloadInvoice(bookingData?._id)}>Get Invoice</button>
                             </div>
-                            {false ? <>
+                            {reviewData && Object.keys(reviewData).length > 0 ? <>
                                 <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between min-h-[270px]">
                                     <div>
                                         <h2 className="text-xl font-semibold mb-4 text-gray-800">Your Reviews</h2>
                                         <ul className="space-y-4">
                                             <li className="p-4 bg-gray-100 rounded-md">
-                                                <p className="text-lg font-medium text-gray-800">Review #567</p>
-                                                <p className="text-sm text-gray-600">Vehicle: Sedan | Rating: 4/5</p>
-                                                <p className="text-sm text-gray-600">Comment: Great experience!</p>
+                                                <p className="text-lg font-medium text-gray-800">Review #{reviewData?._id}</p>
+                                                <p className="text-sm text-gray-600">Vehicle: {vehicleData?.make} | Model: {vehicleData?.model} | Rating: {reviewData.rateTheVehicle}/5</p>
+                                                <p className="text-sm text-gray-600">Comment: {reviewData?.vehicleComment}</p>
                                             </li>
                                         </ul>
                                     </div>
-                                    <button className="mt-auto bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-sm" onClick={() => updateReview()}>Edit Review</button>
+                                    <button className="mt-auto bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-sm" onClick={() => navigate('/reviews')}>View All Reviews</button>
                                 </div>
                             </> : <>
                                 <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between min-h-[270px]">
                                     <div>
                                         <h2 className="text-xl font-semibold mb-4 text-gray-800">Your Reviews</h2>
-                                        <ul className="space-y-4">
-                                            <li className="p-4 bg-gray-100 rounded-md">
-                                                <p className="text-4xl text-center font-medium text-gray-800">0</p>
-                                            </li>
-                                        </ul>
+                                        <ReviewFormModal showModal={showModal} setShowModal={setShowModal} vehicleData={vehicleData} bookingData={bookingData} />
+                                        <button className="mt-auto bg-yellow-500 hover:bg-yellow-600 text-white w-full px-4 py-2 rounded-md text-sm" onClick={() => createReview()}>Give a Review</button>
                                     </div>
-                                    <button className="mt-auto bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-sm" onClick={() => createReview()}>Give a Review</button>
                                 </div>
                             </>}
                         </div>

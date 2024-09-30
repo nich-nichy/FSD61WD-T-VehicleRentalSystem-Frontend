@@ -26,10 +26,6 @@ import Settings from './components/Settings';
 import AdminGrid from './pages/admin/Tables/AdminGrid';
 
 function App() {
-  const posts = [
-    { id: '1', title: 'Why Our Rental System is the Best', excerpt: 'Discover...', content: 'At ORS...' },
-    { id: '2', title: 'How to Rent a Vehicle in 5 Simple Steps', excerpt: 'Renting a vehicle...', content: 'Step 1...' }
-  ];
   return (
     <>
       <Router>
@@ -45,8 +41,8 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/cancel-booking" element={<CancelBooking />} />
           <Route path="/complete-order" element={<CompleteBooking />} />
-          <Route path="/posts" element={<Posts posts={posts} />} />
-          <Route path="/posts/:postId" element={<Post posts={posts} />} />
+          <Route path="/posts" element={<Posts />} />
+          <Route path="/posts/:postId" element={<Post />} />
           <Route path="/all-comments" element={<Comments />} />
           <Route exact path="/request-password-reset" element={<RequestPassword />} />
           <Route exact path="/info" element={<Info />} />
