@@ -13,7 +13,7 @@ const Explainer = () => {
             <div>
                 <div className="flex flex-col text-center w-full bg-white">
                     <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">How ORS works ?</h1>
-                    <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed eum itaque omnis aspernatur impedit, fugit blanditiis voluptas dolores sunt iste dicta nisi eligendi sint quis commodi esse quia ipsum natus?</p>
+                    <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Discover a seamless vehicle renting experience with a wide selection of cars, and trucks. Enjoy flexible bookings, competitive pricing, and excellent serviced vehicles for all your transportation needs.</p>
                     <div className="text-gray-600 body-font ">
                         <div className="container px-5 py-24 mx-auto flex flex-wrap">
                             <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">

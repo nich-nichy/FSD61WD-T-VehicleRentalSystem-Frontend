@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 const MessageCard = ({ reviews }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const profile = useSelector((state) => state.authSlice.authData.user.profilePicture);
 
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
@@ -26,7 +28,7 @@ const MessageCard = ({ reviews }) => {
             {reviews?.map((review, index) => (
                 <div key={index} className="flex items-start gap-2.5 mb-5">
                     {/* User Profile Image */}
-                    <img className="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt={`${review.username} image`} />
+                    <img className="w-8 h-8 rounded-full" src={review?.profilePicture ? review?.profilePicture : "/avatar.png"} alt={`${review.username} image`} />
 
                     {/* Review Content */}
                     <div className="flex flex-col w-full leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-white">

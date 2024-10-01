@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import CustomNavbar from '../../components/CustomNavbar';
 import axios from 'axios'
@@ -18,6 +18,7 @@ const BookVehicle = () => {
     const userDetails = useSelector((state) => state.authSlice.authData.user.userDetails);
     const [durationDays, setDurationDays] = useState(0);
     const [totalAmount, setTotalAmount] = useState(0);
+    const [findBooking, setFindBooking] = useState(null);
     const [postBookingData, setPostBookingData] = useState({});
     console.log({ id: userDetails?.id }, "checking user id")
     useEffect(() => {
@@ -56,15 +57,15 @@ const BookVehicle = () => {
         const checkBooking = async () => {
             const { data } = await axios.get(`${url}/booking/get-booking/${userDetails?.id}`);
             console.log({ data }, 'checking booking data')
-            if (data?.bookingInfo[0].vehicleId.length > 0) {
+            if (data?.bookingInfo[0]?.vehicleId.length > 0) {
+                setFindBooking(true);
                 Swal.fire({
                     title: "Booking Already Exists",
                     text: "You already have a car rented. Please cancel it before making a new booking.",
                     icon: "warning",
                     confirmButtonText: "OK",
                     confirmButtonColor: "#3085d6",
-                    showCancelButton: false,
-                    showCloseButton: true,
+                    allowOutsideClick: false,
                 }).then((result) => {
                     if (result.isConfirmed) {
                         navigate('/dashboard')
@@ -72,7 +73,9 @@ const BookVehicle = () => {
                 });
             }
         }
-        checkBooking();
+        if (!findBooking) {
+            checkBooking();
+        }
     }, [userDetails])
 
     useEffect(() => {
@@ -143,24 +146,9 @@ const BookVehicle = () => {
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{vehicleDetails?.make}</h1>
                             <p>{vehicleDetails?.model}</p>
                             <div className="flex mb-4">
-                                <span className="flex items-center">
-                                    <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 text-sky-500" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 text-sky-500" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 text-sky-500" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 text-sky-500" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 text-sky-500" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <span className="text-gray-600 ml-3">4 Reviews</span>
-                                </span>
+                                <Link to="/reviews" className="flex items-center">
+                                    <span className="text-gray-600 underline">View Reviews</span>
+                                </Link>
                                 <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
                                     <img src="/Rocket.png" alt="" height={20} width={20} />
                                 </span>

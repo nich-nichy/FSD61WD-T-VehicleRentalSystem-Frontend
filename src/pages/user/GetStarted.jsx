@@ -27,6 +27,7 @@ const GetStarted = () => {
     const [didPreBooked, setDidPreBooked] = useState(null);
     const [data, setData] = useState(null);
     const [cities, setCities] = useState([]);
+    const [allowPay, setAllowPay] = useState(true);
     console.log({ cities })
     const [showModal, setShowModal] = useState(false);
     const [dateRange, setDateRange] = useState([{
@@ -34,7 +35,6 @@ const GetStarted = () => {
         endDate: new Date(),
         key: 'selection'
     }]);
-    // const [vehicles, setVehicles] = useState([]);
     console.log({ currentMode })
     useEffect(() => {
         const checkPreBooked = async () => {
@@ -57,33 +57,6 @@ const GetStarted = () => {
         }
     }, [username || ''])
 
-    // useEffect(() => {
-    //     const updateBooking = async () => {
-    //         try {
-    //             const { data } = await axios.put(
-    //                 `${url}/booking/update-booking/${userDetails?.id}`,
-    //                 {
-    //                     userId: id || userDetails?.id,
-    //                     vehicleId: '',
-    //                     user: username,
-    //                     email: userEmail,
-    //                     state: selectedState,
-    //                     city: selectedCity,
-    //                     startDate: showDates?.startDate,
-    //                     endDate: showDates?.endDate,
-    //                     mode: "addMore"
-    //                 }
-    //             );
-    //             console.log({ data }, 'updatable data')
-    //         } catch (error) {
-    //             console.error("Error fetching cities:", error);
-    //         }
-    //     };
-    //     if (currentMode === "updateBooking") {
-    //         updateBooking();
-    //     }
-    // }, [currentMode, userDetails])
-
     useEffect(() => {
         const checkBooking = async () => {
             const { data } = await axios.get(`${url}/booking/get-booking/${userDetails?.id}`);
@@ -91,8 +64,10 @@ const GetStarted = () => {
             console.log(data?.bookingInfo[0].vehicleId.length, "length")
             if (currentMode === "create" && data?.bookingInfo[0].vehicleId.length > 0) {
                 navigate('/vehicles')
+                setAllowPay(false)
             } else if (data?.bookingInfo[0].vehicleId.length > 0) {
                 dispatch(setBookingMode("addMore"))
+                setAllowPay(false)
                 Swal.fire({
                     title: "Booking Already Exists",
                     text: "You already have a car rented. Post bookings cannot be updated.",
@@ -101,6 +76,7 @@ const GetStarted = () => {
                     confirmButtonColor: "#3085d6",
                     showCancelButton: false,
                     showCloseButton: true,
+                    allowOutsideClick: false,
                 }).then((result) => {
                     if (result.isConfirmed) {
                         navigate('/dashboard')
@@ -129,21 +105,6 @@ const GetStarted = () => {
         }
     }, [selectedState]);
 
-    // useEffect(() => {
-    //     const getVehicles = async () => {
-    //         try {
-    //             const { data } = await axios.get(
-    //                 `${url}/vehicle/save-temp`
-    //             );
-    //             setVehicles(data);
-    //         } catch (error) {
-    //             console.error("Error fetching cities:", error);
-    //         }
-    //     };
-    //     if (vehicles && vehicles?.length == 0) {
-    //         getVehicles();
-    //     }
-    // }, [])
     console.log(currentMode)
     const handleStateChange = (e) => {
         setSelectedState(e.target.value);

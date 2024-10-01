@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 const VehicleReview = ({ reviews }) => {
+    const profile = useSelector((state) => state.authSlice.authData.user.profilePicture);
     return (
         <div className="w-full mx-auto p-6">
             <div className="flex items-center space-x-2">
@@ -19,7 +21,7 @@ const VehicleReview = ({ reviews }) => {
                                 <div className="flex items-start gap-3">
                                     <img
                                         className="w-10 h-10 rounded-full object-cover"
-                                        src="/docs/images/people/profile-picture-3.jpg"
+                                        src={review?.profilePicture ? review?.profilePicture : "/avatar.png"}
                                         alt={`${review.username} profile`}
                                     />
                                     <div className="w-full">
