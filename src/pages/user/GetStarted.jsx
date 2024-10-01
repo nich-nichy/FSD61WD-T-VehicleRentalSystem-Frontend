@@ -89,7 +89,9 @@ const GetStarted = () => {
             const { data } = await axios.get(`${url}/booking/get-booking/${userDetails?.id}`);
             console.log({ data }, 'checking booking data')
             console.log(data?.bookingInfo[0].vehicleId.length, "length")
-            if (data?.bookingInfo[0].vehicleId.length > 0) {
+            if (currentMode === "create" && data?.bookingInfo[0].vehicleId.length > 0) {
+                navigate('/vehicles')
+            } else if (data?.bookingInfo[0].vehicleId.length > 0) {
                 dispatch(setBookingMode("addMore"))
                 Swal.fire({
                     title: "Booking Already Exists",

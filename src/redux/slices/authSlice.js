@@ -9,7 +9,8 @@ const authSlice = createSlice({
             },
             user: {
                 isUser: false,
-                userDetails: {}
+                userDetails: {},
+                profilePicture: null,
             },
         }
     },
@@ -23,8 +24,11 @@ const authSlice = createSlice({
         setUserDetails(state, action) {
             state.authData.user.userDetails = action.payload;
         },
+        setProfilePicture(state, action) {
+            state.authData.user.profilePicture = action.payload;
+        }
     },
 });
 
-export const { setAdmin, setUser, setUserDetails } = authSlice.actions;
+export const { setAdmin, setUser, setUserDetails, setProfilePicture } = authSlice.actions;
 export default authSlice.reducer;

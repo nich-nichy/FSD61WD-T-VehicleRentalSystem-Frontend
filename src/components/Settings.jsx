@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { MdDelete } from "react-icons/md";
 import axios from 'axios';
 import { useVerifyToken } from '../utils/VerifyRole';
+import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
@@ -9,12 +11,20 @@ const Settings = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [profilePicture, setProfilePicture] = useState(null);
+    const [profilePictureBase64, setProfilePictureBase64] = useState(null);
     const { id, username } = useVerifyToken();
+    const navigate = useNavigate();
+
     const handleProfilePictureChange = (e) => {
         const file = e.target.files[0];
         const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
         if (file && allowedTypes.includes(file.type)) {
             setProfilePicture(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setProfilePictureBase64(reader.result);
+            };
+            reader.readAsDataURL(file);
         } else {
             alert('Please upload a valid image file (JPG or PNG)');
             window.location.reload();
@@ -24,24 +34,43 @@ const Settings = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!profilePicture) {
+        if (!profilePictureBase64) {
             alert('Please upload a profile picture before submitting');
             return;
         }
-        console.log({ name, email, profilePicture })
-        const { data } = await axios.put(
-            `${url}/update-user-profile`,
-            {
-                name: name,
-                email: email,
-                profilePicture: profilePicture,
+
+        console.log({ name, email, profilePictureBase64 });
+        try {
+            const { data } = await axios.put(
+                `${url}/update-user-profile`,
+                {
+                    name: name,
+                    email: email,
+                    profilePicture: profilePictureBase64,
+                }
+            );
+            console.log(data);
+            if (data) {
+                Swal.fire({
+                    title: "Profile updated successfully",
+                    text: data.message,
+                    icon: "success",
+                });
+                navigate("/")
             }
-        );
-        console.log(data);
+        } catch (error) {
+            Swal.fire({
+                title: "Profile not updated",
+                text: data.message,
+                icon: "error",
+            });
+            navigate("/")
+        }
     };
 
     const handleDelete = () => {
         setProfilePicture(null);
+        setProfilePictureBase64(null);
         window.location.reload();
     };
 
@@ -68,7 +97,7 @@ const Settings = () => {
                             />
                         )}
                     </div>
-                    <div className="flex justify-end items-end text-red-500 text-2xl hover:text-red-600" onClick={() => handleDelete()}>
+                    <div className="flex justify-end items-end text-red-500 text-2xl hover:text-red-600" onClick={handleDelete}>
                         <MdDelete />
                     </div>
                 </div>
@@ -112,5 +141,4 @@ const Settings = () => {
         </div>
     );
 };
-
 export default Settings;

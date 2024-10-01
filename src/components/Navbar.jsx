@@ -6,15 +6,19 @@ import { FaTruck } from "react-icons/fa"
 import { GiHeavyLightning } from "react-icons/gi";
 import { FaHandsHelping } from "react-icons/fa";
 import { TbCategory2 } from "react-icons/tb";
-import { FaLock } from "react-icons/fa";
 import { MdEvent } from "react-icons/md";
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { setBookingMode } from '../redux/slices/vehicleSlice'
+import { setProfilePicture } from '../redux/slices/authSlice'
 import { Link } from 'react-router-dom'
 import Cookies from "js-cookie";
 import Swal from 'sweetalert2';
 import '../styles/Navbar.css'
+import { useVerifyToken } from '../utils/VerifyRole';
+import axios from 'axios';
+
+const url = import.meta.env.VITE_BACKEND_URL;
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
@@ -23,7 +27,10 @@ const Navbar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [userProf, setUserProf] = useState(null);
+    const { id } = useVerifyToken();
     const userDetails = useSelector((state) => state.authSlice.authData.user.userDetails);
+    const profOnRedux = useSelector((state) => state.authSlice.authData.user.profilePicture);
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
     };
@@ -36,6 +43,22 @@ const Navbar = () => {
         Cookies.remove('token')
         navigate("/login");
     };
+
+    console.log({ id }, "from nav")
+    useEffect(() => {
+        const getProfile = async () => {
+            const { data } = await axios.get(
+                `${url}/get-user-profile/${userDetails?.id}`
+            );
+            console.log(data, "from nav you know");
+            setUserProf(data?.user?.profilePicture);
+            dispatch(setProfilePicture(data?.user?.profilePicture));
+        }
+        if (!profOnRedux && userDetails?.id) {
+            getProfile();
+        }
+    }, [userDetails?.id])
+
     return (
         <>
             <div className="font-opensans relative bg-white">
@@ -60,7 +83,6 @@ const Navbar = () => {
                                 onClick={() => setOpen(!open)}
                             >
                                 <span className="sr-only">Open menu</span>
-                                {/* Heroicon name: outline/menu */}
                                 <svg
                                     className="h-6 w-6"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -105,11 +127,6 @@ const Navbar = () => {
                                     onClick={() => (setDropDown(!dropDown), setDropDownTwo(false))}
                                 >
                                     <span>Feature launch</span>
-                                    {/*
-              Heroicon name: solid/chevron-down
-
-              Item active: "text-gray-600", Item inactive: "text-gray-400"
-            */}
                                     <svg
                                         className={
                                             dropDown === true
@@ -128,17 +145,6 @@ const Navbar = () => {
                                         />
                                     </svg>
                                 </button>
-                                {/*
-            'Solutions' flyout menu, show/hide based on flyout menu state.
-
-            Entering: "transition ease-out duration-200"
-              From: "opacity-0 translate-y-1"
-              To: "opacity-100 translate-y-0"
-            Leaving: "transition ease-in duration-150"
-              From: "opacity-100 translate-y-0"
-              To: "opacity-0 translate-y-1"
-          */}
-
                                 <div
                                     className={
                                         dropDown
@@ -199,18 +205,12 @@ const Navbar = () => {
                                 </div>
                             </div>
                             <div className="relative">
-                                {/* Item active: "text-gray-900", Item inactive: "text-gray-500" */}
                                 <button
                                     type="button"
                                     className="group bg-white rounded-md text-sky-950 inline-flex items-center text-base font-medium hover:text-sky-700"
                                     onClick={() => (setDropDownTwo(!dropDownTwo), setDropDown(false))}
                                 >
                                     <span>More</span>
-                                    {/*
-              Heroicon name: solid/chevron-down
-
-              Item active: "text-gray-600", Item inactive: "text-gray-400"
-            */}
                                     <svg
                                         className={
                                             dropDownTwo === true
@@ -229,16 +229,6 @@ const Navbar = () => {
                                         />
                                     </svg>
                                 </button>
-                                {/*
-            'More' flyout menu, show/hide based on flyout menu state.
-
-            Entering: "transition ease-out duration-200"
-              From: "opacity-0 translate-y-1"
-              To: "opacity-100 translate-y-0"
-            Leaving: "transition ease-in duration-150"
-              From: "opacity-100 translate-y-0"
-              To: "opacity-0 translate-y-1"
-          */}{" "}
                                 <div
                                     className={
                                         dropDownTwo
@@ -330,16 +320,14 @@ const Navbar = () => {
                             </Link>
                         </div>
                         <div className="relative ml-0">
-                            {/* Avatar Button */}
                             <img
                                 id="avatarButton"
                                 type="button"
                                 onClick={toggleDropdown}
                                 className="w-10 h-10 rounded-full cursor-pointer"
-                                src="/avatar.png"
+                                src={profOnRedux ? profOnRedux : "/avatar.png"}
                                 alt="User dropdown"
                             />
-                            {/* Dropdown menu */}
                             {dropdownOpen && (
                                 <div
                                     id="userDropdown"
@@ -381,18 +369,6 @@ const Navbar = () => {
                         </div>
                     </div>
                 </div>
-
-                {/*
-    Mobile menu, show/hide based on mobile menu state.
-
-    Entering: "duration-200 ease-out"
-      From: ""
-      To: ""
-    Leaving: "duration-100 ease-in"
-      From: "opacity-100 scale-100"
-      To: "opacity-0 scale-95"
-  */}
-
                 <div
                     className={
                         open
@@ -429,7 +405,6 @@ const Navbar = () => {
                                         to="#"
                                         className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                                     >
-                                        {/* Heroicon name: outline/chart-bar */}
                                         <svg
                                             className="flex-shrink-0 h-6 w-6 text-sky-600"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -502,7 +477,6 @@ const Navbar = () => {
                                         to="#"
                                         className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                                     >
-                                        {/* Heroicon name: outline/refresh */}
                                         <svg
                                             className="flex-shrink-0 h-6 w-6 text-sky-600"
                                             xmlns="http://www.w3.org/2000/svg"
