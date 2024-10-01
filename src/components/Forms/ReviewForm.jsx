@@ -67,7 +67,7 @@ const ReviewFormModal = ({ showModal, setShowModal, vehicleData, bookingData }) 
                     icon: "success"
                 });
                 setShowModal(false);
-                navigate('/dashboard');
+                window.location.reload();
             } catch (error) {
                 console.error("Error submitting review:", error);
                 Swal.fire({

@@ -53,6 +53,29 @@ const BookVehicle = () => {
     }, [durationDays]);
 
     useEffect(() => {
+        const checkBooking = async () => {
+            const { data } = await axios.get(`${url}/booking/get-booking/${userDetails?.id}`);
+            console.log({ data }, 'checking booking data')
+            if (data?.bookingInfo[0].vehicleId.length > 0) {
+                Swal.fire({
+                    title: "Booking Already Exists",
+                    text: "You already have a car rented. Please cancel it before making a new booking.",
+                    icon: "warning",
+                    confirmButtonText: "OK",
+                    confirmButtonColor: "#3085d6",
+                    showCancelButton: false,
+                    showCloseButton: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate('/dashboard')
+                    }
+                });
+            }
+        }
+        checkBooking();
+    }, [userDetails])
+
+    useEffect(() => {
         if (!vehicleDetails) {
             navigate('/vehicles')
         } else if (!userDetails) {
@@ -114,7 +137,7 @@ const BookVehicle = () => {
             <section className="text-gray-600 body-font overflow-hidden mt-4">
                 <div className="container px-10 py-1 pb-0 mx-auto">
                     <div className="lg:w-fit mx-auto flex flex-wrap">
-                        <img alt="erental" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src={`/image_${vehicleDetails._id}.jpg`} />
+                        <img alt="erental" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src={`/image_${vehicleDetails?._id}.jpg`} />
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                             <h2 className="text-sm title-font text-gray-500 tracking-widest">{vehicleDetails?.Type}</h2>
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{vehicleDetails?.make}</h1>

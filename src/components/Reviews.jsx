@@ -49,10 +49,12 @@ const ReviewPage = () => {
         );
     };
     const calculateAverageRating = (reviews, type) => {
-        console.log({ reviews }, "from review")
-        const totalRating = reviews?.reduce((sum, review) => sum + review.reviewDetails[type], 0);
-        return (totalRating / reviews?.length);
+        if (!reviews || reviews.length === 0) return 0;
+        const totalRating = reviews.reduce((sum, review) => sum + review.reviewDetails[type], 0);
+        const averageRating = totalRating / reviews.length;
+        return averageRating === 5 ? '5' : averageRating.toFixed(1);
     };
+
     const vehicleAverageRating = calculateAverageRating(reviews, 'rateTheVehicle');
     const serviceAverageRating = calculateAverageRating(reviews, 'rateOurService');
     return (

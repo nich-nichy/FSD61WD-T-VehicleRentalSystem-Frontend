@@ -5,7 +5,7 @@ const VehicleReview = ({ reviews }) => {
     return (
         <div className="w-full mx-auto p-6">
             <div className="flex items-center space-x-2">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className=" gap-8">
                     {reviews?.map((review, index) => (
                         <div key={index} className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200 w-[60rem]">
                             <div className="md:w-1/3">

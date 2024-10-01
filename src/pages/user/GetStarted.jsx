@@ -85,6 +85,31 @@ const GetStarted = () => {
     // }, [currentMode, userDetails])
 
     useEffect(() => {
+        const checkBooking = async () => {
+            const { data } = await axios.get(`${url}/booking/get-booking/${userDetails?.id}`);
+            console.log({ data }, 'checking booking data')
+            console.log(data?.bookingInfo[0].vehicleId.length, "length")
+            if (data?.bookingInfo[0].vehicleId.length > 0) {
+                dispatch(setBookingMode("addMore"))
+                Swal.fire({
+                    title: "Booking Already Exists",
+                    text: "You already have a car rented. Post bookings cannot be updated.",
+                    icon: "warning",
+                    confirmButtonText: "OK",
+                    confirmButtonColor: "#3085d6",
+                    showCancelButton: false,
+                    showCloseButton: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate('/dashboard')
+                    }
+                });
+            }
+        }
+        checkBooking();
+    }, [userDetails])
+
+    useEffect(() => {
         const getCities = async () => {
             try {
                 const response = await axios.get("https://api.countrystatecity.in/v1/countries/IN/states/TN/cities", {

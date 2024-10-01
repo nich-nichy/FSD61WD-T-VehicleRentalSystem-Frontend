@@ -41,18 +41,17 @@ const Dashboard = () => {
                     setBookingData(data?.dashboardData[0].bookingDetails);
                     setVehicleData(data?.dashboardData[0].vehicleDetails);
                     setPaymentData(data?.dashboardData[0].paymentDetails);
-                    setReviewData(data?.dashboardData[0].reviewDetails[0]);
+                    if (!data?.dashboardData[0]?.reviewDetails) {
+                        setReviewData(null);
+                    } else {
+                        setReviewData(data?.dashboardData[0]?.reviewDetails[0]);
+                    }
                 }
             } catch (error) {
-                setData(null);
-                setBookingData(null);
-                setVehicleData(null);
-                setPaymentData(null);
-                setReviewData(null);
                 console.error("Error fetching cities:", error);
             }
         };
-        if (userDetails?.username?.length > 0 && (bookingData === null || vehicleData === null || paymentData === null || reviewData === null)) {
+        if (userDetails?.username?.length > 0 && (bookingData === null || vehicleData === null || paymentData === null)) {
             getBookingHistory();
         }
     }, [userDetails, bookingData, reviewData])

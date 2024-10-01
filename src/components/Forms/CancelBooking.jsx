@@ -16,7 +16,6 @@ const CancelBooking = () => {
     const [bookingDetails, setBookingDetails] = useState([]);
     const [selectedBookingId, setSelectedBookingId] = useState('');
     const [selectedBooking, setSelectedBooking] = useState(null);
-    const [currentBookingId, setCurrentBookingId] = useState('');
     console.log(selectedBooking?._id)
     useEffect(() => {
         const getBookingDetails = async () => {
