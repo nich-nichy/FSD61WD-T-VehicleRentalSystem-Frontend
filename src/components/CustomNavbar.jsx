@@ -5,7 +5,8 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { setBookingMode } from '../redux/slices/vehicleSlice'
 import { FaArrowAltCircleRight } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
+import { MdUpdate } from "react-icons/md";
+import { TbCalendarCancel } from "react-icons/tb";
 
 const CustomNavbar = () => {
     const [dropDown, setDropDown] = React.useState(false);
@@ -125,7 +126,7 @@ const CustomNavbar = () => {
                                             }
                                         }}
                                     >
-                                        <FaLock className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
+                                        <MdUpdate className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
                                         <div className="ml-4">
                                             <p className="text-base font-medium text-gray-900">
                                                 Update Booking ?
@@ -135,8 +136,9 @@ const CustomNavbar = () => {
                                             </p>
                                         </div>
                                     </p>
+
                                 </div>
-                                <div className="relative grid gap-6 bg-white px-5 py-6 pb-0 mb-0">
+                                <div className="relative grid gap-6 bg-white px-5 pt-0 pb-0 mb-0">
                                     <p
                                         className="-m-3 p-3 mb-3 flex items-start rounded-lg hover:bg-gray-50"
                                         onClick={() => {
@@ -146,7 +148,7 @@ const CustomNavbar = () => {
 
                                         }}
                                     >
-                                        <FaLock className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
+                                        <TbCalendarCancel className="flex-shrink-0 h-8 w-8 text-white mt-4 bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full p-1" />
                                         <div className="ml-4">
                                             <p className="text-base font-medium text-gray-900">
                                                 Cancel Booking ?

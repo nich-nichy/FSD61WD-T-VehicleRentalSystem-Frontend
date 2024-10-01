@@ -4,30 +4,57 @@ import axios from 'axios';
 import CustomNavbar from './CustomNavbar';
 import MessageCard from './ReviewCards';
 import { FaStar } from 'react-icons/fa';
+import VehicleReviews from './VehicleReview';
 
 const url = import.meta.env.VITE_BACKEND_URL;
 
 const ReviewPage = () => {
-    const [platformReviews, setPlatformReviews] = useState([]);
-    const [vehicleReviews, setVehicleReviews] = useState([]);
+    const [vehicleInfo, setVehicleInfo] = useState(null);
+    const [reviews, setReviews] = useState(null);
 
-    const fetchReviews = async () => {
+    const getReviews = async () => {
         try {
-            const { data } = await axios.get(`${url}/reviews/get-reviews`);
-            const allReviews = data.reviews;
-            const platform = allReviews.filter(review => review.type === 'platform');
-            const vehicles = allReviews.filter(review => review.type === 'vehicle');
-            setPlatformReviews(platform);
-            setVehicleReviews(vehicles);
+            const { data } = await axios.get(`${url}/review/get-reviews`);
+            console.log({ data })
+            setReviews(data?.data);
+            setVehicleInfo(data[0])
         } catch (error) {
             console.error('Error fetching reviews:', error);
         }
     };
-
+    console.log({ reviews })
     useEffect(() => {
-        fetchReviews();
+        if (!reviews || reviews?.length === 0) {
+            getReviews();
+        }
     }, []);
+    const renderStars = (rating) => {
+        const fullStars = Math.floor(rating);
+        const halfStar = rating - fullStars >= 0.5;
 
+        return (
+            <div className="flex justify-center items-center space-x-2">
+                {Array.from({ length: 5 }, (_, index) => (
+                    <FaStar
+                        key={index}
+                        className={`w-7 h-7 ${index < fullStars
+                            ? 'text-yellow-400'
+                            : halfStar && index === fullStars
+                                ? 'text-yellow-300'
+                                : 'text-gray-300'
+                            }`}
+                    />
+                ))}
+            </div>
+        );
+    };
+    const calculateAverageRating = (reviews, type) => {
+        console.log({ reviews }, "from review")
+        const totalRating = reviews?.reduce((sum, review) => sum + review.reviewDetails[type], 0);
+        return (totalRating / reviews?.length);
+    };
+    const vehicleAverageRating = calculateAverageRating(reviews, 'rateTheVehicle');
+    const serviceAverageRating = calculateAverageRating(reviews, 'rateOurService');
     return (
         <>
             <CustomNavbar />
@@ -38,98 +65,23 @@ const ReviewPage = () => {
                 </div>
                 <div className="flex justify-center m-3">
                     <div className="bg-white rounded-lg shadow-lg p-6 py-8 m-5 text-center w-72 h-40">
-                        <div className="flex justify-center items-center space-x-2">
-                            <FaStar
-                                key={0}
-                                className={`cursor-pointer w-7 h-7 ${0 ? 'text-yellow-400' : 'text-gray-300'}`}
-                                onClick={() => onRating(0)}
-                            />
-                            <FaStar
-                                key={0}
-                                className={`cursor-pointer w-7 h-7 ${0 ? 'text-yellow-400' : 'text-gray-300'}`}
-                                onClick={() => onRating(0)}
-                            />
-                            <FaStar
-                                key={0}
-                                className={`cursor-pointer w-7 h-7 ${0 ? 'text-yellow-400' : 'text-gray-300'}`}
-                                onClick={() => onRating(0)}
-                            />
-                            <FaStar
-                                key={0}
-                                className={`cursor-pointer w-7 h-7 ${0 ? 'text-yellow-400' : 'text-gray-300'}`}
-                                onClick={() => onRating(0)}
-                            />
-                            <FaStar
-                                key={0}
-                                className={`cursor-pointer w-7 h-7 ${0 ? 'text-yellow-400' : 'text-gray-300'}`}
-                                onClick={() => onRating(0)}
-                            />
-                        </div>
-                        <h2 className="text-ellipsis mt-3 text-2xl font-bold">5/5</h2>
-                        <p>For Us</p>
+                        {renderStars(vehicleAverageRating)}
+                        <h2 className="text-ellipsis mt-3 text-2xl font-bold">{vehicleAverageRating}/5</h2>
+                        <p>For Our Vehicles</p>
                     </div>
                     <div className="bg-white rounded-lg shadow-lg p-6 py-8 m-5 text-center w-72 h-40">
-                        <div className="flex justify-center items-center space-x-2">
-                            <FaStar
-                                key={0}
-                                className={`cursor-pointer w-7 h-7 ${0 ? 'text-yellow-400' : 'text-gray-300'}`}
-                                onClick={() => onRating(0)}
-                            />
-                            <FaStar
-                                key={0}
-                                className={`cursor-pointer w-7 h-7 ${0 ? 'text-yellow-400' : 'text-gray-300'}`}
-                                onClick={() => onRating(0)}
-                            />
-                            <FaStar
-                                key={0}
-                                className={`cursor-pointer w-7 h-7 ${0 ? 'text-yellow-400' : 'text-gray-300'}`}
-                                onClick={() => onRating(0)}
-                            />
-                            <FaStar
-                                key={0}
-                                className={`cursor-pointer w-7 h-7 ${0 ? 'text-yellow-400' : 'text-gray-300'}`}
-                                onClick={() => onRating(0)}
-                            />
-                            <FaStar
-                                key={0}
-                                className={`cursor-pointer w-7 h-7 ${0 ? 'text-yellow-400' : 'text-gray-300'}`}
-                                onClick={() => onRating(0)}
-                            />
-                        </div>
-                        <h2 className="text-ellipsis mt-3 text-2xl font-bold">5/5</h2>
-                        <p>For Our Vehicles</p>
+                        {renderStars(serviceAverageRating)}
+                        <h2 className="text-ellipsis mt-3 text-2xl font-bold">{serviceAverageRating}/5</h2>
+                        <p>For Our Service</p>
                     </div>
                 </div>
                 <section className="mb-10">
                     <h2 className="text-2xl font-semibold text-gray-700 mb-4">Reviews on ORS</h2>
-                    <MessageCard platformReviews={platformReviews} vehicleReviews={vehicleReviews} />
-                    {platformReviews.length > 0 ? (
-                        platformReviews.map((review, index) => (
-                            <div key={index} className="p-4 mb-4 bg-gray-100 rounded-lg shadow">
-                                <div className="text-lg font-medium text-yellow-500">
-                                    Rating: {review.rateOurService} / 5
-                                </div>
-                                <p className="mt-2 text-gray-700">{review.OrsComment}</p>
-                            </div>
-                        ))
-                    ) : (
-                        <p className="text-gray-600">No reviews for the platform yet.</p>
-                    )}
+                    <MessageCard reviews={reviews} />
                 </section>
                 <section>
                     <h2 className="text-2xl font-semibold text-gray-700 mb-4">Reviews on Vehicles, We have</h2>
-                    {vehicleReviews.length > 0 ? (
-                        vehicleReviews.map((review, index) => (
-                            <div key={index} className="p-4 mb-4 bg-white rounded-lg shadow">
-                                <div className="text-lg font-medium text-yellow-500">
-                                    Vehicle Rating: {review.rateTheVehicle} / 5
-                                </div>
-                                <p className="mt-2 text-gray-700">{review.vehicleComment}</p>
-                            </div>
-                        ))
-                    ) : (
-                        <p className="text-gray-600">No vehicle reviews yet.</p>
-                    )}
+                    <VehicleReviews reviews={reviews} vehicleInfo={vehicleInfo} />
                 </section>
             </div>
         </>
