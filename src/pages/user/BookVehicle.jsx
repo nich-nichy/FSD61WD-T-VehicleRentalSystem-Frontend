@@ -20,14 +20,12 @@ const BookVehicle = () => {
     const [totalAmount, setTotalAmount] = useState(0);
     const [findBooking, setFindBooking] = useState(null);
     const [postBookingData, setPostBookingData] = useState({});
-    console.log({ id: userDetails?.id }, "checking user id")
     useEffect(() => {
         const getPrice = async () => {
             try {
                 const { data } = await axios.get(
                     `${url}/booking/get-price/${userDetails?.id}`
                 );
-                console.log({ data });
                 if (data?.booking.startDate && data?.booking.endDate) {
                     const startDate = new Date(data?.booking.startDate);
                     const endDate = new Date(data?.booking.endDate);
@@ -56,7 +54,6 @@ const BookVehicle = () => {
     useEffect(() => {
         const checkBooking = async () => {
             const { data } = await axios.get(`${url}/booking/get-booking/${userDetails?.id}`);
-            console.log({ data }, 'checking booking data')
             if (data?.bookingInfo[0]?.vehicleId.length > 0) {
                 setFindBooking(true);
                 Swal.fire({
@@ -120,8 +117,6 @@ const BookVehicle = () => {
         try {
             const { data } = await axios.post(
                 `${url}/payment/booking-payment`, { amount: totalAmount, bookingData });
-            console.log({ data }, "from payment");
-
             window.location.href = data?.approvalLink
         } catch (error) {
             Swal.fire({

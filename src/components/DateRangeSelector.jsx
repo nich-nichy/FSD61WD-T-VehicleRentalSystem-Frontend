@@ -19,24 +19,19 @@ const DateRangeSelector = ({ ranges, onChange, onSubmit, ...rest }) => {
 
     useEffect(() => {
         if (selectedDateRange) {
-            console.log(selectedDateRange, "from date range");
             dispatch(setSelectedDaysArr(selectedDateRange));
         }
     }, [selectedDateRange]);
 
-    // Helper function to format date display
     function formatDateDisplay(date, defaultText) {
         if (!date) return defaultText;
         return format(date, "MM/dd/yyyy");
     }
 
-    // Handle date selection
     const handleSelect = (ranges) => {
         setSelectedDateRange(ranges.selection);
-        console.log(ranges.selection);
     };
 
-    // Clear the date selection (reset to today)
     const onClickClear = () => {
         const defaultRange = {
             startDate: new Date(),
@@ -44,7 +39,6 @@ const DateRangeSelector = ({ ranges, onChange, onSubmit, ...rest }) => {
             key: "selection"
         };
         setSelectedDateRange(defaultRange);
-        // dispatch(setSelectedDaysArr(defaultRange)); // Resetting in Redux store
         setShow(false);
     };
 

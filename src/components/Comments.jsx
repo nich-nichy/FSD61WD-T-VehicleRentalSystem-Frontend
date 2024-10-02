@@ -5,7 +5,6 @@ const Comments = ({ comments }) => {
 
     const handleCommentSubmit = (e) => {
         e.preventDefault();
-        console.log("New Comment:", newComment);
         setNewComment('');
     };
 

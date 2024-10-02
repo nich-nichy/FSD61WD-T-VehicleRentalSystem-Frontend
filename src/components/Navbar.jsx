@@ -47,13 +47,11 @@ const Navbar = () => {
         navigate("/login");
     };
 
-    console.log({ id }, "from nav")
     useEffect(() => {
         const getProfile = async () => {
             const { data } = await axios.get(
                 `${url}/get-user-profile/${userDetails?.id}`
             );
-            console.log(data, "from nav you know");
             setUserProf(data?.user?.profilePicture);
             dispatch(setProfilePicture(data?.user?.profilePicture));
         }

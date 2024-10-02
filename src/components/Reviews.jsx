@@ -15,14 +15,12 @@ const ReviewPage = () => {
     const getReviews = async () => {
         try {
             const { data } = await axios.get(`${url}/review/get-reviews`);
-            console.log({ data })
             setReviews(data?.data);
             setVehicleInfo(data[0])
         } catch (error) {
             console.error('Error fetching reviews:', error);
         }
     };
-    console.log({ reviews })
     useEffect(() => {
         if (!reviews || reviews?.length === 0) {
             getReviews();

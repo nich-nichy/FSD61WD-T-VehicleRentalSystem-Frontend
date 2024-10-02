@@ -16,7 +16,6 @@ const Posts = () => {
     useEffect(() => {
         const getPosts = async () => {
             const { data } = await axios.get(`${url}/posts/get-posts`);
-            console.log({ data })
             setAllPosts(data?.data)
             dispatch(setPosts(data?.data))
         };
@@ -24,7 +23,7 @@ const Posts = () => {
             getPosts();
         }
     }, []);
-    console.log(allPosts, "from map post")
+
     return (
         <div className='font-opensans'>
             <CustomNavbar />

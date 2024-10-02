@@ -19,7 +19,6 @@ const AdminGrid = () => {
     const paymentData = adminDataSlice?.payments;
     const users = adminDataSlice?.users;
     const reviews = adminDataSlice?.reviews;
-    console.log(mode)
     const allData = useMemo(() => {
         if (mode === "bookings") {
             return bookings?.map((booking) => ({

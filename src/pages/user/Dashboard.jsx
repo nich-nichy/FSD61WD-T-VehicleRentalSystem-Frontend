@@ -35,7 +35,6 @@ const Dashboard = () => {
                 const { data } = await axios.get(
                     `${url}/booking/dashboard-data/${userDetails?.id}`
                 );
-                console.log({ data }, 'booking history data')
                 if (data?.dashboardData[0].bookingDetails.startDate && data?.dashboardData[0].bookingDetails.endDate && data?.dashboardData[0].bookingDetails.totalAmount) {
                     setData(data);
                     setBookingData(data?.dashboardData[0].bookingDetails);
@@ -76,7 +75,6 @@ const Dashboard = () => {
             console.error('Error downloading the invoice:', error);
         }
     };
-    console.log({ review: reviewData })
     return (
         <>
             {bookingData === null ? <>

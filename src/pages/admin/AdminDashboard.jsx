@@ -24,7 +24,6 @@ const AdminDashboard = () => {
             try {
                 const { data } = await axios.get(
                     `${url}/admin/admin-dashboard`);
-                console.log(data)
                 if (data) {
                     dispatch(setAdminFetchData(data?.dashboardData));
                     setAdminDashboardData(data?.dashboardData);
@@ -44,31 +43,24 @@ const AdminDashboard = () => {
     const handleGrid = (mode) => {
         if (mode === "listings") {
             dispatch(setMode(mode))
-            console.log(mode, "from admin dashboard")
             navigate('/admin/view')
         } else if (mode === "bookings") {
             dispatch(setMode(mode))
-            console.log(mode, "from admin dashboard")
             navigate('/admin/view')
         } else if (mode === "users") {
             dispatch(setMode(mode))
-            console.log(mode, "from admin dashboard")
             navigate('/admin/view')
         } else if (mode === "payments") {
             dispatch(setMode(mode))
-            console.log(mode, "from admin dashboard")
             navigate('/admin/view')
         } else if (mode === "support") {
             dispatch(setMode(mode))
-            console.log(mode, "from admin dashboard")
             navigate('/admin/view')
         } else if (mode === "listings") {
             dispatch(setMode(mode))
-            console.log(mode, "from admin dashboard")
             navigate('/admin/view')
         } else if (mode === "review") {
             dispatch(setMode(mode))
-            console.log(mode, "from admin dashboard")
             navigate('/admin/view')
         }
     }

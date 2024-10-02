@@ -38,8 +38,6 @@ const Settings = () => {
             alert('Please upload a profile picture before submitting');
             return;
         }
-
-        console.log({ name, email, profilePictureBase64 });
         try {
             const { data } = await axios.put(
                 `${url}/update-user-profile`,
@@ -49,7 +47,6 @@ const Settings = () => {
                     profilePicture: profilePictureBase64,
                 }
             );
-            console.log(data);
             if (data) {
                 Swal.fire({
                     title: "Profile updated successfully",

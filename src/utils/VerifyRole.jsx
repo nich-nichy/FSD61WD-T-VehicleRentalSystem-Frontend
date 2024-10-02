@@ -26,7 +26,6 @@ export const useVerifyToken = () => {
         const verifyCookie = async () => {
             Cookies.remove("adminToken")
             if (!userToken) {
-                console.log("No token found!");
                 navigate("/login");
                 return;
             }
@@ -36,7 +35,6 @@ export const useVerifyToken = () => {
                     { token: userToken },
                     { withCredentials: true }
                 );
-                console.log("User verified", data);
                 if (data.status) {
                     setTempData({
                         id: data.id,
@@ -57,7 +55,6 @@ export const useVerifyToken = () => {
                         role: data.role || "user",
                     }));
                 } else {
-                    console.log("User not verified");
                     Cookies.remove("token");
                     navigate("/login");
                 }

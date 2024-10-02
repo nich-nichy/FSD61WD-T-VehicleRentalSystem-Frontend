@@ -19,7 +19,6 @@ const CompleteBooking = () => {
     const payerId = params.get('PayerID');
     const capturePaymentCalled = useRef(false);
 
-    console.log({ token, bookingData }, "from global")
     const capturePaymentFunction = async () => {
         try {
             const capturePayment = await axios.post(
@@ -40,7 +39,6 @@ const CompleteBooking = () => {
     };
 
     useEffect(() => {
-        console.log(bookingData, 'bookingData');
         const handleBooking = async () => {
             try {
                 const { data } = await axios.put(
@@ -74,75 +72,6 @@ const CompleteBooking = () => {
             handleBooking();
         }
     }, []);
-
-    // const capturePaymentFunction = async () => {
-    //     try {
-    //         const capturePayment = await axios.post(
-    //             `${url}/payment/capture-payment`,
-    //             {
-    //                 orderId: token,
-    //                 payerId: payerId,
-    //                 bookingData
-    //             }
-    //         );
-    //         Cookies.remove("bookingData");
-
-    //         return capturePayment
-    //     } catch (error) {
-    //         console.error("Error creating booking:", error);
-    //         navigate('/404')
-    //         return error;
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     console.log(bookingData, 'bookingData')
-    //     const handleBooking = async () => {
-    //         try {
-    //             const { data } = await axios.put(
-    //                 `${url}/booking/post-book`,
-    //                 bookingData
-    //             );
-    //             if (data) {
-    //                 setBookedData(data);
-    //                 // FIXME: If it doesnt work 
-    //                 const capture = capturePaymentFunction(bookingData);
-    //                 console.log(capture)
-    //                 if (capture) {
-    //                     Swal.fire({
-    //                         title: "Booking Confirmed",
-    //                         text: "You have successfully booked your vehicle!",
-    //                         icon: "success",
-    //                         confirmButtonText: "Great!"
-    //                     });
-    //                 } else {
-    //                     navigate('/404')
-    //                 }
-    //             }
-    //         } catch (error) {
-    //             console.error("Error creating booking:", error);
-    //         }
-    //     }
-    //     handleBooking();
-    // }, [bookingData]);
-
-    // useEffect(() => {
-    //     const capturePayment = async () => {
-    //         const { data } = await axios.post(
-    //             `${url}/payment/capture-payment`,
-    //             {
-    //                 orderId: token,
-    //                 payerId: payerId,
-    //                 bookingData
-    //             }
-    //         );
-    //         console.log(data, "Payment captured");
-    //     }
-    //     console.log({ token, bookingData }, "from effect 2")
-    //     if (token && bookingData) {
-    //         capturePayment();
-    //     }
-    // }, [token, bookingData]);
 
     return (
         <>

@@ -16,7 +16,6 @@ const CustomNavbar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const currentUrl = window.location.href;
-    console.log(currentUrl.includes("vehicles"))
 
     const cancelBooking = () => {
         navigate('/cancel-booking')

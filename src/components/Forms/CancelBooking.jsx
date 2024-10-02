@@ -16,18 +16,14 @@ const CancelBooking = () => {
     const [bookingDetails, setBookingDetails] = useState([]);
     const [selectedBookingId, setSelectedBookingId] = useState('');
     const [selectedBooking, setSelectedBooking] = useState(null);
-    console.log(selectedBooking?._id)
     useEffect(() => {
         const getBookingDetails = async () => {
             try {
-                console.log('in')
                 if ((id || userDetails?.userId) && (bookingDetails?.length === 0)) {
                     const response = await axios.get(`${url}/booking/get-booking/${userDetails?.userId || id}`);
-                    console.log(response?.data?.bookingInfo)
                     setBookingDetails(response?.data?.bookingInfo || []);
                 }
             } catch (error) {
-                console.log(error);
                 Swal.fire({
                     title: "Error",
                     text: error?.response?.data?.message || "No bookings found",
@@ -63,7 +59,6 @@ const CancelBooking = () => {
             bookingId: Yup.string().required('Please select a booking'),
         }),
         onSubmit: async (values) => {
-            console.log(values);
             if (!selectedBookingId) {
                 return Swal.fire({
                     title: "Error",
@@ -73,7 +68,6 @@ const CancelBooking = () => {
             }
             try {
                 const response = await axios.delete(`${url}/booking/cancel-booking/${selectedBookingId}`);
-                console.log(response);
                 Swal.fire({
                     title: "Booking Cancelled",
                     text: "You have cancelled your booking, Check mail for further information",
@@ -95,7 +89,6 @@ const CancelBooking = () => {
         <div className="bg-sky-700 py-10">
             <div className="max-w-2xl mx-auto bg-white p-8 shadow-lg rounded-lg">
                 <h2 className="text-2xl font-semibold text-gray-700 mb-4">Cancel Booking</h2>
-                {console.log(formik.values)}
                 <form onSubmit={formik.handleSubmit} className="space-y-6">
                     <div>
                         <label htmlFor="bookingId" className="block text-gray-700 font-medium">Select Booking</label>

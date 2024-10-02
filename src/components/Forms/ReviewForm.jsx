@@ -31,8 +31,6 @@ const ReviewFormModal = ({ showModal, setShowModal, vehicleData, bookingData }) 
 
     const [serviceRating, setServiceRating] = useState(0);
     const [vehicleRating, setVehicleRating] = useState(0);
-    console.log(vehicleData, "vehicleData")
-    console.log(bookingData, "bookingData")
     const formik = useFormik({
         initialValues: {
             OrsComment: '',
@@ -60,7 +58,6 @@ const ReviewFormModal = ({ showModal, setShowModal, vehicleData, bookingData }) 
                     OrsComment: values.OrsComment,
                     vehicleComment: values.vehicleComment
                 });
-                console.log("Review submitted successfully:", response.data);
                 Swal.fire({
                     title: "Thank You!",
                     text: "Your review has been submitted successfully.",
