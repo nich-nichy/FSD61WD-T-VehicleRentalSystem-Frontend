@@ -19,6 +19,7 @@ import { IoHome } from "react-icons/io5";
 import { MdSpaceDashboard } from "react-icons/md";
 import { ImPriceTag } from "react-icons/im";
 import { RiAdminLine } from "react-icons/ri";
+import { IoSettingsSharp } from "react-icons/io5";
 const url = import.meta.env.VITE_BACKEND_URL;
 
 const Navbar = () => {
@@ -332,7 +333,15 @@ const Navbar = () => {
                                             Dashboard
                                         </span>
                                     </Link>
-
+                                    <Link
+                                        to="/settings"
+                                        className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
+                                    >
+                                        <IoSettingsSharp className="flex-shrink-0 h-6 w-6 text-sky-600" />
+                                        <span className="ml-3 text-base font-medium text-gray-900">
+                                            Settings
+                                        </span>
+                                    </Link>
                                     <Link
                                         to="/pricing"
                                         className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
@@ -347,17 +356,15 @@ const Navbar = () => {
                                         className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                                     >
                                         <RiAdminLine className="flex-shrink-0 h-6 w-6 text-sky-600" />
-
                                         <span className="ml-3 text-base font-medium text-gray-900">
                                             Admin
                                         </span>
                                     </Link>
                                 </nav>
-
                             </div>
                         </div>
                         <div className="py-6 px-5">
-                            <div className='flex'>
+                            <div className='flex justify-between'>
                                 { }
                                 <Link to="/getStarted" className="relative inline-block text-lg group">
                                     <span className="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-transform ease-out border-2 border-sky-900 rounded-lg bg-gray-900 group-hover:mb-0 group-hover:mr-0 button_top">
@@ -365,6 +372,15 @@ const Navbar = () => {
                                         <span className="relative">Get started</span>
                                     </span>
                                     <span className="absolute bottom-0 right-0 w-full h-5 -mt-2 -mb-1 bg-sky-900 rounded-lg" data-rounded="rounded-lg"></span>
+                                </Link>
+                                <Link>
+                                    <p
+                                        className="text-xl px-4 py-2 text-white bg-sky-600 items-end rounded-lg"
+                                        onClick={handleLogout}
+                                        style={{ cursor: "pointer" }}
+                                    >
+                                        Logout
+                                    </p>
                                 </Link>
                             </div>
                         </div>
