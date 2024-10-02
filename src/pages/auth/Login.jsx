@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Formik } from 'formik';
@@ -9,25 +9,14 @@ const url = import.meta.env.VITE_BACKEND_URL;
 
 const Login = () => {
     const navigate = useNavigate();
-    const [isChecked, setIsChecked] = useState(false);
-
-    const handleAdminChange = () => {
-        setIsChecked(!isChecked);
-    }
-
-    // FIXME: Change UI
     return (
-        <div className="flex flex-col md:flex-row min-h-screen">
-            {/* Image Section for Larger Screens */}
-            <div className="hidden md:flex items-center justify-center w-1/2 bg-gray-100">
-                <img src="/BunchOfCars-2.jpeg" alt="Login" className="w-full h-full object-cover" />
+        <div className="flex flex-col md:flex-row min-h-screen bg-white">
+            <div className="hidden md:flex items-center justify-center w-1/2">
+                <img src="/Login-Signup2.jpg" alt="Login" className="w-full h-full object-cover" />
             </div>
-
-            {/* Form Section */}
             <div className="flex items-center justify-center w-full md:w-1/2 px-6 py-8">
                 <div className="w-full max-w-md">
                     <h1 className="text-4xl font-bold text-center mb-6">Login</h1>
-
                     <Formik
                         initialValues={{ email: '', password: '' }}
                         validate={(values) => {
@@ -84,9 +73,8 @@ const Login = () => {
                         {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
                             <form
                                 onSubmit={handleSubmit}
-                                className="bg-white shadow-lg rounded-lg p-6 w-full"
+                                className="bg-white text-gray-600 shadow-lg rounded-lg p-6 w-full"
                             >
-                                {/* Email Field */}
                                 <div className="mb-4">
                                     <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                                         Email
@@ -106,8 +94,6 @@ const Login = () => {
                                         <p className="text-red-500 text-sm mt-1">{errors.email}</p>
                                     )}
                                 </div>
-
-                                {/* Password Field */}
                                 <div className="mb-4">
                                     <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                                         Password
@@ -127,8 +113,6 @@ const Login = () => {
                                         <p className="text-red-500 text-sm mt-1">{errors.password}</p>
                                     )}
                                 </div>
-
-                                {/* Submit Button */}
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}

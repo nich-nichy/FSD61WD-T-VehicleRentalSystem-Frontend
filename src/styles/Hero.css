@@ -1,3 +1,54 @@
 .prevent-image {
     pointer-events: none;
 }
+
+.hero-rep {
+    font-size: 40px;
+}
+
+.hero-tag {
+    font-size: 45px;
+}
+
+@media (max-width: 600px) {
+    .hero-rep {
+        font-size: 20px;
+    }
+
+    .hero-tag {
+        font-size: 25px;
+    }
+
+    .hero-wrapper {
+        margin-bottom: -10px !important;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+    .hero-rep {
+        font-size: 30px;
+    }
+
+    .hero-tag {
+        font-size: 35px;
+    }
+
+    .hero-wrapper {
+        margin-bottom: -60px !important;
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1200px) {
+    .hero-rep {
+        font-size: 40px;
+    }
+
+    .hero-tag {
+        font-size: 45px;
+    }
+
+    .hero-wrapper {
+        margin-bottom: -95px !important;
+    }
+
+}

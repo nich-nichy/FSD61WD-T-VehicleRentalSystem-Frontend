@@ -15,12 +15,16 @@ const AdminDashboard = () => {
     const token = Cookies.get('adminToken');
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const bookingsLength = adminDataSlice?.bookings?.length;
+    const vehiclesLength = adminDataSlice?.vehicles?.length;
+    const usersLength = adminDataSlice?.users?.length;
 
     useEffect(() => {
         const getDashboardData = async () => {
             try {
                 const { data } = await axios.get(
                     `${url}/admin/admin-dashboard`);
+                console.log(data)
                 if (data) {
                     dispatch(setAdminFetchData(data?.dashboardData));
                     setAdminDashboardData(data?.dashboardData);
@@ -62,6 +66,10 @@ const AdminDashboard = () => {
             dispatch(setMode(mode))
             console.log(mode, "from admin dashboard")
             navigate('/admin/view')
+        } else if (mode === "review") {
+            dispatch(setMode(mode))
+            console.log(mode, "from admin dashboard")
+            navigate('/admin/view')
         }
     }
 
@@ -79,19 +87,19 @@ const AdminDashboard = () => {
                         <div className="card-purple-blue rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
                             <div className="text-white text-center">
                                 <h4 className="text-lg font-light">Total Bookings</h4>
-                                <p className="text-3xl font-semibold mt-2">0</p>
+                                <p className="text-3xl font-semibold mt-2">{bookingsLength}</p>
                             </div>
                         </div>
                         <div className="card-salmon-pink rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
                             <div className="text-white text-center">
                                 <h4 className="text-lg font-light">Total Users</h4>
-                                <p className="text-3xl font-semibold mt-2">0</p>
+                                <p className="text-3xl font-semibold mt-2">{usersLength}</p>
                             </div>
                         </div>
                         <div className="card-purple-pink rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
                             <div className="text-white text-center">
                                 <h4 className="text-lg font-light">Total Vehicles</h4>
-                                <p className="text-3xl font-semibold mt-2">0</p>
+                                <p className="text-3xl font-semibold mt-2">{vehiclesLength}</p>
                             </div>
                         </div>
                     </div>
@@ -128,17 +136,17 @@ const AdminDashboard = () => {
                             </button>
                         </div>
                         <div className="bg-white p-6 rounded-lg shadow-lg">
-                            <h2 className="text-xl font-bold mb-4">Support Inquiries</h2>
-                            <p className="text-gray-700">Handle all support inquiries from users.</p>
-                            <button className="bg-sky-600 text-white px-4 py-2 mt-4 rounded hover:bg-sky-500" onClick={() => handleGrid("support")}>
-                                View Inquiries
+                            <h2 className="text-xl font-bold mb-4">Manage Reviews</h2>
+                            <p className="text-gray-700">Analyse all reviews from users.</p>
+                            <button className="bg-sky-600 text-white px-4 py-2 mt-4 rounded hover:bg-sky-500" onClick={() => handleGrid("review")}>
+                                Manage Reviews
                             </button>
                         </div>
                         <div className="bg-white p-6 rounded-lg shadow-lg">
-                            <h2 className="text-xl font-bold mb-4">Manage Reviews</h2>
-                            <p className="text-gray-700">Analyse all reviews from users.</p>
-                            <button className="bg-sky-600 text-white px-4 py-2 mt-4 rounded hover:bg-sky-500" onClick={() => handleGrid()}>
-                                Create Post
+                            <h2 className="text-xl font-bold mb-4">Support Inquiries</h2>
+                            <p className="text-gray-700">Handle all support inquiries from users.</p>
+                            <button className="bg-sky-600 text-white px-4 py-2 mt-4 rounded opacity-50 cursor-not-allowed">
+                                View Inquiries
                             </button>
                         </div>
                     </div>

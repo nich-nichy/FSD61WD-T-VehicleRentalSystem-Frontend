@@ -18,6 +18,7 @@ const AdminGrid = () => {
     const vehicles = adminDataSlice?.vehicles;
     const paymentData = adminDataSlice?.payments;
     const users = adminDataSlice?.users;
+    const reviews = adminDataSlice?.reviews;
     console.log(mode)
     const allData = useMemo(() => {
         if (mode === "bookings") {
@@ -62,8 +63,17 @@ const AdminGrid = () => {
                 reviewsCount: user.reviews?.length || 0,
                 createdAt: new Date(user.createdAt.$date).toLocaleDateString(),
             }));
+        } else if (mode === "review") {
+            return reviews?.map((review) => ({
+                userId: review?.userId,
+                commendsPortal: review?.OrsComment || "N/A",
+                ratingPortal: review?.rateOurService || 0,
+                vehicleId: review?.vehicleId,
+                vehicleRating: review?.rateTheVehicle || 0,
+                vehicleComment: review?.vehicleComment || 0,
+            }));
         }
-    }, [mode, bookings, paymentData, vehicles, users]);
+    }, [mode, bookings, paymentData, vehicles, users, reviews]);
 
     const columnDefinitions = useMemo(() => {
         if (mode === "bookings") {
@@ -99,6 +109,15 @@ const AdminGrid = () => {
                 { headerName: "Email", field: "email", flex: 1, sortable: true, filter: true },
                 { headerName: "Username", field: "username", flex: 1, sortable: true, filter: true },
                 { headerName: "Reviews Count", field: "reviewsCount", flex: 1, sortable: true, filter: true },
+            ];
+        } else if (mode === "review") {
+            return [
+                { headerName: "User ID", field: "userId", flex: 1, sortable: true, filter: true },
+                { headerName: "VehicleId", field: "vehicleId", flex: 1, sortable: true, filter: true },
+                { headerName: "Comments for Portal", field: "commendsPortal", flex: 1, sortable: true, filter: true },
+                { headerName: "Rating Portal", field: "ratingPortal", flex: 1, sortable: true, filter: true },
+                { headerName: "Rating Vehicle", field: "vehicleRating", flex: 1, sortable: true, filter: true },
+                { headerName: "Vehicle comment", field: "vehicleComment", flex: 1, sortable: true, filter: true },
             ];
         }
     }, [mode]);

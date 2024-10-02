@@ -9,14 +9,11 @@ const url = import.meta.env.VITE_BACKEND_URL;
 
 const SignUp = () => {
     const navigate = useNavigate();
-    // FIXME: Change UI
     return (
-        <div className="flex flex-col md:flex-row min-h-screen">
-            {/* Form Section */}
+        <div className="flex flex-col md:flex-row min-h-screen bg-white">
             <div className="flex items-center justify-center w-full md:w-1/2 px-6 py-8">
                 <div className="w-full max-w-md">
                     <h1 className="text-4xl font-bold text-center mb-6">Sign Up</h1>
-
                     <Formik
                         initialValues={{ username: '', email: '', password: '' }}
                         validate={(values) => {
@@ -93,7 +90,6 @@ const SignUp = () => {
                                 onSubmit={handleSubmit}
                                 className="bg-white shadow-lg rounded-lg p-6 w-full"
                             >
-                                {/* Username Field */}
                                 <div className="mb-4">
                                     <label htmlFor="username" className="block text-sm font-medium text-gray-700">
                                         Username
@@ -113,8 +109,6 @@ const SignUp = () => {
                                         <p className="text-red-500 text-sm mt-1">{errors.username}</p>
                                     )}
                                 </div>
-
-                                {/* Email Field */}
                                 <div className="mb-4">
                                     <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                                         Email
@@ -134,8 +128,6 @@ const SignUp = () => {
                                         <p className="text-red-500 text-sm mt-1">{errors.email}</p>
                                     )}
                                 </div>
-
-                                {/* Password Field */}
                                 <div className="mb-4">
                                     <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                                         Password
@@ -155,12 +147,10 @@ const SignUp = () => {
                                         <p className="text-red-500 text-sm mt-1">{errors.password}</p>
                                     )}
                                 </div>
-
-                                {/* Submit Button */}
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md"
+                                    className="w-full bg-sky-600 hover:bg-sky-700 text-white py-2 rounded-md"
                                 >
                                     {isSubmitting ? 'Submitting...' : 'Submit'}
                                 </button>
@@ -171,17 +161,15 @@ const SignUp = () => {
                     <div className="mt-4 text-center">
                         <p>
                             Already a user?{' '}
-                            <a className="text-blue-500 hover:underline" href="/login">
+                            <a className="text-sky-500 hover:underline" href="/login">
                                 Login here
                             </a>
                         </p>
                     </div>
                 </div>
             </div>
-
-            {/* Image Section */}
             <div className="hidden md:flex items-center justify-center w-1/2 bg-gray-100">
-                <img src="/BunchOfCars.jpeg" alt="Signup" className="w-full h-full object-cover" />
+                <img src="/Login-Signup2.jpg" alt="Signup" className="w-full h-full object-cover" />
             </div>
         </div>
     );
