@@ -80,7 +80,7 @@ const CustomNavbar = () => {
                     </Link>
                     <Link
                         to="/pricing"
-                        className="text-base font-medium text-sky-950 hover:text-sky-700"
+                        className="text-base font-medium text-sky-950 hover:text-sky-700 md:hidden lg:block"
                     >
                         Pricing
                     </Link>
@@ -112,8 +112,8 @@ const CustomNavbar = () => {
                         <div
                             className={
                                 dropDownTwo
-                                    ? " opacity-100 translate-y-0 transition ease-out duration-200 absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2"
-                                    : " opacity-0 translate-y-1 absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2"
+                                    ? " opacity-100 translate-y-0 transition ease-out duration-200 absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2 md:-ml-36"
+                                    : " opacity-0 translate-y-1 absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2  md:-ml-36"
                             }
                         >
                             <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">

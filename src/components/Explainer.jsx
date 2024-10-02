@@ -7,8 +7,8 @@ const Explainer = () => {
     return (
         <>
             <div className='text-center p-1 text-white text-balance font-opensans hero'>
-                <h2 className='text-5xl font-bold pb-1 font-montserrat'>Your Ride, Your Rules!</h2>
-                <p className='text-2xl'>Find the Perfect Vehicle for Every Journey – From Cars to Trucks, We’ve Got You Covered</p>
+                <h2 className='text-5xl font-bold pb-1 font-montserrat explainer-para-header'>Your Ride, Your Rules!</h2>
+                <p className='text-2xl explainer-para-body'>Find the Perfect Vehicle for Every Journey – From Cars to Trucks, We’ve Got You Covered</p>
             </div>
             <div>
                 <div className="flex flex-col text-center w-full bg-white">
@@ -48,7 +48,7 @@ const Explainer = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex relative pb-10 w-72 sm:items-center md:w-2/3 mx-auto">
+                            <div className="flex relative pb-20 sm:items-center md:w-2/3 mx-auto">
                                 <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
                                     <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
                                 </div>
@@ -56,6 +56,7 @@ const Explainer = () => {
                                 <div className="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
                                     <div className="flex-shrink-0 w-60 h-60 bg-white text-sky-500 rounded-full inline-flex items-center justify-center">
                                         <img src="/booking.svg" alt="" />
+
                                     </div>
                                     <div className="flex-grow ml-20 sm:pl-6 mt-6 sm:mt-0">
                                         <h2 className="font-medium title-font text-gray-900 mb-1 text-xl text-start">Pre Book the vehicle</h2>
@@ -63,7 +64,7 @@ const Explainer = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex relative pb-10 w-72 sm:items-center md:w-2/3 mx-auto">
+                            <div className="flex relative pb-20 sm:items-center md:w-2/3 mx-auto">
                                 <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
                                     <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
                                 </div>
@@ -71,10 +72,11 @@ const Explainer = () => {
                                 <div className="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
                                     <div className="flex-shrink-0 w-60 h-60 bg-white text-sky-500 rounded-full inline-flex items-center justify-center">
                                         <img src="/adventure.svg" alt="" />
+
                                     </div>
                                     <div className="flex-grow ml-20 sm:pl-6 mt-6 sm:mt-0">
                                         <h2 className="font-medium title-font text-gray-900 mb-1 text-xl text-start">Here we go</h2>
-                                        <p className="leading-relaxed text-start"> Get Ready to Explore, Once after payment completetion booking process</p>
+                                        <p className="leading-relaxed text-start">Get Ready to Explore, Once after payment completetion booking process.</p>
                                     </div>
                                 </div>
                             </div>

@@ -9,7 +9,7 @@ const Hero = () => {
                     <div className="bg-white relative pt-5 -mb-20 hero-wrapper">
                         <div className="text-center poppins-regular ">
                             <p
-                                className="font-semibold mb-2 hero-rep"
+                                className="font-semibold hero-rep"
                             >
                                 Want to {""}
                                 <span className="antialiased text-red-300">Cruise</span>{" "}on{" "}

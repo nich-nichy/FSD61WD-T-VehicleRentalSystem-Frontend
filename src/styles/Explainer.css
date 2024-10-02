@@ -38,3 +38,17 @@
     margin-left: 2rem;
     margin-right: 2rem;
 }
+
+@media (max-width: 600px) {
+    .explainer-para-header {
+        font-size: x-large !important;
+    }
+
+    .explainer-para-body {
+        font-size: large !important;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {}
+
+@media (min-width: 901px) and (max-width: 1200px) {}
