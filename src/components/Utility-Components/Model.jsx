@@ -4,24 +4,18 @@ import { setIsModalOpen } from '../../redux/slices/vehicleSlice'
 
 const ModalComponent = ({ component }) => {
     const dispatch = useDispatch();
-    // State to control the modal visibility
     const isModalOpen = useSelector((state) => state?.vehicleSlice?.utilityModel.isModalOpen);
 
-    // Function to close the modal
     const closeModal = () => {
-        // setIsOpen(false);
         dispatch(setIsModalOpen(false));
     };
 
     return (
         <div>
-            {/* Main modal */}
             {isModalOpen && (
                 <div className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full bg-sky-950 h-[calc(100%-1rem)] max-h-full overflow-y-auto overflow-x-hidden md:inset-0" style={{ height: '100vh' }}>
                     <div className="relative p-4 w-full max-w-2xl max-h-full text-white">
-                        {/* Modal content */}
                         <div className="relative rounded-lg shadow bg-sky-900">
-                            {/* Modal header */}
                             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white"></h3>
                                 <button
@@ -47,11 +41,8 @@ const ModalComponent = ({ component }) => {
                                     <span className="sr-only">Close modal</span>
                                 </button>
                             </div>
-
                             {/* Modal body */}
                             {component}
-
-                            {/* Modal footer */}
                             <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                                 <button
                                     onClick={closeModal}

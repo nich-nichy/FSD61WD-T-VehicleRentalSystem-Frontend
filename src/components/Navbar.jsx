@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { FaArrowAltCircleRight } from "react-icons/fa";
-import { FaCarRear } from "react-icons/fa6";
 import { FaBars } from "react-icons/fa6";
 import { FaHandsHelping } from "react-icons/fa";
 import { TbCategory2 } from "react-icons/tb";
@@ -19,7 +18,6 @@ import axios from 'axios';
 import { IoHome } from "react-icons/io5";
 import { MdSpaceDashboard } from "react-icons/md";
 import { ImPriceTag } from "react-icons/im";
-import { MdOutlineMoreHoriz } from "react-icons/md";
 import { RiAdminLine } from "react-icons/ri";
 const url = import.meta.env.VITE_BACKEND_URL;
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Error = () => {
-    const [timeLeft, setTimeLeft] = useState(10);
+    const [timeLeft, setTimeLeft] = useState(20);
     const navigate = useNavigate();
     useEffect(() => {
         if (timeLeft === 0) {
@@ -16,7 +16,7 @@ const Error = () => {
         return () => clearInterval(intervalId);
     }, [timeLeft]);
     return (
-        <div className="min-h-screen bg-white flex flex-col justify-center items-center sticky">
+        <div className="font-opensans min-h-screen bg-white flex flex-col justify-center items-center sticky">
             <div className="max-w-md text-center bg-white p-6 rounded-lg">
                 <img src="/404.jpeg" alt="404 Error" className="w-full h-auto mb-6 rounded-full" />
                 <h1 className="text-3xl font-bold text-gray-800 mb-4">Oops! Page Not Found</h1>

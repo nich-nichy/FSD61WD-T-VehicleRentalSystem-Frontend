@@ -6,7 +6,6 @@ import axios from 'axios'
 import Cookies from "js-cookie";
 import Swal from 'sweetalert2';
 import { useVerifyToken } from '../../utils/VerifyRole';
-import { setTotalAmount } from '../../redux/slices/vehicleSlice'
 
 const url = import.meta.env.VITE_BACKEND_URL;
 

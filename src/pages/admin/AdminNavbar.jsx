@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import Cookies from 'js-cookie';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setMode } from "../../redux/slices/adminSlice"
 
-const AdminNavbar = ({ mode }) => {
+const AdminNavbar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleLogout = () => {

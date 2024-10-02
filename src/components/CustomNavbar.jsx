@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import Cookies from 'js-cookie';
-import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setBookingMode } from '../redux/slices/vehicleSlice'
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { MdUpdate } from "react-icons/md";
 import { TbCalendarCancel } from "react-icons/tb";
 
 const CustomNavbar = () => {
-    const [dropDown, setDropDown] = React.useState(false);
-    const [dropDownTwo, setDropDownTwo] = React.useState(false);
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [dropdown, setDropdown] = useState(false);
+    const [dropDown, setDropDown] = useState(false);
+    const [dropDownTwo, setDropDownTwo] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const currentUrl = window.location.href;

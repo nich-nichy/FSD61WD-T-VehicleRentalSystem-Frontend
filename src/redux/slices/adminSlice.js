@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { setAdmin } from "./authSlice";
 
 const adminSlice = createSlice({
     name: "adminSlicer",

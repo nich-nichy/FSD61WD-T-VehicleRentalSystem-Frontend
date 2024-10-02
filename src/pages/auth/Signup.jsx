@@ -10,7 +10,7 @@ const url = import.meta.env.VITE_BACKEND_URL;
 const SignUp = () => {
     const navigate = useNavigate();
     return (
-        <div className="flex flex-col md:flex-row min-h-screen bg-white">
+        <div className="font-opensans flex flex-col md:flex-row min-h-screen bg-white">
             <div className="flex items-center justify-center w-full md:w-1/2 px-6 py-8">
                 <div className="w-full max-w-md">
                     <h1 className="text-4xl font-bold text-center mb-6">Sign Up</h1>

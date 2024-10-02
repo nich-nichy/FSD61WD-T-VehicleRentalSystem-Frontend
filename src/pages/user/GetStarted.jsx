@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedDays, setBookingMode } from '../../redux/slices/vehicleSlice'
-import Model from '../../components/Utility-Components/Model'
 import DateRangeSelector from '../../components/DateRangeSelector';
 import { useVerifyToken } from '../../utils/VerifyRole';
 import { useNavigate } from 'react-router-dom'
@@ -181,11 +180,6 @@ const GetStarted = () => {
         setData(data);
     };
 
-
-    // useEffect(() => {
-    //     if (selectedState?.length > 0 && selectedCity?.length > 0 && dateRange?.length > 0) {
-    //     }
-    // }, []);
     return (
         <>
             {!currentMode === "addMore" && !currentMode === "create" ? <>

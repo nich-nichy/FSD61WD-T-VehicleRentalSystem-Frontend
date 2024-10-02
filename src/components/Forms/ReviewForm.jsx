@@ -5,7 +5,6 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
 import { useVerifyToken } from '../../utils/VerifyRole';
-import { useNavigate } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
 
 const url = import.meta.env.VITE_BACKEND_URL;
@@ -26,7 +25,6 @@ const StarRating = ({ count, rating, onRating }) => {
 
 const ReviewFormModal = ({ showModal, setShowModal, vehicleData, bookingData }) => {
     const { id } = useVerifyToken();
-    const navigate = useNavigate();
     const userDetails = useSelector((state) => state.authSlice?.authData.user.userDetails);
 
     const [serviceRating, setServiceRating] = useState(0);

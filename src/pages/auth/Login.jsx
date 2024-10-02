@@ -10,7 +10,7 @@ const url = import.meta.env.VITE_BACKEND_URL;
 const Login = () => {
     const navigate = useNavigate();
     return (
-        <div className="flex flex-col md:flex-row min-h-screen bg-white">
+        <div className="font-opensans flex flex-col md:flex-row min-h-screen bg-white">
             <div className="hidden md:flex items-center justify-center w-1/2">
                 <img src="/Login-Signup2.jpg" alt="Login" className="w-full h-full object-cover" />
             </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Cookies from "js-cookie";
 import Swal from 'sweetalert2';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../src/index.css'
 import Loader from './Loader';

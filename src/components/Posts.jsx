@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import CustomNavbar from './CustomNavbar';
 import { useVerifyToken } from '../utils/VerifyRole';
 import axios from "axios";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setPosts } from '../redux/slices/vehicleSlice'
 
 

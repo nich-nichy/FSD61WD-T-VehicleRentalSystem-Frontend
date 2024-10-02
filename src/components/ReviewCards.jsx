@@ -1,15 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FaStar } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
 
 const MessageCard = ({ reviews }) => {
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const profile = useSelector((state) => state.authSlice.authData.user.profilePicture);
-
-    const toggleDropdown = () => {
-        setDropdownOpen(!dropdownOpen);
-    };
-
     const StarRating = ({ count, rating }) => {
         return (
             <div className="flex space-x-1">
@@ -44,8 +36,6 @@ const MessageCard = ({ reviews }) => {
                         <p className="text-sm font-normal py-2.5 text-gray-900 dark:text-sky-800">
                             {review.reviewDetails.OrsComment}
                         </p>
-
-                        {/* Star Rating for Service */}
                         <div className="flex">
                             <StarRating count={5} rating={review.reviewDetails.rateOurService} />
                         </div>

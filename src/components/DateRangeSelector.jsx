@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Model from '../components/Utility-Components/Model'
 import { DateRangePicker } from 'react-date-range';
 import { format } from 'date-fns';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setIsModalOpen, setSelectedDaysArr } from '../redux/slices/vehicleSlice'
 import PropTypes from 'prop-types';
 import "react-date-range/dist/styles.css";
