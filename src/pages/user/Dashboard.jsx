@@ -126,19 +126,27 @@ const Dashboard = () => {
                                 <button className="mt-auto bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm" onClick={() => downloadInvoice(bookingData?._id)}>Get Invoice</button>
                             </div>
                             {reviewData && Object.keys(reviewData).length > 0 ? <>
-                                <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between min-h-[270px]">
-                                    <div>
-                                        <h2 className="text-xl font-semibold mb-4 text-gray-800">Your Reviews</h2>
-                                        <ul className="space-y-4">
-                                            <li className="p-4 bg-gray-100 rounded-md">
-                                                <p className="text-lg font-medium text-gray-800">Review #{reviewData?._id}</p>
-                                                <p className="text-sm text-gray-600">Vehicle: {vehicleData?.make} | Model: {vehicleData?.model} | Rating: {reviewData.rateTheVehicle}/5</p>
-                                                <p className="text-sm text-gray-600">Comment: {reviewData?.vehicleComment}</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <button className="mt-auto bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-sm" onClick={() => navigate('/reviews')}>View All Reviews</button>
-                                </div>
+                                {(reviewData?.userId === id) ? <>
+                                    <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between min-h-[270px]">
+                                        <div>
+                                            <h2 className="text-xl font-semibold mb-4 text-gray-800">Your Reviews</h2>
+                                            <ul className="space-y-4">
+                                                <li className="p-4 bg-gray-100 rounded-md">
+                                                    <p className="text-lg font-medium text-gray-800">Review #{reviewData?._id}</p>
+                                                    <p className="text-sm text-gray-600">Vehicle: {vehicleData?.make} | Model: {vehicleData?.model} | Rating: {reviewData.rateTheVehicle}/5</p>
+                                                    <p className="text-sm text-gray-600">Comment: {reviewData?.vehicleComment}</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <button className="mt-auto bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-sm" onClick={() => navigate('/reviews')}>View All Reviews</button>
+                                    </div></> : <>
+                                    <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between min-h-[270px]">
+                                        <div>
+                                            <h2 className="text-xl font-semibold mb-4 text-gray-800">Your Reviews</h2>
+                                            <ReviewFormModal showModal={showModal} setShowModal={setShowModal} vehicleData={vehicleData} bookingData={bookingData} />
+                                            <button className="mt-auto bg-yellow-500 hover:bg-yellow-600 text-white w-full px-4 py-2 rounded-md text-sm" onClick={() => createReview()}>Give a Review</button>
+                                        </div>
+                                    </div></>}
                             </> : <>
                                 <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between min-h-[270px]">
                                     <div>

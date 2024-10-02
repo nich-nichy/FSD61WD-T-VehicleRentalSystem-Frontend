@@ -47,7 +47,7 @@ const GetStarted = () => {
             }
         };
         //  && (currentMode !== "addMore")
-        if ((username?.length > 0 && selectedState.length >= 0 && selectedCity.length >= 0)) {
+        if ((username?.length > 0 && selectedState.length >= 0 && selectedCity.length >= 0 && !didPreBooked)) {
             checkPreBooked();
         }
     }, [username || ''])
