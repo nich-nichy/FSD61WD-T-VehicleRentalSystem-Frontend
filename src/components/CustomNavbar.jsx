@@ -161,7 +161,7 @@ const CustomNavbar = () => {
                 </nav>
                 {!currentUrl?.includes("vehicles") ? <>
                     <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 mr-0">
-                        <Link to="/vehicles" onClick={() => dispatch(setBookingMode("addMore"))} className="relative inline-block text-lg group">
+                        <Link to="/getStarted" onClick={() => dispatch(setBookingMode("addMore"))} className="relative inline-block text-lg group">
                             <span className="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-transform ease-out border-2 border-sky-900 rounded-lg bg-gray-900 group-hover:mb-0 group-hover:mr-0 button_top">
                                 <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
                                 <span className="relative flex items-center justify-center space-x-2">

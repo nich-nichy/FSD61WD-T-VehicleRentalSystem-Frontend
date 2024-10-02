@@ -49,7 +49,7 @@ const Dashboard = () => {
                 console.error("Error fetching cities:", error);
             }
         };
-        if (userDetails?.username?.length > 0 && (bookingData === null || vehicleData === null || paymentData === null)) {
+        if (userDetails?.username?.length > 0 && (bookingData === null)) {
             getBookingHistory();
         }
     }, [userDetails, bookingData, reviewData])
@@ -76,7 +76,7 @@ const Dashboard = () => {
     };
     return (
         <>
-            {bookingData === null ? <>
+            {bookingData === null || paymentData === null ? <>
                 <CustomNavbar />
                 <div className="font-opensans min-h-screen bg-gray-100 p-4">
                     <div className="bg-white shadow-md rounded-lg p-6 mb-8">
