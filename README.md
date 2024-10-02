@@ -31,7 +31,6 @@ This **Vehicle Renting System** named **ORS** is a full-stack MERN application t
 
 ### 🛠️ Admin Features
 - **Admin Authentication**: Admins have a unique login flow using pre-generated tokens.
-- **Vehicle Management**: Admins can add, update, and remove vehicles from the listings.
 - **Booking Management**: Track and manage all bookings. Admins can manually adjust vehicle statuses.
 - **Review Moderation**: Admins can view and moderate user reviews to ensure quality feedback.
 - **Dashboard Overview**: Comprehensive admin dashboard with metrics on vehicle availability, bookings, and user activities.
@@ -42,7 +41,7 @@ This **Vehicle Renting System** named **ORS** is a full-stack MERN application t
 
 ### Frontend
 - **React**: For building a dynamic, responsive, and interactive UI.
-- **Redux**: Used for managing global application state (e.g., user authentication, booking state).
+- **Redux**: Used for managing global application state.
 - **Tailwind CSS**: Provides utility-first CSS for responsive, fast, and customizable design.
 
 ### Backend
@@ -51,5 +50,5 @@ This **Vehicle Renting System** named **ORS** is a full-stack MERN application t
   
 ---
 
-## Project Structure
+## 
 
