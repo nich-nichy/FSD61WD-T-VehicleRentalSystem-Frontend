@@ -32,7 +32,9 @@ const CancelBooking = () => {
                 navigate('/')
             }
         };
-        getBookingDetails();
+        if (!bookingDetails || bookingDetails?.length === 0) {
+            getBookingDetails();
+        }
     }, [id || userDetails || ' ']);
 
     useEffect(() => {

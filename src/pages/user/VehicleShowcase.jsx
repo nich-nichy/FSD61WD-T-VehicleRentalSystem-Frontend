@@ -4,7 +4,7 @@ import '../../index.css'
 import CustomNavbar from '../../components/CustomNavbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { setVehicleData, setCurrentBookingVehicle, setBookingMode, setBookingData } from '../../redux/slices/vehicleSlice'
+import { setVehicleData, setCurrentBookingVehicle } from '../../redux/slices/vehicleSlice'
 import { useVerifyToken } from '../../utils/VerifyRole';
 import Loader from '../../components/Loader';
 
@@ -15,7 +15,6 @@ const VehicleShowcase = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const vehicleData = useSelector((state) => state.vehicleSlice.vehicleData.data);
-    const userDetails = useSelector((state) => state.authSlice.authData.user.userDetails);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCarType, setSelectedCarType] = useState('');
     const [selectedBrand, setSelectedBrand] = useState('');
@@ -48,11 +47,9 @@ const VehicleShowcase = () => {
         setFilterArray(filteredVehicles);
     }, [searchTerm, selectedCarType, selectedBrand, priceRange, vehicleData]);
 
-    const handleSearchChange = (e) => setSearchTerm(e.target.value);
     const handleCarTypeChange = (e) => setSelectedCarType(e.target.value);
     const handleBrandChange = (e) => setSelectedBrand(e.target.value);
     const handlePriceRangeChange = (e) => setPriceRange(+e.target.value);
-
     const handleClose = () => setShowPromo(false);
 
     const setShowVehicleModel = ({ id, vehicle }) => {
