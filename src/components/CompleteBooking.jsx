@@ -33,7 +33,6 @@ const CompleteBooking = () => {
             return capturePayment;
         } catch (error) {
             console.error("Error capturing payment:", error);
-            navigate('/404');
             return error;
         }
     };
@@ -59,13 +58,13 @@ const CompleteBooking = () => {
                                 confirmButtonText: "Great!"
                             });
                         } else {
-                            navigate('/404');
+                            navigate('/dashboard');
                         }
                     }
                 }
             } catch (error) {
                 console.error("Error creating booking:", error);
-                navigate('/404');
+                navigate('/dashboard');
             }
         };
         if (bookingData && Object.keys(bookingData).length > 0) {
