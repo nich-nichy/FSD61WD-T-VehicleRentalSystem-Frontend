@@ -54,9 +54,28 @@ const Dashboard = () => {
         }
     }, [userDetails, bookingData, reviewData])
 
+    useEffect(() => {
+        const getPaymentData = async () => {
+            try {
+                const { data } = await axios.get(
+                    `${url}/booking/dashboard-data/${userDetails?.id}`
+                );
+                if (data?.dashboardData[0].bookingDetails.startDate && data?.dashboardData[0].bookingDetails.endDate && data?.dashboardData[0].bookingDetails.totalAmount) {
+                    setPaymentData(data?.dashboardData[0].paymentDetails);
+                }
+            } catch (error) {
+                console.error("Error fetching cities:", error);
+            }
+        }
+        if (userDetails?.username?.length > 0 && !paymentData) {
+            getPaymentData()
+        }
+    }, [bookingData])
+
+
     const downloadInvoice = async (bookingId) => {
         try {
-            const response = await axios.post(`${url}/payment/get-invoice`, { bookingId: bookingData?._id }, {
+            const response = await axios.post(`${url}/payment/get-invoice`, { bookingId: bookingData?._id ? bookingData?._id : bookingId }, {
                 responseType: 'blob',
             });
             const file = new Blob([response.data], { type: 'application/pdf' });
@@ -76,7 +95,7 @@ const Dashboard = () => {
     };
     return (
         <>
-            {bookingData === null || paymentData === null ? <>
+            {bookingData === null ? <>
                 <CustomNavbar />
                 <div className="font-opensans min-h-screen bg-gray-100 p-4">
                     <div className="bg-white shadow-md rounded-lg p-6 mb-8">
@@ -111,20 +130,30 @@ const Dashboard = () => {
                                 </div>
                                 <button className="mt-auto bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-md text-sm">Manage Booking</button>
                             </div>
-                            <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between min-h-[270px]">
-                                <div>
-                                    <h2 className="text-xl font-semibold mb-4 text-gray-800">Payment History</h2>
-                                    <ul className="space-y-4">
-                                        <li className="p-4 bg-gray-100 rounded-md">
-                                            <p className="text-lg font-medium text-gray-800">Payment #{paymentData?._id}</p>
-                                            <p className="text-sm text-gray-600">
-                                                Amount: ${paymentData?.amount} | Date: {paymentData?.createdAt ? new Date(paymentData.createdAt).toLocaleDateString() : ''}
-                                            </p>
-                                        </li>
-                                    </ul>
+                            {paymentData === null ? <>
+                                <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between min-h-[270px]">
+                                    <div>
+                                        <h2 className="text-xl font-semibold mb-4 text-gray-800">Get Invoice</h2>
+                                        <button className="mt-auto bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm" onClick={() => downloadInvoice(bookingData?._id)}>Get Invoice</button>
+                                    </div>
                                 </div>
-                                <button className="mt-auto bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm" onClick={() => downloadInvoice(bookingData?._id)}>Get Invoice</button>
-                            </div>
+                            </> : <>
+                                <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between min-h-[270px]">
+                                    <div>
+                                        <h2 className="text-xl font-semibold mb-4 text-gray-800">Payment History</h2>
+                                        <ul className="space-y-4">
+                                            <li className="p-4 bg-gray-100 rounded-md">
+                                                <p className="text-lg font-medium text-gray-800">Payment #{paymentData?._id}</p>
+                                                <p className="text-sm text-gray-600">
+                                                    Amount: ${paymentData?.amount} | Date: {paymentData?.createdAt ? new Date(paymentData.createdAt).toLocaleDateString() : ''}
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <button className="mt-auto bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm" onClick={() => downloadInvoice(bookingData?._id)}>Get Invoice</button>
+                                </div>
+                            </>}
+
                             {reviewData && Object.keys(reviewData).length > 0 ? <>
                                 {(reviewData?.userId === id) ? <>
                                     <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between min-h-[270px]">
