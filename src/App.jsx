@@ -5,8 +5,8 @@ import VehicleShowcase from './pages/user/VehicleShowcase';
 import GetStarted from './pages/user/GetStarted'
 import Pricing from './pages/user/Pricing';
 import Loader from './components/Loader';
-import Login from './pages/auth/login';
-import SignUp from './pages/auth/signup';
+import Login from './pages/auth/Login';
+import SignUp from './pages/auth/Signup';
 import AdminLogin from './pages/admin/AdminLogin';
 import ProtectedRoute from './ProtectedRoute';
 import AdminDashboard from './pages/admin/AdminDashboard';
