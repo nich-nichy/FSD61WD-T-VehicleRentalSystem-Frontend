@@ -21,12 +21,13 @@ const AdminGrid = () => {
     const reviews = adminDataSlice?.reviews;
     const allData = useMemo(() => {
         if (mode === "bookings") {
+            // console.log(bookings?.map(val => new Date(val.startDate).toLocaleDateString()))
             return bookings?.map((booking) => ({
                 bookingId: booking._id,
                 userId: booking.userId,
                 vehicleId: booking.vehicleId,
-                startDate: new Date(booking.startDate.$date).toLocaleDateString(),
-                endDate: new Date(booking.endDate.$date).toLocaleDateString(),
+                startDate: new Date(booking.startDate).toLocaleDateString(),
+                endDate: new Date(booking.endDate).toLocaleDateString(),
                 status: booking.status,
                 totalPrice: booking.totalPrice,
             }));
@@ -39,7 +40,7 @@ const AdminGrid = () => {
                 amount: payment.amount,
                 paymentMethod: payment.paymentMethod,
                 paymentStatus: payment.paymentStatus,
-                createdAt: new Date(payment.createdAt.$date).toLocaleDateString(),
+                createdAt: new Date(payment.createdAt).toLocaleDateString(),
             }));
         } else if (mode === "listings") {
             return vehicles?.map((vehicle) => ({
@@ -51,7 +52,7 @@ const AdminGrid = () => {
                 pricePerDay: vehicle.pricePerDay,
                 location: vehicle.location,
                 available: vehicle.available,
-                createdAt: new Date(vehicle.createdAt.$date).toLocaleDateString(),
+                createdAt: new Date(vehicle.createdAt).toLocaleDateString(),
             }));
         } else if (mode === "users") {
             return users?.map((user) => ({
@@ -60,7 +61,7 @@ const AdminGrid = () => {
                 username: user.username || "N/A",
                 bookingsCount: user.bookings?.length || 0,
                 reviewsCount: user.reviews?.length || 0,
-                createdAt: new Date(user.createdAt.$date).toLocaleDateString(),
+                createdAt: new Date(user.createdAt).toLocaleDateString(),
             }));
         } else if (mode === "review") {
             return reviews?.map((review) => ({
